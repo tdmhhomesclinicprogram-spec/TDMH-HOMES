@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDMH HOMES Clinic Appointment</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --hospital-blue: #004a99;
+            --light-blue: #f0f7ff;
+            --accent-teal: #2c7da0;
+            --text-main: #2d3436;
+            --bg-body: #f8f9fc;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px 0;
+            line-height: 1.6;
+        }
+
+        .form-card {
+            max-width: 650px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden; /* Ensures banner corners are rounded */
+        }
+
+        /* Top Banner Image */
+        .banner-container {
+            width: 100%;
+            background-color: var(--hospital-blue);
+            line-height: 0;
+        }
+
+        .banner-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .form-content {
+            padding: 30px;
+        }
+
+        .hospital-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hospital-header h1 {
+            color: var(--hospital-blue);
+            font-size: 20px;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hospital-header p {
+            margin: 5px 0;
+            font-size: 13px;
+            color: #636e72;
+        }
+
+        /* Notice Box for Schedules */
+        .schedule-box {
+            background: var(--light-blue);
+            border-left: 5px solid var(--hospital-blue);
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .schedule-item { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+        .schedule-item i { font-size: 16px; color: var(--hospital-blue); }
+
+        /* Form Styling */
+        .control-number-wrap {
+            background: #fff5f5;
+            border: 1px dashed #fab1a0;
+            padding: 15px;
+            text-align: center;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+        }
+
+        .control-label { font-size: 12px; color: #d63031; text-transform: uppercase; font-weight: bold; }
+        .control-value { font-family: 'Courier New', Courier, monospace; font-size: 1.4rem; color: #d63031; font-weight: 800; }
+
+        .row { display: flex; gap: 15px; margin-bottom: 15px; }
+        .col { flex: 1; }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--hospital-blue);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--hospital-blue);
+            outline: none;
+            background-color: #fff;
+        }
+
+        /* Medicine List Styling */
+        .medicine-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .med-option {
+            background: #fafbfc;
+            border: 1px solid #edf2f7;
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .med-option:hover { background: #f1f5f9; border-color: #cbd5e0; }
+        .med-option input { width: auto; margin-top: 4px; }
+        .med-text { font-size: 0.85rem; line-height: 1.4; color: #4a5568; }
+
+        .btn-submit {
+            background: var(--hospital-blue);
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0, 74, 153, 0.2);
+        }
+
+        .btn-submit:hover { background: #003a7a; }
+
+        .optional-tag {
+            font-size: 10px;
+            color: #b2bec3;
+            margin-left: 5px;
+            font-weight: normal;
+        }
+
+        @media (max-width: 500px) {
+            .row { flex-direction: column; }
+            .schedule-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-card">
+    <div class="banner-container">
+        <img src="https://drive.google.com/uc?export=view&id=1xM8nGY2HRn8XDbQrloDgpZFY5zQoCNNj" alt="Hospital Banner">
+    </div>
+
+    <div class="form-content">
+        <div class="hospital-header">
+            <h1>Taytay Doctors Multispecialty Hospital</h1>
+            <p><strong>HOMES Clinic</strong> • 2nd Floor</p>
+            <p>6 Rizal Avenue, San Isidro, Taytay Rizal 1920</p>
+            <p>Contact: 09209662447</p>
+        </div>
+
+        <div class="schedule-box">
+            <div class="schedule-item"><i class="material-icons">schedule</i> <strong>Clinic Hours:</strong> 8:00 AM – 4:00 PM (Mon-Fri)</div>
+            <div style="font-size: 12px; color: #636e72; margin-left: 24px; margin-bottom: 10px;">
+                Saturday, Sunday & Holidays: Closed (Except ARV Refill)
+            </div>
+            
+            <strong>IDS Consultant Schedule:</strong>
+            <div class="schedule-grid">
+                <div class="schedule-item"><i class="material-icons">person</i> Dr. Mariano: Mon 1pm-3pm</div>
+                <div class="schedule-item"><i class="material-icons">person</i> Dr. Rivera: Thu 3pm-5pm</div>
+            </div>
+        </div>
+
+        <form id="clinicForm">
+            <div class="control-number-wrap">
+                <div class="control-label">Patient Control Number</div>
+                <div id="ctrlNum" class="control-value">TDMH-HP-2026-01</div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label><i class="material-icons">today</i> Date</label>
+                    <input type="text" id="currentDate" readonly>
+                </div>
+                <div class="col">
+                    <label><i class="material-icons">badge</i> HOMES Clinic Code</label>
+                    <input type="text" name="clinic_code" placeholder="Code" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label><i class="material-icons">email</i> Email Address</label>
+                    <input type="email" name="email" placeholder="example@mail.com" required>
+                </div>
+                <div class="col">
+                    <label><i class="material-icons">phone</i> Contact Number</label>
+                    <input type="tel" name="contact" value="09209662447" required>
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label><i class="material-icons">medical_information</i> Request Consultant <span class="optional-tag">(Optional)</span></label>
+                <select name="consultant">
+                    <option value="none">-- None (Refill/General Only) --</option>
+                    <option value="Dr. Mariano">Dr. Lorbenjie Mariano (Mon 1pm-3pm)</option>
+                    <option value="Dr. Rivera">Dr. Charles Kevin Rivera (Thu 3pm-5pm)</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label><i class="material-icons">calendar_month</i> Appt. Date</label>
+                    <input type="date" name="appt_date" required>
+                </div>
+                <div class="col">
+                    <label><i class="material-icons">alarm</i> Appt. Time</label>
+                    <input type="time" name="appt_time" min="08:00" max="16:00" required>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 20px;">
+                <label><i class="material-icons">medication</i> ARV Medicines Refill/Request</label>
+                <div class="medicine-card-list">
+                    <label class="med-option">
+                        <input type="checkbox" name="med" value="A">
+                        <span class="med-text"><strong>A.</strong> Tenofovir Disoproxil Fumarate/Lamivudine/Efavirenz 300mg/300mg/600mg tablet</span>
+                    </label>
+                    <label class="med-option">
+                        <input type="checkbox" name="med" value="B">
+                        <span class="med-text"><strong>B.</strong> Dolutegravir/ Lamivudine /Tenofovir Disoproxil Fumarate 50mg/300mg/300mg tablet</span>
+                    </label>
+                    <label class="med-option">
+                        <input type="checkbox" name="med" value="C">
+                        <span class="med-text"><strong>C.</strong> Dolutegravir 50mg tablet</span>
+                    </label>
+                    <label class="med-option">
+                        <input type="checkbox" name="med" value="D">
+                        <span class="med-text"><strong>D.</strong> PrEP (Pre-Exposure Prophylaxis)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 20px;">
+                <label><i class="material-icons">inventory</i> No. of Remaining Medicines</label>
+                <input type="number" name="remaining" placeholder="0" required>
+            </div>
+
+            <div class="form-group" style="margin-top: 20px;">
+                <label><i class="material-icons">add_photo_alternate</i> Reference Image <span class="optional-tag">(For Delivery/Pick-up)</span></label>
+                <input type="file" name="ref_image" accept="image/*">
+            </div>
+
+            <div class="form-group" style="margin-top: 20px;">
+                <label><i class="material-icons">edit_note</i> Additional Notes</label>
+                <textarea name="notes" rows="2" placeholder="Tell us more..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                <i class="material-icons">check_circle</i> SUBMIT APPOINTMENT
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Set Today's Date
+    document.getElementById('currentDate').value = new Date().toLocaleDateString('en-PH', { year:'numeric', month:'long', day:'numeric'});
+
+    // Control Number Logic
+    let count = localStorage.getItem('tdmh_count_2026') || 1;
+    function updateDisplay() {
+        document.getElementById('ctrlNum').innerText = "TDMH-HP-2026-" + String(count).padStart(2, '0');
+    }
+    updateDisplay();
+
+    // Submission Logic
+    document.getElementById('clinicForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const finalNo = document.getElementById('ctrlNum').innerText;
+        alert("APPOINTMENT SUBMITTED SUCCESSFULY!\nControl Number: " + finalNo);
+        
+        count++;
+        localStorage.setItem('tdmh_count_2026', count);
+        updateDisplay();
+        this.reset();
+        document.getElementById('currentDate').value = new Date().toLocaleDateString('en-PH', { year:'numeric', month:'long', day:'numeric'});
+    });
+</script>
+
+</body>
+</html>

@@ -144,8 +144,7 @@
         .med-option input { width: auto; margin-top: 4px; }
         .med-text { font-size: 0.85rem; line-height: 1.4; color: #4a5568; }
 
-        .btn-submit {
-            background: var(--hospital-blue);
+        .btn-submit, .btn-print {
             color: white;
             border: none;
             padding: 16px;
@@ -161,7 +160,18 @@
             gap: 10px;
         }
 
+        .btn-submit { background: var(--hospital-blue); }
+        .btn-print { background: #2ecc71; display: none; margin-top: 10px; }
+
         .optional-tag { font-size: 10px; color: #b2bec3; margin-left: 5px; }
+
+        /* PRINT STYLES */
+        @media print {
+            body { background: white; padding: 0; }
+            .btn-submit, .btn-print, .schedule-box, .optional-tag, input[type="file"], .banner-container { display: none !important; }
+            .form-card { box-shadow: none; max-width: 100%; }
+            input, select, textarea { border: none; padding: 0; font-weight: bold; }
+        }
 
         @media (max-width: 500px) {
             .row { flex-direction: column; }
@@ -171,7 +181,7 @@
 </head>
 <body>
 
-<div class="form-card">
+<div class="form-card" id="printableArea">
     <div class="banner-container">
         <img src="https://drive.google.com/uc?export=view&id=1xM8nGY2HRn8XDbQrloDgpZFY5zQoCNNj" alt="Hospital Banner">
     </div>
@@ -210,18 +220,18 @@
                 </div>
                 <div class="col">
                     <label><i class="material-icons">badge</i> HOMES Clinic Code</label>
-                    <input type="text" name="clinic_code" placeholder="Code" required>
+                    <input type="text" id="clinic_code" placeholder="Code" required>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col">
                     <label><i class="material-icons">email</i> Email Address</label>
-                    <input type="email" name="email" placeholder="example@mail.com" required>
+                    <input type="email" id="email" placeholder="example@mail.com" required>
                 </div>
                 <div class="col">
                     <label><i class="material-icons">phone</i> Contact Number</label>
-                    <input type="tel" name="contact" value="09209662447" required>
+                    <input type="tel" id="contact" value="09209662447" required>
                 </div>
             </div>
 
@@ -229,7 +239,7 @@
 
             <div class="form-group" style="margin-bottom: 20px;">
                 <label><i class="material-icons">medical_information</i> Request Consultant <span class="optional-tag">(Optional)</span></label>
-                <select name="consultant">
+                <select id="consultant">
                     <option value="none">-- None (Refill/General Only) --</option>
                     <option value="Dr. Mariano">Dr. Lorbenjie Mariano (Mon 1pm-3pm)</option>
                     <option value="Dr. Rivera">Dr. Charles Kevin Rivera (Thu 3pm-5pm)</option>
@@ -239,11 +249,11 @@
             <div class="row">
                 <div class="col">
                     <label><i class="material-icons">calendar_month</i> Appt. Date</label>
-                    <input type="date" name="appt_date" required>
+                    <input type="date" id="appt_date" required>
                 </div>
                 <div class="col">
                     <label><i class="material-icons">alarm</i> Appt. Time</label>
-                    <input type="time" name="appt_time" min="08:00" max="16:00" required>
+                    <input type="time" id="appt_time" min="08:00" max="16:00" required>
                 </div>
             </div>
 
@@ -271,21 +281,25 @@
 
             <div class="form-group" style="margin-top: 20px;">
                 <label><i class="material-icons">inventory</i> No. of Remaining Medicines</label>
-                <input type="number" name="remaining" placeholder="0" required>
+                <input type="number" id="remaining" placeholder="0" required>
             </div>
 
             <div class="form-group" style="margin-top: 20px;">
                 <label><i class="material-icons">add_photo_alternate</i> Reference Image <span class="optional-tag">(For Delivery/Pick-up)</span></label>
-                <input type="file" name="ref_image" accept="image/*">
+                <input type="file" id="ref_image" accept="image/*">
             </div>
 
             <div class="form-group" style="margin-top: 20px;">
                 <label><i class="material-icons">edit_note</i> Additional Notes</label>
-                <textarea name="notes" rows="2" placeholder="Tell us more..."></textarea>
+                <textarea id="notes" rows="2" placeholder="Tell us more..."></textarea>
             </div>
 
-            <button type="submit" class="btn-submit">
+            <button type="submit" class="btn-submit" id="submitBtn">
                 <i class="material-icons">check_circle</i> SUBMIT APPOINTMENT
+            </button>
+
+            <button type="button" class="btn-print" id="printBtn" onclick="window.print()">
+                <i class="material-icons">picture_as_pdf</i> SAVE / PRINT RECEIPT
             </button>
         </form>
     </div>
@@ -303,13 +317,16 @@
     document.getElementById('clinicForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const finalNo = document.getElementById('ctrlNum').innerText;
-        alert("APPOINTMENT SUBMITTED SUCCESSFULY!\nControl Number: " + finalNo);
+        
+        // Hide submit and show print button
+        document.getElementById('submitBtn').style.display = 'none';
+        document.getElementById('printBtn').style.display = 'flex';
+        
+        alert("APPOINTMENT SUBMITTED SUCCESSFULY!\n\nPlease click 'SAVE / PRINT RECEIPT' to save your copy.");
         
         count++;
         localStorage.setItem('tdmh_count_2026', count);
         updateDisplay();
-        this.reset();
-        document.getElementById('currentDate').value = new Date().toLocaleDateString('en-PH', { year:'numeric', month:'long', day:'numeric'});
     });
 </script>
 

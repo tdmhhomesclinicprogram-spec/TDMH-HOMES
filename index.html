@@ -109,7 +109,7 @@
             background: #fff;
         }
 
-        /* SELECTION CARDS (LAB & ARV) */
+        /* SELECTION CARDS */
         .selection-card {
             display: flex;
             align-items: flex-start;
@@ -120,13 +120,19 @@
             border-radius: 10px;
             cursor: pointer;
             margin-bottom: 8px;
+            transition: all 0.2s ease;
         }
 
         .selection-card input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--hospital-blue); flex-shrink: 0; }
         .selection-card.selected { border-color: var(--hospital-blue); background: var(--light-blue); }
         .card-text { font-size: 0.85rem; color: #2d3436; line-height: 1.4; }
 
-        .other-input { margin-top: 8px; display: none; }
+        .other-input { 
+            margin-top: 5px; 
+            margin-bottom: 15px;
+            display: none; 
+            border: 2px solid var(--hospital-blue);
+        }
 
         /* SIGNATURE */
         .signature-container { border: 2px solid #dfe6e9; border-radius: 10px; background: #fafafa; }
@@ -190,13 +196,18 @@
 
             <label class="field-label" style="margin-top:20px;"><i class="material-icons" style="font-size:18px">biotech</i> LABORATORY REQUEST</label>
             <div class="selection-container">
-                <label class="selection-card" id="lab1"><input type="checkbox" onchange="toggleCard(this, 'lab1')"><div class="card-text">HIV Testing and Screening</div></label>
-                <label class="selection-card" id="lab2"><input type="checkbox" onchange="toggleCard(this, 'lab2')"><div class="card-text">RPR (Syphilis Detection Test)</div></label>
-                <label class="selection-card" id="lab3"><input type="checkbox" onchange="toggleCard(this, 'lab3')"><div class="card-text">HBSAG (Hepatitis B Surface Antigen)</div></label>
-                <label class="selection-card" id="lab4"><input type="checkbox" onchange="toggleCard(this, 'lab4')"><div class="card-text">CD4 Count</div></label>
-                <label class="selection-card" id="lab5"><input type="checkbox" onchange="toggleCard(this, 'lab5')"><div class="card-text">HIV Viral Load</div></label>
-                <label class="selection-card" id="labOtherCard"><input type="checkbox" id="checkOther" onchange="toggleOther(this)"><div class="card-text">Others</div></label>
-                <input type="text" id="inputOther" class="other-input" placeholder="Please specify lab test...">
+                <label class="selection-card" id="lab1"><input type="checkbox" name="lab_test" value="HIV Testing" onchange="toggleCard(this, 'lab1')"><div class="card-text">HIV Testing and Screening</div></label>
+                
+                <label class="selection-card" id="lab2"><input type="checkbox" name="lab_test" value="RPR" onchange="toggleCard(this, 'lab2')"><div class="card-text">RPR (Syphilis Detection Test)</div></label>
+                
+                <label class="selection-card" id="lab3"><input type="checkbox" name="lab_test" value="HBSAG" onchange="toggleCard(this, 'lab3')"><div class="card-text">HBSAG (Hepatitis B Surface Antigen)</div></label>
+                
+                <label class="selection-card" id="lab4"><input type="checkbox" name="lab_test" value="CD4" onchange="toggleCard(this, 'lab4')"><div class="card-text">CD4 Count</div></label>
+                
+                <label class="selection-card" id="lab5"><input type="checkbox" name="lab_test" value="Viral Load" onchange="toggleCard(this, 'lab5')"><div class="card-text">HIV Viral Load</div></label>
+                
+                <label class="selection-card" id="labOtherCard"><input type="checkbox" id="checkOther" onchange="toggleOther(this)"><div class="card-text">Others (Please specify)</div></label>
+                <input type="text" id="inputOther" class="other-input" placeholder="Enter other laboratory test name...">
             </div>
 
             <label class="field-label" style="margin-top:20px;"><i class="material-icons" style="font-size:18px">medication</i> ARV MEDICINE REQUEST</label>
@@ -219,15 +230,21 @@
 </div>
 
 <script>
+    // Live Clock Functionality
     function updateClock() {
         const now = new Date();
         document.getElementById('current-date').innerText = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         document.getElementById('current-time').innerText = now.toLocaleTimeString('en-US', { hour12: true });
     }
-    setInterval(updateClock, 1000); updateClock();
+    setInterval(updateClock, 1000); 
+    updateClock();
 
-    function toggleCard(cb, id) { document.getElementById(id).classList.toggle('selected', cb.checked); }
+    // UI Toggle for selection cards
+    function toggleCard(cb, id) { 
+        document.getElementById(id).classList.toggle('selected', cb.checked); 
+    }
     
+    // Toggle "Others" input visibility
     function toggleOther(cb) {
         const input = document.getElementById('inputOther');
         const card = document.getElementById('labOtherCard');
@@ -236,18 +253,22 @@
         if(cb.checked) input.focus();
     }
 
+    // Signature Pad Logic
     const canvas = document.getElementById('signature-pad');
     const ctx = canvas.getContext('2d');
     let drawing = false;
 
     function resize() {
-        const ratio = Math.max(window.devicePixelRatio || 1, 1);
-        canvas.width = canvas.offsetWidth * ratio;
-        canvas.height = canvas.offsetHeight * ratio;
-        ctx.scale(ratio, ratio);
-        ctx.lineWidth = 2.5; ctx.lineCap = 'round';
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        ctx.lineWidth = 2.5; 
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#004a99';
     }
-    window.onload = resize;
+
+    window.addEventListener('resize', resize);
+    setTimeout(resize, 100); // Small delay to ensure layout is set
 
     function getPos(e) {
         const rect = canvas.getBoundingClientRect();

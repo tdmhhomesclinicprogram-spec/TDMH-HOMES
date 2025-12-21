@@ -296,4 +296,81 @@
             </button>
 
             <button type="button" class="btn-print" id="printBtn" onclick="window.print()">
-                <i class="material-icons">picture_as_pdf</i>
+                <i class="material-icons">picture_as_pdf</i> SAVE / PRINT RECEIPT
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // 1. Date Initialization
+    document.getElementById('currentDate').value = new Date().toLocaleDateString('en-PH', { year:'numeric', month:'long', day:'numeric'});
+
+    // 2. Control Number Persistence
+    let count = localStorage.getItem('tdmh_count_2026') || 1;
+    document.getElementById('ctrlNum').innerText = "TDMH-HP-2026-" + String(count).padStart(2, '0');
+
+    // 3. Signature Pad Logic
+    const canvas = document.getElementById('signature-pad');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+
+    function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        ctx.lineWidth = 2;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#000';
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    function startDrawing(e) {
+        drawing = true;
+        const pos = getPos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+        if(e.touches) e.preventDefault();
+    }
+
+    function draw(e) {
+        if (!drawing) return;
+        const pos = getPos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        if(e.touches) e.preventDefault();
+    }
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('touchstart', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('touchmove', draw, {passive: false});
+    window.addEventListener('mouseup', () => drawing = false);
+    window.addEventListener('touchend', () => drawing = false);
+
+    document.getElementById('clearSig').addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+    // 4. Submission
+    document.getElementById('clinicForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert("APPOINTMENT SUBMITTED!\n\nYou may now Save/Print your receipt.");
+        document.getElementById('submitBtn').style.display = 'none';
+        document.getElementById('printBtn').style.display = 'flex';
+        
+        count++;
+        localStorage.setItem('tdmh_count_2026', count);
+    });
+</script>
+
+</body>
+</html>

@@ -3,303 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TDMH HOMES Clinic Appointment</title>
+    <title>TDMH HOMES | Navy Professional Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --hospital-blue: #004a99;
-            --hospital-red: #d63031;
-            --light-blue: #f0f7ff;
-            --text-main: #2d3436;
-            --bg-body: #f0f2f5;
+            --navy: #001f3f; 
+            --navy-light: #003366;
+            --crimson: #a01a1a;
+            --bg: #f0f2f5;
             --white: #ffffff;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --border-radius: 15px;
+            --text: #1a1a1b;
+            --border: #ced4da;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg); margin: 0; padding: 0; color: var(--text); }
+        .container { max-width: 500px; margin: 0 auto; background: var(--white); min-height: 100vh; }
 
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-body);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
+        /* HEADER */
+        .premium-header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: white; padding: 25px 20px; text-align: center; border-bottom: 5px solid var(--crimson);
+        }
+        #current-time { font-size: 1.6rem; font-weight: 700; display: block; margin-top: 5px; color: #f1f1f1; }
+        
+        /* CLINIC DETAILS SECTION */
+        .clinic-banner { padding: 20px; text-align: center; border-bottom: 1px solid #eee; background: #fff; }
+        .clinic-banner h1 { margin: 0; font-size: 1.6rem; color: var(--navy); font-weight: 800; letter-spacing: -0.5px; }
+        .clinic-address { font-size: 0.85rem; color: #4b5563; margin-top: 8px; line-height: 1.4; }
+        .clinic-phone { color: var(--navy-light); font-weight: 700; font-size: 0.9rem; margin-top: 5px; display: block; }
+        .pharmacy-note { font-size: 0.8rem; color: var(--crimson); font-weight: 800; margin-top: 12px; text-transform: uppercase; }
+
+        /* DOCTOR SCHEDULE CARDS */
+        .doc-list { padding: 15px; display: grid; gap: 10px; }
+        .doc-item {
+            background: #f8f9fa; border: 1.5px solid var(--border);
+            padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px;
+        }
+        .doc-icon { background: var(--navy); color: white; border-radius: 50%; padding: 8px; display: flex; }
+        .doc-info b { display: block; color: var(--navy); font-size: 0.95rem; }
+        .doc-info span { font-size: 0.8rem; color: var(--crimson); font-weight: 700; }
+
+        /* FORM STYLING */
+        form { padding: 15px; }
+        .section-box {
+            background: #fff; border: 1px solid var(--border);
+            border-radius: 12px; padding: 18px; margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .section-title {
+            font-size: 0.9rem; font-weight: 800; color: var(--navy);
+            text-transform: uppercase; margin-bottom: 15px;
+            display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 8px;
         }
 
-        .form-card {
-            max-width: 600px;
-            width: 100%;
-            background: var(--white);
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        @media (min-width: 600px) {
-            .form-card { border-radius: var(--border-radius); margin: 20px; }
-        }
-
-        /* FIXED LIVE HEADER (NO OVERLAP) */
-        .live-header {
-            background: var(--hospital-blue);
-            color: #ffffff;
-            text-align: center;
-            padding: 12px 10px;
-            display: flex;
-            flex-direction: column; /* Stack vertically on mobile */
-            gap: 5px;
-            align-items: center;
-        }
-
-        #current-date {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        #current-time {
-            font-family: monospace;
-            font-size: 1.2rem;
-            color: #fab1a0;
-            font-weight: bold;
-        }
-
-        .form-content { padding: 20px; }
-
-        /* CLINIC INFO SECTION */
-        .hospital-header { 
-            text-align: center; 
-            margin-bottom: 25px; 
-            border-bottom: 2px solid var(--light-blue); 
-            padding-bottom: 15px;
-            margin-top: 10px;
-        }
-        .hospital-header h1 { color: var(--hospital-blue); font-size: 1.6rem; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
-        .clinic-info { font-size: 0.85rem; color: #636e72; line-height: 1.6; margin-top: 10px; }
-        .clinic-info b { color: var(--text-main); }
-
-        .control-number-wrap {
-            background: #fff5f5;
-            border: 1px dashed var(--hospital-red);
-            padding: 12px;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .control-value { font-family: monospace; font-size: 1.3rem; color: var(--hospital-red); font-weight: bold; }
-
-        /* FORM INPUTS */
-        .input-group { margin-bottom: 18px; }
-        .row { display: flex; gap: 15px; flex-wrap: wrap; }
-        .row .input-group { flex: 1; min-width: 150px; }
-
-        label.field-label {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--hospital-blue);
-        }
-
+        label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: #374151; }
         input, select, textarea {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #dfe6e9;
-            border-radius: 10px;
-            font-size: 16px; 
-            background: #fff;
-            color: var(--text-main);
+            width: 100%; padding: 12px; border: 1.5px solid var(--border);
+            border-radius: 8px; font-size: 1rem; margin-bottom: 15px; background: #fdfdfd;
         }
 
-        /* SELECTION CARDS */
-        .selection-card {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            padding: 12px;
-            background: #ffffff;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-bottom: 8px;
-            transition: 0.2s;
+        /* CENTERED CHECKLISTS */
+        .checklist { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+        .check-item {
+            display: flex; align-items: center; padding: 12px; 
+            border: 1px solid #eee; border-radius: 8px; cursor: pointer; background: #fafafa;
         }
+        .check-item input { width: 18px; height: 18px; margin: 0 12px 0 0; }
+        .check-item.active { border-color: var(--navy); background: #eef2ff; }
+        .check-item span { font-size: 0.9rem; font-weight: 500; }
 
-        .selection-card input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--hospital-blue); flex-shrink: 0; }
-        .selection-card.selected { border-color: var(--hospital-blue); background: var(--light-blue); }
-        .card-text { font-size: 0.9rem; color: #2d3436; line-height: 1.4; }
-
-        .other-input { 
-            margin-top: 5px; 
-            display: none; 
-            border: 2px solid var(--hospital-blue);
-            padding: 12px;
+        /* DELIVERY UPLOAD */
+        .upload-btn {
+            background: #fffafa; border: 2px dashed var(--crimson);
+            padding: 15px; text-align: center; border-radius: 10px; cursor: pointer; display: none; margin-bottom: 15px;
         }
 
         /* SIGNATURE */
-        .signature-container { border: 2px solid #dfe6e9; border-radius: 10px; background: #fafafa; position: relative; }
-        #signature-pad { width: 100%; height: 150px; display: block; touch-action: none; }
-        .sig-controls { display: flex; justify-content: flex-end; padding: 8px; background: #f1f1f1; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
-        .btn-clear { background: var(--hospital-red); color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 12px; }
-
+        .sig-container { border: 1.5px solid var(--border); border-radius: 10px; background: #fdfdfd; overflow: hidden; }
+        #sig-pad { width: 100%; height: 150px; touch-action: none; cursor: crosshair; }
+        
         .btn-submit {
-            background: var(--hospital-blue);
-            color: white;
-            border: none;
-            padding: 18px;
-            width: 100%;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-top: 30px;
-            cursor: pointer;
-            box-shadow: 0 4px-12px rgba(0, 74, 153, 0.2);
+            background: var(--navy); color: white; border: none;
+            padding: 20px; width: 100%; border-radius: 10px;
+            font-size: 1.1rem; font-weight: 700; cursor: pointer; text-transform: uppercase;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-<div class="form-card">
-    <div class="live-header">
-        <div id="current-date">Loading...</div>
-        <div id="current-time">00:00:00 AM</div>
+<div class="container">
+    <div class="premium-header">
+        <span id="current-date" style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">...</span>
+        <span id="current-time">00:00:00</span>
     </div>
 
-    <div class="form-content">
-        <div class="hospital-header">
-            <h1>HOMES Clinic</h1>
-            <div class="clinic-info">
-                <i class="material-icons" style="font-size:14px; vertical-align: middle;">place</i> 2nd Floor Bldg 6, Rizal Avenue, San Isidro, Taytay, Rizal<br>
-                <i class="material-icons" style="font-size:14px; vertical-align: middle;">phone</i> Contact: <b>0920-966-2447</b><br>
-                <i class="material-icons" style="font-size:14px; vertical-align: middle;">schedule</i> Open: <b>Mon - Fri</b> (Closed Sat, Sun & Holidays)
+    <div class="clinic-banner">
+        <h1>HOMES CLINIC</h1>
+        <div class="clinic-address">
+            2nd Floor Bldg 6, Rizal Avenue, San Isidro, Taytay, Rizal
+        </div>
+        <div class="clinic-phone">
+            <i class="material-icons" style="font-size:16px; vertical-align:middle;">phone_iphone</i> 0920-966-2447
+        </div>
+        <div class="pharmacy-note">
+            <i class="material-icons" style="font-size:14px; vertical-align:middle;">local_pharmacy</i> ARV REFILL: AVAILABLE ANYTIME AT TDMH PHARMACY
+        </div>
+    </div>
+
+    <div class="doc-list">
+        <div class="doc-item">
+            <div class="doc-icon"><i class="material-icons">medical_services</i></div>
+            <div class="doc-info">
+                <b>Dr. Lorbenjie P. Mariano</b>
+                <span>Monday: 1:00 PM - 3:00 PM</span>
+            </div>
+        </div>
+        <div class="doc-item">
+            <div class="doc-icon"><i class="material-icons">medical_services</i></div>
+            <div class="doc-info">
+                <b>Dr. Charles Kevin L. Rivera</b>
+                <span>Thursday: 3:00 PM - 5:00 PM</span>
+            </div>
+        </div>
+    </div>
+
+    <form id="clinicForm">
+        <div class="section-box">
+            <div class="section-title"><i class="material-icons">assignment_ind</i> 1. Consultation</div>
+            <label>Patient ID Code</label>
+            <input type="text" placeholder="e.g. ABC-1234" required>
+            
+            <label>Attending Physician</label>
+            <select id="doc_select">
+                <option value="">-- No Consultation Needed --</option>
+                <option value="1">Dr. Lorbenjie P. Mariano (Mon)</option>
+                <option value="4">Dr. Charles Kevin L. Rivera (Thu)</option>
+            </select>
+
+            <label>Preferred Date (Mon/Thu)</label>
+            <input type="date" id="date_picker">
+        </div>
+
+        <div class="section-box">
+            <div class="section-title"><i class="material-icons">inventory_2</i> 2. ARV Refill Options</div>
+            
+            <label>Fulfillment Method</label>
+            <select id="fulfillment" onchange="toggleDelivery(this)">
+                <option value="Pickup">Pharmacy Pickup (Anytime)</option>
+                <option value="Delivery">Delivery Service</option>
+            </select>
+
+            <div id="delivery_upload" class="upload-btn" onclick="document.getElementById('file-in').click()">
+                <i class="material-icons" style="color:var(--crimson)">add_a_photo</i><br>
+                <span style="font-size:0.8rem; color:var(--crimson); font-weight:bold;">UPLOAD DELIVERY REFERENCE</span>
+                <input type="file" id="file-in" style="display:none;" accept="image/*">
+            </div>
+
+            <label>Number of Remaining Meds</label>
+            <input type="number" placeholder="Pill Count">
+
+            <label>Current Regimen</label>
+            <div class="checklist">
+                <label class="check-item"><input type="checkbox" onchange="hl(this)"><span>TDF / 3TC / EFV</span></label>
+                <label class="check-item"><input type="checkbox" onchange="hl(this)"><span>DTG / 3TC / TDF</span></label>
+                <label class="check-item"><input type="checkbox" onchange="hl(this)"><span>PrEP (Preventive)</span></label>
             </div>
         </div>
 
-        <form id="clinicForm">
-            <div class="control-number-wrap">
-                <div style="font-size: 10px; font-weight: bold; color: var(--hospital-red); margin-bottom: 4px;">APPOINTMENT REF NO.</div>
-                <div class="control-value">TDMH-HP-2026-01</div>
+        <div class="section-box">
+            <div class="section-title"><i class="material-icons">science</i> 3. Laboratory Checklist</div>
+            <div class="checklist">
+                <label class="check-item"><input type="checkbox" onchange="hl(this)"><span>HIV Testing / Screening</span></label>
+                <label class="check-item"><input type="checkbox" onchange="hl(this)"><span>Syphilis Test (RPR)</span></label>
+                <label class="check-item"><input type="checkbox" onchange="hl(this)"><span>CD4 Count Analysis</span></label>
+                <label class="check-item"><input type="checkbox" onchange="hl(this)"><span>Viral Load Test</span></label>
+                <label class="check-item"><input type="checkbox" onchange="hl(this)"><span>Chest X-Ray</span></label>
             </div>
+        </div>
 
-            <div class="input-group">
-                <label class="field-label"><i class="material-icons" style="font-size:18px">vpn_key</i> Patient Code</label>
-                <input type="text" placeholder="e.g. ABC-12345" required>
-            </div>
+        <div class="section-box">
+            <div class="section-title"><i class="material-icons">description</i> 4. Final Verification</div>
+            <label>Additional Notes</label>
+            <textarea rows="3" placeholder="Enter instructions or specific requests..."></textarea>
+            
+            <label>Electronic Signature</label>
+            <div class="sig-container"><canvas id="sig-pad"></canvas></div>
+            <button type="button" onclick="clearSig()" style="width:100%; background:none; border:none; color:var(--crimson); font-size:0.7rem; font-weight:bold; margin-top:8px;">CLEAR SIGNATURE</button>
+        </div>
 
-            <div class="row">
-                <div class="input-group">
-                    <label class="field-label"><i class="material-icons" style="font-size:18px">calendar_today</i> Schedule Date</label>
-                    <input type="date" required>
-                </div>
-                <div class="input-group">
-                    <label class="field-label"><i class="material-icons" style="font-size:18px">schedule</i> Time</label>
-                    <select required>
-                        <option value="">-- Select --</option>
-                        <option>08:00 AM</option><option>09:00 AM</option>
-                        <option>10:00 AM</option><option>11:00 AM</option>
-                        <option>01:00 PM</option><option>02:00 PM</option>
-                        <option>03:00 PM</option><option>04:00 PM</option>
-                    </select>
-                </div>
-            </div>
-
-            <label class="field-label" style="margin-top:20px;"><i class="material-icons" style="font-size:18px">biotech</i> LABORATORY REQUEST</label>
-            <div class="selection-container">
-                <label class="selection-card" id="lab1"><input type="checkbox" onchange="toggleCard(this, 'lab1')"><div class="card-text">HIV Testing and Screening</div></label>
-                <label class="selection-card" id="lab2"><input type="checkbox" onchange="toggleCard(this, 'lab2')"><div class="card-text">RPR (Syphilis Detection Test)</div></label>
-                <label class="selection-card" id="lab3"><input type="checkbox" onchange="toggleCard(this, 'lab3')"><div class="card-text">HBSAG (Hepatitis B Surface Antigen)</div></label>
-                <label class="selection-card" id="lab4"><input type="checkbox" onchange="toggleCard(this, 'lab4')"><div class="card-text">CD4 Count</div></label>
-                <label class="selection-card" id="lab5"><input type="checkbox" onchange="toggleCard(this, 'lab5')"><div class="card-text">HIV Viral Load</div></label>
-                <label class="selection-card" id="labOtherCard"><input type="checkbox" id="checkOther" onchange="toggleOther(this)"><div class="card-text">Others</div></label>
-                <input type="text" id="inputOther" class="other-input" placeholder="Please specify laboratory test...">
-            </div>
-
-            <label class="field-label" style="margin-top:20px;"><i class="material-icons" style="font-size:18px">medication</i> ARV MEDICINE REQUEST</label>
-            <div class="selection-container">
-                <label class="selection-card" id="arvA"><input type="checkbox" onchange="toggleCard(this, 'arvA')"><div class="card-text"><b>A.</b> TDF / 3TC / EFV (300/300/600mg)</div></label>
-                <label class="selection-card" id="arvB"><input type="checkbox" onchange="toggleCard(this, 'arvB')"><div class="card-text"><b>B.</b> DTG / 3TC / TDF (50/300/300mg)</div></label>
-                <label class="selection-card" id="arvC"><input type="checkbox" onchange="toggleCard(this, 'arvC')"><div class="card-text"><b>C.</b> Dolutegravir 50mg tablet</div></label>
-                <label class="selection-card" id="arvD"><input type="checkbox" onchange="toggleCard(this, 'arvD')"><div class="card-text"><b>D.</b> PrEP (Pre-Exposure Prophylaxis)</div></label>
-            </div>
-
-            <label class="field-label" style="margin-top:20px;"><i class="material-icons" style="font-size:18px">edit</i> PATIENT SIGNATURE</label>
-            <div class="signature-container">
-                <canvas id="signature-pad"></canvas>
-                <div class="sig-controls"><button type="button" class="btn-clear" onclick="clearSig()">Clear</button></div>
-            </div>
-
-            <button type="submit" class="btn-submit">SUBMIT APPOINTMENT</button>
-        </form>
-    </div>
+        <button type="submit" class="btn-submit">SECURE FORM SUBMISSION</button>
+    </form>
 </div>
 
 <script>
-    // Live Clock Logic
+    const picker = document.getElementById('date_picker');
+    const docSelect = document.getElementById('doc_select');
+
+    // Date Logic
+    picker.addEventListener('input', function(){
+        const date = new Date(this.value);
+        const day = date.getUTCDay();
+        const selectedDocDay = parseInt(docSelect.value);
+        if(docSelect.value && day !== selectedDocDay) {
+            alert(`Selected Physician is only available on ${selectedDocDay === 1 ? 'Mondays' : 'Thursdays'}.`);
+            this.value = '';
+        } else if (docSelect.value && ![1, 4].includes(day)) {
+            alert('Please select Monday or Thursday for consultations.');
+            this.value = '';
+        }
+    });
+
+    // Clock Logic
     function updateClock() {
         const now = new Date();
-        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-        document.getElementById('current-date').innerText = now.toLocaleDateString('en-US', options);
-        document.getElementById('current-time').innerText = now.toLocaleTimeString('en-US', { hour12: true });
+        document.getElementById('current-date').innerText = now.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' });
+        document.getElementById('current-time').innerText = now.toLocaleTimeString('en-US', { hour12: false });
     }
-    setInterval(updateClock, 1000); 
-    updateClock();
+    setInterval(updateClock, 1000); updateClock();
 
-    // Toggle Selection Card Highlighting
-    function toggleCard(cb, id) { 
-        document.getElementById(id).classList.toggle('selected', cb.checked); 
-    }
-    
-    // Toggle "Others" input visibility
-    function toggleOther(cb) {
-        const input = document.getElementById('inputOther');
-        const card = document.getElementById('labOtherCard');
-        card.classList.toggle('selected', cb.checked);
-        input.style.display = cb.checked ? 'block' : 'none';
-        if(cb.checked) input.focus();
-    }
+    // UI Logic
+    function hl(el) { el.parentElement.classList.toggle('active', el.checked); }
+    function toggleDelivery(el) { document.getElementById('delivery_upload').style.display = (el.value === 'Delivery') ? 'block' : 'none'; }
 
-    // Signature Pad Initialization
-    const canvas = document.getElementById('signature-pad');
+    // Signature Logic
+    const canvas = document.getElementById('sig-pad');
     const ctx = canvas.getContext('2d');
     let drawing = false;
 
-    function resizeCanvas() {
+    function initCanvas() {
         const ratio = Math.max(window.devicePixelRatio || 1, 1);
         canvas.width = canvas.offsetWidth * ratio;
         canvas.height = canvas.offsetHeight * ratio;
         ctx.scale(ratio, ratio);
-        ctx.lineWidth = 2.5; 
-        ctx.lineCap = 'round'; 
-        ctx.strokeStyle = "#2d3436";
+        ctx.lineWidth = 2; ctx.strokeStyle = '#001f3f';
     }
-    
-    window.addEventListener('resize', resizeCanvas);
-    window.onload = resizeCanvas;
+    window.onload = initCanvas;
 
-    function getPos(e) {
+    const getCoord = (e) => {
         const rect = canvas.getBoundingClientRect();
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
         return { x: clientX - rect.left, y: clientY - rect.top };
     }
 
-    canvas.addEventListener('mousedown', (e) => { drawing = true; ctx.beginPath(); const p = getPos(e); ctx.moveTo(p.x, p.y); });
-    canvas.addEventListener('touchstart', (e) => { drawing = true; ctx.beginPath(); const p = getPos(e); ctx.moveTo(p.x, p.y); e.preventDefault(); }, {passive: false});
-    canvas.addEventListener('mousemove', (e) => { if(!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
-    canvas.addEventListener('touchmove', (e) => { if(!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); e.preventDefault(); }, {passive: false});
+    canvas.addEventListener('mousedown', (e) => { drawing = true; ctx.beginPath(); const p = getCoord(e); ctx.moveTo(p.x, p.y); });
+    canvas.addEventListener('touchstart', (e) => { drawing = true; ctx.beginPath(); const p = getCoord(e); ctx.moveTo(p.x, p.y); e.preventDefault(); }, {passive: false});
+    canvas.addEventListener('mousemove', (e) => { if(!drawing) return; const p = getCoord(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
+    canvas.addEventListener('touchmove', (e) => { if(!drawing) return; const p = getCoord(e); ctx.lineTo(p.x, p.y); ctx.stroke(); e.preventDefault(); }, {passive: false});
     window.addEventListener('mouseup', () => drawing = false);
-    window.addEventListener('touchend', () => drawing = false);
-
     function clearSig() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-
-    document.getElementById('clinicForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert("Appointment Submitted Successfully!");
-    });
 </script>
 
 </body>

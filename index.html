@@ -16,7 +16,6 @@
             --border-radius: 15px;
         }
 
-        /* Mobile Reset */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
@@ -41,7 +40,7 @@
             .form-card { border-radius: var(--border-radius); margin: 20px; }
         }
 
-        /* CENTERED BIG LOGO */
+        /* CENTERED LARGE LOGO */
         .logo-container {
             width: 100%;
             padding: 30px 20px;
@@ -61,8 +60,8 @@
         .form-content { padding: 20px; }
 
         .hospital-header { text-align: center; margin-bottom: 25px; }
-        .hospital-header h1 { color: var(--hospital-blue); font-size: 1.3rem; margin: 0; text-transform: uppercase; letter-spacing: 0.5px; }
-        .hospital-header p { margin: 5px 0; font-size: 0.85rem; color: #636e72; line-height: 1.4; }
+        .hospital-header h1 { color: var(--hospital-blue); font-size: 1.3rem; margin: 0; text-transform: uppercase; }
+        .hospital-header p { margin: 5px 0; font-size: 0.85rem; color: #636e72; }
 
         .control-number-wrap {
             background: #fff5f5;
@@ -74,11 +73,6 @@
         }
 
         .control-value { font-family: monospace; font-size: 1.3rem; color: #d63031; font-weight: bold; }
-
-        /* FORM INPUTS */
-        .row { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-        .col { flex: 1; min-width: 100%; }
-        @media (min-width: 480px) { .col { min-width: 200px; } }
 
         label.field-label {
             display: flex;
@@ -95,7 +89,7 @@
             padding: 12px;
             border: 1px solid #dfe6e9;
             border-radius: 8px;
-            font-size: 16px; /* Prevents auto-zoom on mobile */
+            font-size: 16px; 
             background: #fff;
         }
 
@@ -111,7 +105,7 @@
             padding-bottom: 5px;
         }
 
-        /* ARV CARDS - MOBILE OPTIMIZED */
+        /* ALIGNED ARV CARDS */
         .med-selection-container { display: flex; flex-direction: column; gap: 10px; }
 
         .med-card {
@@ -123,7 +117,6 @@
             border: 1.5px solid #e2e8f0;
             border-radius: 12px;
             cursor: pointer;
-            transition: background 0.2s;
         }
 
         .med-card input[type="checkbox"] {
@@ -136,16 +129,15 @@
 
         .med-card.selected { border-color: var(--hospital-blue); background: var(--light-blue); }
         .med-info { display: flex; flex-direction: column; }
-        .med-code { font-weight: 800; color: var(--hospital-blue); font-size: 0.9rem; }
-        .med-desc { font-size: 0.8rem; color: #4a5568; line-height: 1.4; margin-top: 2px; }
+        .med-desc { font-size: 0.85rem; color: #4a5568; line-height: 1.4; }
 
-        /* SIGNATURE PAD */
+        /* SIGNATURE */
         .signature-container {
             border: 2px solid #dfe6e9;
             background: #fafafa;
             border-radius: 8px;
             position: relative;
-            touch-action: none; /* Critical for mobile signature */
+            touch-action: none;
             margin-top: 10px;
         }
 
@@ -156,8 +148,6 @@
             justify-content: flex-end;
             background: #f1f1f1;
             padding: 8px;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
         }
 
         .btn-clear {
@@ -167,7 +157,6 @@
             padding: 6px 14px;
             border-radius: 5px;
             font-size: 12px;
-            font-weight: 600;
         }
 
         .btn-submit {
@@ -180,12 +169,6 @@
             font-size: 1.1rem;
             font-weight: bold;
             margin-top: 30px;
-            box-shadow: 0 4px 15px rgba(0, 74, 153, 0.2);
-        }
-
-        @media print {
-            .btn-submit, .btn-clear, .logo-container, .sig-controls { display: none !important; }
-            .form-card { box-shadow: none; border: none; }
         }
     </style>
 </head>
@@ -200,21 +183,17 @@
         <div class="hospital-header">
             <h1>HOMES Clinic</h1>
             <p>Taytay Doctors Multispecialty Hospital • 2nd Floor</p>
-            <p>6 Rizal Avenue, San Isidro, Taytay Rizal 1920</p>
         </div>
 
         <form id="clinicForm">
             <div class="control-number-wrap">
-                <div style="font-size: 10px; font-weight: bold; color: #d63031; margin-bottom: 4px;">CONTROL NUMBER</div>
                 <div id="ctrlNum" class="control-value">TDMH-HP-2026-01</div>
             </div>
 
-            <div class="row">
-                <div class="col">
-                    <label class="field-label"><i class="material-icons" style="font-size:16px">email</i> Email Address</label>
-                    <input type="email" placeholder="patient@mail.com" required>
-                </div>
-            </div>
+            <label class="field-label">Request Consultant</label>
+            <select name="consultant">
+                <option value="none">-- General Appointment / Refill Only --</option>
+            </select>
 
             <label class="section-title"><i class="material-icons">medication</i> ARV MEDICINE REQUEST</label>
             
@@ -222,32 +201,28 @@
                 <label class="med-card" id="cardA">
                     <input type="checkbox" onchange="updateStyle(this, 'cardA')">
                     <div class="med-info">
-                        <span class="med-code">OPTION A</span>
-                        <span class="med-desc">Tenofovir Disoproxil Fumarate/Lamivudine/Efavirenz 300mg/300mg/600mg tablet</span>
+                        <span class="med-desc"><strong>A.</strong> Tenofovir Disoproxil Fumarate/Lamivudine/Efavirenz 300mg/300mg/600mg tablet</span>
                     </div>
                 </label>
 
                 <label class="med-card" id="cardB">
                     <input type="checkbox" onchange="updateStyle(this, 'cardB')">
                     <div class="med-info">
-                        <span class="med-code">OPTION B</span>
-                        <span class="med-desc">Dolutegravir/ Lamivudine /Tenofovir Disoproxil Fumarate 50mg/300mg/300mg tablet</span>
+                        <span class="med-desc"><strong>B.</strong> Dolutegravir/ Lamivudine /Tenofovir Disoproxil Fumarate 50mg/300mg/300mg tablet</span>
                     </div>
                 </label>
 
                 <label class="med-card" id="cardC">
                     <input type="checkbox" onchange="updateStyle(this, 'cardC')">
                     <div class="med-info">
-                        <span class="med-code">OPTION C</span>
-                        <span class="med-desc">Dolutegravir 50mg tablet</span>
+                        <span class="med-desc"><strong>C.</strong> Dolutegravir 50mg tablet</span>
                     </div>
                 </label>
 
                 <label class="med-card" id="cardD">
                     <input type="checkbox" onchange="updateStyle(this, 'cardD')">
                     <div class="med-info">
-                        <span class="med-code">OPTION D</span>
-                        <span class="med-desc">PrEP (Pre-Exposure Prophylaxis)</span>
+                        <span class="med-desc"><strong>D.</strong> PrEP (Pre-Exposure Prophylaxis)</span>
                     </div>
                 </label>
             </div>
@@ -283,7 +258,6 @@
         ctx.lineCap = 'round';
     }
     window.onload = resize;
-    window.onresize = resize;
 
     function getPos(e) {
         const rect = canvas.getBoundingClientRect();

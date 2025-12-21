@@ -2,43 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TDMH HOMES Clinic Appointment</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
             --hospital-blue: #004a99;
             --light-blue: #f0f7ff;
-            --accent-teal: #2c7da0;
             --text-main: #2d3436;
-            --bg-body: #f8f9fc;
+            --bg-body: #f0f2f5;
             --white: #ffffff;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --border-radius: 15px;
         }
+
+        /* Mobile Reset */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             margin: 0;
-            padding: 20px 0;
-            line-height: 1.6;
+            padding: 0;
+            display: flex;
+            justify-content: center;
         }
 
         .form-card {
-            max-width: 650px;
-            margin: 0 auto;
+            max-width: 600px;
+            width: 100%;
             background: var(--white);
-            border-radius: var(--border-radius);
+            border-radius: 0; /* Full width on mobile */
             box-shadow: var(--shadow);
             overflow: hidden;
+            margin-bottom: 20px;
         }
 
+        @media (min-width: 600px) {
+            .form-card { border-radius: var(--border-radius); margin: 20px; }
+        }
+
+        /* BANNER */
         .banner-container {
             width: 100%;
-            background-color: var(--hospital-blue);
             line-height: 0;
+            border-bottom: 5px solid var(--hospital-blue);
         }
 
         .banner-container img {
@@ -47,70 +56,43 @@
             display: block;
         }
 
-        .form-content {
-            padding: 30px;
-        }
+        .form-content { padding: 20px; }
 
-        .hospital-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .hospital-header h1 {
-            color: var(--hospital-blue);
-            font-size: 20px;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .hospital-header p {
-            margin: 5px 0;
-            font-size: 13px;
-            color: #636e72;
-        }
+        .hospital-header { text-align: center; margin-bottom: 20px; }
+        .hospital-header h1 { color: var(--hospital-blue); font-size: 1.2rem; margin: 0; }
+        .hospital-header p { margin: 5px 0; font-size: 0.85rem; color: #636e72; }
 
         .schedule-box {
             background: var(--light-blue);
-            border-left: 5px solid var(--hospital-blue);
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 4px;
-            font-size: 0.85rem;
+            border-left: 4px solid var(--hospital-blue);
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 0.8rem;
         }
 
-        .schedule-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .schedule-item { display: flex; align-items: center; gap: 8px; font-weight: 500; }
-        .schedule-item i { font-size: 16px; color: var(--hospital-blue); }
-
+        /* FORM INPUTS */
         .control-number-wrap {
             background: #fff5f5;
             border: 1px dashed #fab1a0;
-            padding: 15px;
+            padding: 10px;
             text-align: center;
-            border-radius: var(--border-radius);
-            margin-bottom: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
 
-        .control-label { font-size: 12px; color: #d63031; text-transform: uppercase; font-weight: bold; }
-        .control-value { font-family: 'Courier New', Courier, monospace; font-size: 1.4rem; color: #d63031; font-weight: 800; }
+        .control-value { font-family: monospace; font-size: 1.2rem; color: #d63031; font-weight: bold; }
 
-        .row { display: flex; gap: 15px; margin-bottom: 15px; }
-        .col { flex: 1; }
+        .row { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+        .col { flex: 1; min-width: 200px; }
 
         label {
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 14px;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             color: var(--hospital-blue);
         }
 
@@ -119,40 +101,66 @@
             padding: 12px;
             border: 1px solid #dfe6e9;
             border-radius: 8px;
-            font-size: 14px;
-            box-sizing: border-box;
+            font-size: 16px; /* Prevents auto-zoom on iPhone */
+            background: #fff;
         }
 
-        .medicine-card-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 5px;
-        }
-
+        /* MEDICINE OPTIONS */
         .med-option {
-            background: #fafbfc;
+            background: #f8f9fa;
             border: 1px solid #edf2f7;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             align-items: flex-start;
-            gap: 12px;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+
+        /* SIGNATURE PAD */
+        .signature-container {
+            border: 2px solid #dfe6e9;
+            background: #fafafa;
+            border-radius: 8px;
+            position: relative;
+            margin-top: 5px;
+            touch-action: none;
+        }
+
+        #signature-pad {
+            width: 100%;
+            height: 150px;
+            display: block;
+            cursor: crosshair;
+        }
+
+        .sig-buttons {
+            display: flex;
+            justify-content: flex-end;
+            padding: 5px;
+            background: #eee;
+        }
+
+        .btn-clear {
+            background: #636e72;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
             cursor: pointer;
         }
 
-        .med-option input { width: auto; margin-top: 4px; }
-        .med-text { font-size: 0.85rem; line-height: 1.4; color: #4a5568; }
-
+        /* BUTTONS */
         .btn-submit, .btn-print {
             color: white;
             border: none;
             padding: 16px;
             width: 100%;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
             margin-top: 20px;
             display: flex;
             align-items: center;
@@ -161,172 +169,172 @@
         }
 
         .btn-submit { background: var(--hospital-blue); }
-        .btn-print { background: #2ecc71; display: none; margin-top: 10px; }
+        .btn-print { background: #27ae60; display: none; }
 
-        .optional-tag { font-size: 10px; color: #b2bec3; margin-left: 5px; }
-
-        /* PRINT STYLES */
         @media print {
-            body { background: white; padding: 0; }
-            .btn-submit, .btn-print, .schedule-box, .optional-tag, input[type="file"], .banner-container { display: none !important; }
-            .form-card { box-shadow: none; max-width: 100%; }
-            input, select, textarea { border: none; padding: 0; font-weight: bold; }
-        }
-
-        @media (max-width: 500px) {
-            .row { flex-direction: column; }
-            .schedule-grid { grid-template-columns: 1fr; }
+            .btn-submit, .btn-print, .banner-container, .schedule-box, .btn-clear { display: none !important; }
+            .form-card { box-shadow: none; margin: 0; width: 100%; }
+            .signature-container { border: none; }
         }
     </style>
 </head>
 <body>
 
-<div class="form-card" id="printableArea">
+<div class="form-card">
     <div class="banner-container">
-        <img src="https://drive.google.com/uc?export=view&id=1xM8nGY2HRn8XDbQrloDgpZFY5zQoCNNj" alt="Hospital Banner">
+        <img src="https://drive.google.com/uc?export=view&id=1xM8nGY2HRn8XDbQrloDgpZFY5zQoCNNj" alt="TDMH Clinic Banner">
     </div>
 
     <div class="form-content">
         <div class="hospital-header">
-            <h1>Taytay Doctors Multispecialty Hospital</h1>
-            <p><strong>HOMES Clinic</strong> • 2nd Floor</p>
-            <p>6 Rizal Avenue, San Isidro, Taytay Rizal 1920</p>
-            <p>Contact: 09209662447</p>
+            <h1>HOMES Clinic</h1>
+            <p>Taytay Doctors Multispecialty Hospital • 2nd Floor</p>
         </div>
 
         <div class="schedule-box">
-            <div class="schedule-item"><i class="material-icons">schedule</i> <strong>Clinic Hours:</strong> 8:00 AM – 4:00 PM (Mon-Fri)</div>
-            <div style="font-size: 12px; color: #636e72; margin-left: 24px; margin-bottom: 10px;">
-                Saturday, Sunday & Holidays: Closed (Except ARV Refill)
-            </div>
-            
-            <strong>IDS Consultant Schedule:</strong>
-            <div class="schedule-grid">
-                <div class="schedule-item"><i class="material-icons">person</i> Dr. Mariano: Mon 1pm-3pm</div>
-                <div class="schedule-item"><i class="material-icons">person</i> Dr. Rivera: Thu 3pm-5pm</div>
-            </div>
+            <div style="font-weight: bold; margin-bottom: 5px;"><i class="material-icons" style="font-size:16px; vertical-align:middle;">schedule</i> 8:00 AM – 4:00 PM (Mon-Fri)</div>
+            <div><strong>Dr. Mariano:</strong> Mon 1-3pm</div>
+            <div><strong>Dr. Rivera:</strong> Thu 3-5pm</div>
         </div>
 
         <form id="clinicForm">
             <div class="control-number-wrap">
-                <div class="control-label">Patient Control Number</div>
+                <div style="font-size: 10px; font-weight: bold; color: #d63031;">CONTROL NUMBER</div>
                 <div id="ctrlNum" class="control-value">TDMH-HP-2026-01</div>
             </div>
 
             <div class="row">
                 <div class="col">
-                    <label><i class="material-icons">today</i> Date</label>
+                    <label><i class="material-icons">calendar_today</i> Date</label>
                     <input type="text" id="currentDate" readonly>
                 </div>
                 <div class="col">
-                    <label><i class="material-icons">badge</i> HOMES Clinic Code</label>
-                    <input type="text" id="clinic_code" placeholder="Code" required>
+                    <label><i class="material-icons">pin</i> Clinic Code</label>
+                    <input type="text" placeholder="Required" required>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col">
-                    <label><i class="material-icons">email</i> Email Address</label>
-                    <input type="email" id="email" placeholder="example@mail.com" required>
+                    <label><i class="material-icons">email</i> Email</label>
+                    <input type="email" placeholder="patient@email.com" required>
                 </div>
                 <div class="col">
-                    <label><i class="material-icons">phone</i> Contact Number</label>
-                    <input type="tel" id="contact" value="09209662447" required>
+                    <label><i class="material-icons">phone</i> Contact</label>
+                    <input type="tel" value="09209662447" required>
                 </div>
             </div>
 
-            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-
-            <div class="form-group" style="margin-bottom: 20px;">
-                <label><i class="material-icons">medical_information</i> Request Consultant <span class="optional-tag">(Optional)</span></label>
-                <select id="consultant">
-                    <option value="none">-- None (Refill/General Only) --</option>
-                    <option value="Dr. Mariano">Dr. Lorbenjie Mariano (Mon 1pm-3pm)</option>
-                    <option value="Dr. Rivera">Dr. Charles Kevin Rivera (Thu 3pm-5pm)</option>
-                </select>
-            </div>
+            <label><i class="material-icons">person</i> Request Consultant</label>
+            <select style="margin-bottom: 15px;">
+                <option value="none">General Appointment / Refill</option>
+                <option value="Mariano">Dr. Lorbenjie Mariano</option>
+                <option value="Rivera">Dr. Charles Kevin Rivera</option>
+            </select>
 
             <div class="row">
                 <div class="col">
-                    <label><i class="material-icons">calendar_month</i> Appt. Date</label>
-                    <input type="date" id="appt_date" required>
+                    <label><i class="material-icons">event</i> Appt. Date</label>
+                    <input type="date" required>
                 </div>
                 <div class="col">
-                    <label><i class="material-icons">alarm</i> Appt. Time</label>
-                    <input type="time" id="appt_time" min="08:00" max="16:00" required>
+                    <label><i class="material-icons">schedule</i> Time</label>
+                    <input type="time" min="08:00" max="16:00" required>
                 </div>
             </div>
 
-            <div class="form-group" style="margin-top: 20px;">
-                <label><i class="material-icons">medication</i> ARV Medicines Refill/Request</label>
-                <div class="medicine-card-list">
-                    <label class="med-option">
-                        <input type="checkbox" name="med" value="A">
-                        <span class="med-text"><strong>A.</strong> Tenofovir Disoproxil Fumarate/Lamivudine/Efavirenz 300mg/300mg/600mg tablet</span>
-                    </label>
-                    <label class="med-option">
-                        <input type="checkbox" name="med" value="B">
-                        <span class="med-text"><strong>B.</strong> Dolutegravir/ Lamivudine /Tenofovir Disoproxil Fumarate 50mg/300mg/300mg tablet</span>
-                    </label>
-                    <label class="med-option">
-                        <input type="checkbox" name="med" value="C">
-                        <span class="med-text"><strong>C.</strong> Dolutegravir 50mg tablet</span>
-                    </label>
-                    <label class="med-option">
-                        <input type="checkbox" name="med" value="D">
-                        <span class="med-text"><strong>D.</strong> PrEP (Pre-Exposure Prophylaxis)</span>
-                    </label>
+            <div style="margin-top: 15px;">
+                <label><i class="material-icons">medication</i> ARV Refill Request</label>
+                <div class="med-option"><input type="checkbox"> <span>A. TLD (300/300/600mg)</span></div>
+                <div class="med-option"><input type="checkbox"> <span>B. DTG/3TC/TDF (50/300/300mg)</span></div>
+                <div class="med-option"><input type="checkbox"> <span>C. Dolutegravir 50mg</span></div>
+                <div class="med-option"><input type="checkbox"> <span>D. PrEP</span></div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <label><i class="material-icons">edit</i> Patient Signature</label>
+                <div class="signature-container">
+                    <canvas id="signature-pad"></canvas>
+                    <div class="sig-buttons">
+                        <button type="button" class="btn-clear" id="clearSig">Clear Signature</button>
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group" style="margin-top: 20px;">
-                <label><i class="material-icons">inventory</i> No. of Remaining Medicines</label>
-                <input type="number" id="remaining" placeholder="0" required>
-            </div>
-
-            <div class="form-group" style="margin-top: 20px;">
-                <label><i class="material-icons">add_photo_alternate</i> Reference Image <span class="optional-tag">(For Delivery/Pick-up)</span></label>
-                <input type="file" id="ref_image" accept="image/*">
-            </div>
-
-            <div class="form-group" style="margin-top: 20px;">
-                <label><i class="material-icons">edit_note</i> Additional Notes</label>
-                <textarea id="notes" rows="2" placeholder="Tell us more..."></textarea>
             </div>
 
             <button type="submit" class="btn-submit" id="submitBtn">
-                <i class="material-icons">check_circle</i> SUBMIT APPOINTMENT
+                <i class="material-icons">send</i> SUBMIT APPOINTMENT
             </button>
 
             <button type="button" class="btn-print" id="printBtn" onclick="window.print()">
-                <i class="material-icons">picture_as_pdf</i> SAVE / PRINT RECEIPT
+                <i class="material-icons">picture_as_pdf</i> SAVE RECEIPT
             </button>
         </form>
     </div>
 </div>
 
 <script>
-    document.getElementById('currentDate').value = new Date().toLocaleDateString('en-PH', { year:'numeric', month:'long', day:'numeric'});
+    // 1. Set Date
+    document.getElementById('currentDate').value = new Date().toLocaleDateString();
 
-    let count = localStorage.getItem('tdmh_count_2026') || 1;
-    function updateDisplay() {
-        document.getElementById('ctrlNum').innerText = "TDMH-HP-2026-" + String(count).padStart(2, '0');
+    // 2. Control Number Logic
+    let count = localStorage.getItem('tdmh_count') || 1;
+    document.getElementById('ctrlNum').innerText = "TDMH-HP-2026-" + String(count).padStart(2, '0');
+
+    // 3. Signature Logic
+    const canvas = document.getElementById('signature-pad');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+
+    // Adjust canvas size for resolution
+    function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
     }
-    updateDisplay();
+    window.onresize = resizeCanvas;
+    resizeCanvas();
 
+    function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    function startDrawing(e) {
+        drawing = true;
+        const pos = getPos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+        e.preventDefault();
+    }
+
+    function draw(e) {
+        if (!drawing) return;
+        const pos = getPos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        e.preventDefault();
+    }
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('touchstart', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('touchmove', draw);
+    window.addEventListener('mouseup', () => drawing = false);
+    window.addEventListener('touchend', () => drawing = false);
+
+    document.getElementById('clearSig').addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+    // 4. Form Submit
     document.getElementById('clinicForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        const finalNo = document.getElementById('ctrlNum').innerText;
-        
-        // Hide submit and show print button
+        alert("Success! Your Appointment is recorded.");
         document.getElementById('submitBtn').style.display = 'none';
         document.getElementById('printBtn').style.display = 'flex';
-        
-        alert("APPOINTMENT SUBMITTED SUCCESSFULY!\n\nPlease click 'SAVE / PRINT RECEIPT' to save your copy.");
-        
         count++;
-        localStorage.setItem('tdmh_count_2026', count);
-        updateDisplay();
+        localStorage.setItem('tdmh_count', count);
     });
 </script>
 

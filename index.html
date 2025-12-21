@@ -40,7 +40,6 @@
             .form-card { border-radius: var(--border-radius); margin: 20px; }
         }
 
-        /* LOGO FIX */
         .banner-container {
             width: 100%;
             background-color: var(--hospital-blue);
@@ -55,18 +54,9 @@
 
         .form-content { padding: 25px; }
 
-        .hospital-header { text-align: center; margin-bottom: 25px; }
+        .hospital-header { text-align: center; margin-bottom: 20px; }
         .hospital-header h1 { color: var(--hospital-blue); font-size: 1.2rem; margin: 0; text-transform: uppercase; }
         .hospital-header p { margin: 5px 0; font-size: 0.85rem; color: #636e72; }
-
-        .schedule-box {
-            background: var(--light-blue);
-            border-left: 4px solid var(--hospital-blue);
-            padding: 12px;
-            margin-bottom: 25px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-        }
 
         .control-number-wrap {
             background: #fff5f5;
@@ -89,28 +79,16 @@
             color: var(--hospital-blue);
         }
 
-        .row { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-        .col { flex: 1; min-width: 200px; }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #dfe6e9;
-            border-radius: 8px;
-            font-size: 16px;
-            background: #fff;
-        }
-
-        /* PREMIUM ARV OPTIONS */
+        /* FLEXBOX ALIGNMENT FOR ARV OPTIONS */
         .med-selection-container {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .med-card {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 15px;
             padding: 15px;
             background: #ffffff;
@@ -123,20 +101,19 @@
         .med-card input[type="checkbox"] {
             width: 22px;
             height: 22px;
+            margin-top: 2px;
             accent-color: var(--hospital-blue);
             flex-shrink: 0;
-            cursor: pointer;
         }
 
         .med-card.selected {
             border-color: var(--hospital-blue);
             background: var(--light-blue);
-            box-shadow: 0 2px 8px rgba(0,74,153,0.1);
         }
 
         .med-info { display: flex; flex-direction: column; }
         .med-code { font-weight: 800; color: var(--hospital-blue); font-size: 0.95rem; }
-        .med-desc { font-size: 0.85rem; color: #4a5568; margin-top: 2px; }
+        .med-desc { font-size: 0.85rem; color: #4a5568; line-height: 1.4; margin-top: 2px; }
 
         /* SIGNATURE PAD */
         .signature-container {
@@ -145,6 +122,7 @@
             border-radius: 8px;
             position: relative;
             touch-action: none;
+            margin-top: 10px;
         }
 
         #signature-pad { width: 100%; height: 150px; display: block; }
@@ -160,7 +138,7 @@
             background: #e74c3c;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 5px 12px;
             border-radius: 4px;
             font-size: 12px;
             cursor: pointer;
@@ -192,11 +170,6 @@
             display: none;
             cursor: pointer;
         }
-
-        @media print {
-            .btn-submit, .btn-print, .btn-clear, .schedule-box { display: none !important; }
-            .form-card { box-shadow: none; border: none; }
-        }
     </style>
 </head>
 <body>
@@ -217,40 +190,33 @@
                 <div id="ctrlNum" class="control-value">TDMH-HP-2026-01</div>
             </div>
 
-            <div class="row">
-                <div class="col">
-                    <label><i class="material-icons">email</i> Email</label>
-                    <input type="email" placeholder="Required" required>
-                </div>
-                <div class="col">
-                    <label><i class="material-icons">phone</i> Contact No.</label>
-                    <input type="tel" value="09209662447" required>
-                </div>
-            </div>
-
             <label class="section-title"><i class="material-icons">medication</i> ARV MEDICINE REQUEST</label>
+            
             <div class="med-selection-container">
                 <label class="med-card" id="cardA">
                     <input type="checkbox" onchange="updateStyle(this, 'cardA')">
                     <div class="med-info">
                         <span class="med-code">OPTION A</span>
-                        <span class="med-desc">Tenofovir/Lamivudine/Efavirenz 300/300/600mg</span>
+                        <span class="med-desc">Tenofovir Disoproxil Fumarate/Lamivudine/Efavirenz 300mg/300mg/600mg tablet</span>
                     </div>
                 </label>
+
                 <label class="med-card" id="cardB">
                     <input type="checkbox" onchange="updateStyle(this, 'cardB')">
                     <div class="med-info">
                         <span class="med-code">OPTION B</span>
-                        <span class="med-desc">Dolutegravir/Lamivudine/Tenofovir 50/300/300mg</span>
+                        <span class="med-desc">Dolutegravir/ Lamivudine /Tenofovir Disoproxil Fumarate 50mg/300mg/300mg tablet</span>
                     </div>
                 </label>
+
                 <label class="med-card" id="cardC">
                     <input type="checkbox" onchange="updateStyle(this, 'cardC')">
                     <div class="med-info">
                         <span class="med-code">OPTION C</span>
-                        <span class="med-desc">Dolutegravir 50mg Tablet</span>
+                        <span class="med-desc">Dolutegravir 50mg tablet</span>
                     </div>
                 </label>
+
                 <label class="med-card" id="cardD">
                     <input type="checkbox" onchange="updateStyle(this, 'cardD')">
                     <div class="med-info">
@@ -287,6 +253,7 @@
         canvas.width = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
         ctx.lineWidth = 2; ctx.lineCap = 'round';
+        ctx.strokeStyle = "#000";
     }
     window.onload = resize;
 

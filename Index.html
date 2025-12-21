@@ -32,10 +32,9 @@
             background: var(--white);
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
-            overflow: hidden; /* Ensures banner corners are rounded */
+            overflow: hidden;
         }
 
-        /* Top Banner Image */
         .banner-container {
             width: 100%;
             background-color: var(--hospital-blue);
@@ -71,7 +70,6 @@
             color: #636e72;
         }
 
-        /* Notice Box for Schedules */
         .schedule-box {
             background: var(--light-blue);
             border-left: 5px solid var(--hospital-blue);
@@ -91,7 +89,6 @@
         .schedule-item { display: flex; align-items: center; gap: 8px; font-weight: 500; }
         .schedule-item i { font-size: 16px; color: var(--hospital-blue); }
 
-        /* Form Styling */
         .control-number-wrap {
             background: #fff5f5;
             border: 1px dashed #fab1a0;
@@ -124,16 +121,8 @@
             border-radius: 8px;
             font-size: 14px;
             box-sizing: border-box;
-            transition: border-color 0.2s;
         }
 
-        input:focus, select:focus {
-            border-color: var(--hospital-blue);
-            outline: none;
-            background-color: #fff;
-        }
-
-        /* Medicine List Styling */
         .medicine-card-list {
             display: flex;
             flex-direction: column;
@@ -150,10 +139,8 @@
             align-items: flex-start;
             gap: 12px;
             cursor: pointer;
-            transition: 0.2s;
         }
 
-        .med-option:hover { background: #f1f5f9; border-color: #cbd5e0; }
         .med-option input { width: auto; margin-top: 4px; }
         .med-text { font-size: 0.85rem; line-height: 1.4; color: #4a5568; }
 
@@ -172,17 +159,9 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 4px 12px rgba(0, 74, 153, 0.2);
         }
 
-        .btn-submit:hover { background: #003a7a; }
-
-        .optional-tag {
-            font-size: 10px;
-            color: #b2bec3;
-            margin-left: 5px;
-            font-weight: normal;
-        }
+        .optional-tag { font-size: 10px; color: #b2bec3; margin-left: 5px; }
 
         @media (max-width: 500px) {
             .row { flex-direction: column; }
@@ -313,17 +292,14 @@
 </div>
 
 <script>
-    // Set Today's Date
     document.getElementById('currentDate').value = new Date().toLocaleDateString('en-PH', { year:'numeric', month:'long', day:'numeric'});
 
-    // Control Number Logic
     let count = localStorage.getItem('tdmh_count_2026') || 1;
     function updateDisplay() {
         document.getElementById('ctrlNum').innerText = "TDMH-HP-2026-" + String(count).padStart(2, '0');
     }
     updateDisplay();
 
-    // Submission Logic
     document.getElementById('clinicForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const finalNo = document.getElementById('ctrlNum').innerText;

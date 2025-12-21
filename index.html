@@ -16,7 +16,7 @@
             --border-radius: 15px;
         }
 
-        /* Mobile Reset */
+        /* Mobile Optimization */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
@@ -33,7 +33,6 @@
             max-width: 600px;
             width: 100%;
             background: var(--white);
-            border-radius: 0; /* Full width on mobile */
             box-shadow: var(--shadow);
             overflow: hidden;
             margin-bottom: 20px;
@@ -43,11 +42,11 @@
             .form-card { border-radius: var(--border-radius); margin: 20px; }
         }
 
-        /* BANNER */
+        /* FIXED BANNER IMAGE */
         .banner-container {
             width: 100%;
+            background-color: var(--hospital-blue);
             line-height: 0;
-            border-bottom: 5px solid var(--hospital-blue);
         }
 
         .banner-container img {
@@ -59,7 +58,7 @@
         .form-content { padding: 20px; }
 
         .hospital-header { text-align: center; margin-bottom: 20px; }
-        .hospital-header h1 { color: var(--hospital-blue); font-size: 1.2rem; margin: 0; }
+        .hospital-header h1 { color: var(--hospital-blue); font-size: 1.2rem; margin: 0; text-transform: uppercase; }
         .hospital-header p { margin: 5px 0; font-size: 0.85rem; color: #636e72; }
 
         .schedule-box {
@@ -71,7 +70,6 @@
             font-size: 0.8rem;
         }
 
-        /* FORM INPUTS */
         .control-number-wrap {
             background: #fff5f5;
             border: 1px dashed #fab1a0;
@@ -101,21 +99,36 @@
             padding: 12px;
             border: 1px solid #dfe6e9;
             border-radius: 8px;
-            font-size: 16px; /* Prevents auto-zoom on iPhone */
+            font-size: 16px; /* Prevents iPhone auto-zoom */
             background: #fff;
         }
 
-        /* MEDICINE OPTIONS */
+        /* FIXED ARV ALIGNMENT */
         .med-option {
             background: #f8f9fa;
             border: 1px solid #edf2f7;
             padding: 12px;
             border-radius: 10px;
             display: flex;
-            align-items: flex-start;
-            gap: 10px;
+            align-items: flex-start; /* Aligns checkbox with the first line of text */
+            gap: 12px;
             margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .med-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            flex-shrink: 0; /* Prevents checkbox from squishing */
+            cursor: pointer;
+        }
+
+        .med-text {
             font-size: 0.85rem;
+            line-height: 1.4;
+            color: #4a5568;
+            flex-grow: 1;
         }
 
         /* SIGNATURE PAD */
@@ -125,7 +138,7 @@
             border-radius: 8px;
             position: relative;
             margin-top: 5px;
-            touch-action: none;
+            touch-action: none; /* Required for mobile signature */
         }
 
         #signature-pad {
@@ -146,7 +159,7 @@
             background: #636e72;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 5px 12px;
             border-radius: 4px;
             font-size: 12px;
             cursor: pointer;
@@ -166,6 +179,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            cursor: pointer;
         }
 
         .btn-submit { background: var(--hospital-blue); }
@@ -173,8 +187,8 @@
 
         @media print {
             .btn-submit, .btn-print, .banner-container, .schedule-box, .btn-clear { display: none !important; }
-            .form-card { box-shadow: none; margin: 0; width: 100%; }
-            .signature-container { border: none; }
+            .form-card { box-shadow: none; margin: 0; width: 100%; border-radius: 0; }
+            .signature-container { border: 1px solid #000; }
         }
     </style>
 </head>
@@ -192,14 +206,14 @@
         </div>
 
         <div class="schedule-box">
-            <div style="font-weight: bold; margin-bottom: 5px;"><i class="material-icons" style="font-size:16px; vertical-align:middle;">schedule</i> 8:00 AM – 4:00 PM (Mon-Fri)</div>
-            <div><strong>Dr. Mariano:</strong> Mon 1-3pm</div>
-            <div><strong>Dr. Rivera:</strong> Thu 3-5pm</div>
+            <div style="font-weight: bold; margin-bottom: 5px;"><i class="material-icons" style="font-size:16px; vertical-align:middle;">schedule</i> Clinic Hours: 8:00 AM – 4:00 PM (Mon-Fri)</div>
+            <div><strong>Dr. Mariano:</strong> Mon 1pm-3pm</div>
+            <div><strong>Dr. Rivera:</strong> Thu 3pm-5pm</div>
         </div>
 
         <form id="clinicForm">
             <div class="control-number-wrap">
-                <div style="font-size: 10px; font-weight: bold; color: #d63031;">CONTROL NUMBER</div>
+                <div style="font-size: 10px; font-weight: bold; color: #d63031;">PATIENT CONTROL NUMBER</div>
                 <div id="ctrlNum" class="control-value">TDMH-HP-2026-01</div>
             </div>
 
@@ -209,46 +223,62 @@
                     <input type="text" id="currentDate" readonly>
                 </div>
                 <div class="col">
-                    <label><i class="material-icons">pin</i> Clinic Code</label>
-                    <input type="text" placeholder="Required" required>
+                    <label><i class="material-icons">badge</i> Clinic Code</label>
+                    <input type="text" placeholder="Enter Code" required>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col">
-                    <label><i class="material-icons">email</i> Email</label>
+                    <label><i class="material-icons">email</i> Email Address</label>
                     <input type="email" placeholder="patient@email.com" required>
                 </div>
                 <div class="col">
-                    <label><i class="material-icons">phone</i> Contact</label>
+                    <label><i class="material-icons">phone</i> Contact No.</label>
                     <input type="tel" value="09209662447" required>
                 </div>
             </div>
 
             <label><i class="material-icons">person</i> Request Consultant</label>
             <select style="margin-bottom: 15px;">
-                <option value="none">General Appointment / Refill</option>
-                <option value="Mariano">Dr. Lorbenjie Mariano</option>
-                <option value="Rivera">Dr. Charles Kevin Rivera</option>
+                <option value="none">-- General Appointment / Refill Only --</option>
+                <option value="Mariano">Dr. Lorbenjie Mariano (Mon 1pm-3pm)</option>
+                <option value="Rivera">Dr. Charles Kevin Rivera (Thu 3pm-5pm)</option>
             </select>
 
             <div class="row">
                 <div class="col">
-                    <label><i class="material-icons">event</i> Appt. Date</label>
+                    <label><i class="material-icons">event</i> Appointment Date</label>
                     <input type="date" required>
                 </div>
                 <div class="col">
-                    <label><i class="material-icons">schedule</i> Time</label>
+                    <label><i class="material-icons">schedule</i> Preferred Time</label>
                     <input type="time" min="08:00" max="16:00" required>
                 </div>
             </div>
 
             <div style="margin-top: 15px;">
-                <label><i class="material-icons">medication</i> ARV Refill Request</label>
-                <div class="med-option"><input type="checkbox"> <span>A. TLD (300/300/600mg)</span></div>
-                <div class="med-option"><input type="checkbox"> <span>B. DTG/3TC/TDF (50/300/300mg)</span></div>
-                <div class="med-option"><input type="checkbox"> <span>C. Dolutegravir 50mg</span></div>
-                <div class="med-option"><input type="checkbox"> <span>D. PrEP</span></div>
+                <label><i class="material-icons">medication</i> ARV Medicines Refill/Request</label>
+                
+                <label class="med-option">
+                    <input type="checkbox"> 
+                    <span class="med-text"><strong>A.</strong> Tenofovir / Lamivudine / Efavirenz 300mg/300mg/600mg tablet</span>
+                </label>
+
+                <label class="med-option">
+                    <input type="checkbox"> 
+                    <span class="med-text"><strong>B.</strong> Dolutegravir / Lamivudine / Tenofovir 50mg/300mg/300mg tablet</span>
+                </label>
+
+                <label class="med-option">
+                    <input type="checkbox"> 
+                    <span class="med-text"><strong>C.</strong> Dolutegravir 50mg tablet</span>
+                </label>
+
+                <label class="med-option">
+                    <input type="checkbox"> 
+                    <span class="med-text"><strong>D.</strong> PrEP (Pre-Exposure Prophylaxis)</span>
+                </label>
             </div>
 
             <div style="margin-top: 20px;">
@@ -266,77 +296,4 @@
             </button>
 
             <button type="button" class="btn-print" id="printBtn" onclick="window.print()">
-                <i class="material-icons">picture_as_pdf</i> SAVE RECEIPT
-            </button>
-        </form>
-    </div>
-</div>
-
-<script>
-    // 1. Set Date
-    document.getElementById('currentDate').value = new Date().toLocaleDateString();
-
-    // 2. Control Number Logic
-    let count = localStorage.getItem('tdmh_count') || 1;
-    document.getElementById('ctrlNum').innerText = "TDMH-HP-2026-" + String(count).padStart(2, '0');
-
-    // 3. Signature Logic
-    const canvas = document.getElementById('signature-pad');
-    const ctx = canvas.getContext('2d');
-    let drawing = false;
-
-    // Adjust canvas size for resolution
-    function resizeCanvas() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-    }
-    window.onresize = resizeCanvas;
-    resizeCanvas();
-
-    function getPos(e) {
-        const rect = canvas.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        return { x: clientX - rect.left, y: clientY - rect.top };
-    }
-
-    function startDrawing(e) {
-        drawing = true;
-        const pos = getPos(e);
-        ctx.beginPath();
-        ctx.moveTo(pos.x, pos.y);
-        e.preventDefault();
-    }
-
-    function draw(e) {
-        if (!drawing) return;
-        const pos = getPos(e);
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
-        e.preventDefault();
-    }
-
-    canvas.addEventListener('mousedown', startDrawing);
-    canvas.addEventListener('touchstart', startDrawing);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('touchmove', draw);
-    window.addEventListener('mouseup', () => drawing = false);
-    window.addEventListener('touchend', () => drawing = false);
-
-    document.getElementById('clearSig').addEventListener('click', () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    });
-
-    // 4. Form Submit
-    document.getElementById('clinicForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert("Success! Your Appointment is recorded.");
-        document.getElementById('submitBtn').style.display = 'none';
-        document.getElementById('printBtn').style.display = 'flex';
-        count++;
-        localStorage.setItem('tdmh_count', count);
-    });
-</script>
-
-</body>
-</html>
+                <i class="material-icons">picture_as_pdf</i>

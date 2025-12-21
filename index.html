@@ -41,16 +41,12 @@
             .form-card { border-radius: var(--border-radius); margin: 20px; }
         }
 
-        /* LIVE DATE & TIME HEADER */
         .live-header {
             background: var(--hospital-blue);
             color: #ffffff;
             text-align: center;
             padding: 10px;
             font-size: 0.85rem;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
         }
 
         #current-time {
@@ -60,7 +56,6 @@
             font-weight: bold;
         }
 
-        /* LOGO STYLING */
         .logo-container {
             width: 100%;
             padding: 25px 20px 10px 20px;
@@ -72,16 +67,13 @@
             width: 100%;
             max-width: 500px;
             height: auto;
-            display: block;
         }
 
         .form-content { padding: 20px; }
 
-        /* CLINIC INFO SECTION */
         .hospital-header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid var(--light-blue); padding-bottom: 15px; }
-        .hospital-header h1 { color: var(--hospital-blue); font-size: 1.5rem; margin: 0; text-transform: uppercase; }
+        .hospital-header h1 { color: var(--hospital-blue); font-size: 1.5rem; margin: 0; }
         .clinic-info { font-size: 0.85rem; color: #636e72; line-height: 1.6; margin-top: 10px; }
-        .clinic-info b { color: var(--text-main); }
 
         .control-number-wrap {
             background: #fff5f5;
@@ -94,7 +86,6 @@
 
         .control-value { font-family: monospace; font-size: 1.3rem; color: var(--hospital-red); font-weight: bold; }
 
-        /* FORM INPUTS */
         .input-group { margin-bottom: 18px; }
         .row { display: flex; gap: 15px; flex-wrap: wrap; }
         .row .input-group { flex: 1; min-width: 150px; }
@@ -116,32 +107,32 @@
             border-radius: 10px;
             font-size: 16px; 
             background: #fff;
-            color: var(--text-main);
         }
 
-        /* ARV CARDS */
-        .med-card {
+        /* SELECTION CARDS (LAB & ARV) */
+        .selection-card {
             display: flex;
             align-items: flex-start;
             gap: 15px;
-            padding: 15px;
+            padding: 12px;
             background: #ffffff;
             border: 1.5px solid #e2e8f0;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
-            margin-bottom: 10px;
-            transition: all 0.2s;
+            margin-bottom: 8px;
         }
 
-        .med-card input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--hospital-blue); flex-shrink: 0; }
-        .med-card.selected { border-color: var(--hospital-blue); background: var(--light-blue); }
-        .med-desc { font-size: 0.85rem; color: #2d3436; line-height: 1.4; }
+        .selection-card input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--hospital-blue); flex-shrink: 0; }
+        .selection-card.selected { border-color: var(--hospital-blue); background: var(--light-blue); }
+        .card-text { font-size: 0.85rem; color: #2d3436; line-height: 1.4; }
+
+        .other-input { margin-top: 8px; display: none; }
 
         /* SIGNATURE */
-        .signature-container { border: 2px solid #dfe6e9; border-radius: 10px; background: #fafafa; position: relative; }
+        .signature-container { border: 2px solid #dfe6e9; border-radius: 10px; background: #fafafa; }
         #signature-pad { width: 100%; height: 150px; display: block; touch-action: none; }
         .sig-controls { display: flex; justify-content: flex-end; padding: 8px; background: #f1f1f1; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
-        .btn-clear { background: var(--hospital-red); color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: bold; }
+        .btn-clear { background: var(--hospital-red); color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; }
 
         .btn-submit {
             background: var(--hospital-blue);
@@ -154,7 +145,6 @@
             font-weight: bold;
             margin-top: 30px;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 74, 153, 0.2);
         }
     </style>
 </head>
@@ -162,27 +152,27 @@
 
 <div class="form-card">
     <div class="live-header">
-        <div id="current-date">Loading Date...</div>
+        <div id="current-date">Loading...</div>
         <div id="current-time">00:00:00 AM</div>
     </div>
 
     <div class="logo-container">
-        <img src="https://lh3.googleusercontent.com/d/1xM8nGY2HRn8XDbQrloDgpZFY5zQoCNNj" alt="HOMES Clinic Logo">
+        <img src="https://raw.githubusercontent.com/YourRepo/images/main/HOMES_Logo_Transparent.png" onerror="this.src='https://via.placeholder.com/500x200?text=HOMES+CLINIC+LOGO'" alt="HOMES Clinic Logo">
     </div>
 
     <div class="form-content">
         <div class="hospital-header">
             <h1>HOMES Clinic</h1>
             <div class="clinic-info">
-                <i class="material-icons" style="font-size:14px; vertical-align: middle;">place</i> 2nd Floor Bldg, 6 Rizal Avenue, San Isidro, Taytay, Rizal<br>
-                <i class="material-icons" style="font-size:14px; vertical-align: middle;">phone</i> Contact: <b>0920-966-2447</b><br>
-                <i class="material-icons" style="font-size:14px; vertical-align: middle;">schedule</i> Open: <b>Mon - Fri</b> (Closed Sat, Sun & Holidays)
+                <i class="material-icons" style="font-size:14px">place</i> 2nd Floor Bldg 6, Rizal Avenue, San Isidro, Taytay, Rizal<br>
+                <i class="material-icons" style="font-size:14px">phone</i> Cel: <b>0920-966-2447</b><br>
+                <i class="material-icons" style="font-size:14px">schedule</i> <b>Mon - Fri</b> (Except Sat, Sun & Holidays)
             </div>
         </div>
 
         <form id="clinicForm">
             <div class="control-number-wrap">
-                <div style="font-size: 10px; font-weight: bold; color: var(--hospital-red); margin-bottom: 4px;">APPOINTMENT REF NO.</div>
+                <div style="font-size: 10px; font-weight: bold; color: var(--hospital-red);">APPOINTMENT REF NO.</div>
                 <div class="control-value">TDMH-HP-2026-01</div>
             </div>
 
@@ -191,44 +181,30 @@
                 <input type="text" placeholder="e.g. ABC-12345" required>
             </div>
 
-            <div class="input-group">
-                <label class="field-label"><i class="material-icons" style="font-size:18px">phone</i> Contact Number</label>
-                <input type="tel" placeholder="09XX-XXX-XXXX" required>
-            </div>
-
             <div class="row">
-                <div class="input-group">
-                    <label class="field-label"><i class="material-icons" style="font-size:18px">calendar_today</i> Schedule Date</label>
-                    <input type="date" required>
-                </div>
-                <div class="input-group">
-                    <label class="field-label"><i class="material-icons" style="font-size:18px">schedule</i> Time</label>
-                    <select required>
-                        <option value="">-- Select --</option>
-                        <option>08:00 AM</option><option>09:00 AM</option>
-                        <option>10:00 AM</option><option>11:00 AM</option>
-                        <option>01:00 PM</option><option>02:00 PM</option>
-                        <option>03:00 PM</option><option>04:00 PM</option>
-                    </select>
+                <div class="input-group"><label class="field-label"><i class="material-icons" style="font-size:18px">calendar_today</i> Schedule Date</label><input type="date" required></div>
+                <div class="input-group"><label class="field-label"><i class="material-icons" style="font-size:18px">schedule</i> Time</label>
+                    <select required><option value="">-- Select --</option><option>08:00 AM</option><option>09:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>01:00 PM</option><option>02:00 PM</option><option>03:00 PM</option><option>04:00 PM</option></select>
                 </div>
             </div>
 
-            <div class="input-group">
-                <label class="field-label"><i class="material-icons" style="font-size:18px">person</i> Request Consultant</label>
-                <select name="consultant" required>
-                    <option value="">-- Select Doctor --</option>
-                    <option value="none">General Appointment / Refill Only</option>
-                    <option value="Mariano">Dr. Lorbenjie Mariano (Mon 1pm-3pm)</option>
-                    <option value="Rivera">Dr. Charles Kevin Rivera (Thu 3pm-5pm)</option>
-                </select>
+            <label class="field-label" style="margin-top:20px;"><i class="material-icons" style="font-size:18px">biotech</i> LABORATORY REQUEST</label>
+            <div class="selection-container">
+                <label class="selection-card" id="lab1"><input type="checkbox" onchange="toggleCard(this, 'lab1')"><div class="card-text">HIV Testing and Screening</div></label>
+                <label class="selection-card" id="lab2"><input type="checkbox" onchange="toggleCard(this, 'lab2')"><div class="card-text">RPR (Syphilis Detection Test)</div></label>
+                <label class="selection-card" id="lab3"><input type="checkbox" onchange="toggleCard(this, 'lab3')"><div class="card-text">HBSAG (Hepatitis B Surface Antigen)</div></label>
+                <label class="selection-card" id="lab4"><input type="checkbox" onchange="toggleCard(this, 'lab4')"><div class="card-text">CD4 Count</div></label>
+                <label class="selection-card" id="lab5"><input type="checkbox" onchange="toggleCard(this, 'lab5')"><div class="card-text">HIV Viral Load</div></label>
+                <label class="selection-card" id="labOtherCard"><input type="checkbox" id="checkOther" onchange="toggleOther(this)"><div class="card-text">Others</div></label>
+                <input type="text" id="inputOther" class="other-input" placeholder="Please specify lab test...">
             </div>
 
             <label class="field-label" style="margin-top:20px;"><i class="material-icons" style="font-size:18px">medication</i> ARV MEDICINE REQUEST</label>
-            <div class="med-container">
-                <label class="med-card" id="cardA"><input type="checkbox" onchange="updateStyle(this, 'cardA')"><div class="med-desc"><b>A.</b> Tenofovir Disoproxil Fumarate / Lamivudine / Efavirenz (300mg/300mg/600mg) tablet</div></label>
-                <label class="med-card" id="cardB"><input type="checkbox" onchange="updateStyle(this, 'cardB')"><div class="med-desc"><b>B.</b> Dolutegravir / Lamivudine / Tenofovir Disoproxil Fumarate (50mg/300mg/300mg) tablet</div></label>
-                <label class="med-card" id="cardC"><input type="checkbox" onchange="updateStyle(this, 'cardC')"><div class="med-desc"><b>C.</b> Dolutegravir 50mg tablet</div></label>
-                <label class="med-card" id="cardD"><input type="checkbox" onchange="updateStyle(this, 'cardD')"><div class="med-desc"><b>D.</b> PrEP (Pre-Exposure Prophylaxis)</div></label>
+            <div class="selection-container">
+                <label class="selection-card" id="arvA"><input type="checkbox" onchange="toggleCard(this, 'arvA')"><div class="card-text"><b>A.</b> TDF / 3TC / EFV (300/300/600mg)</div></label>
+                <label class="selection-card" id="arvB"><input type="checkbox" onchange="toggleCard(this, 'arvB')"><div class="card-text"><b>B.</b> DTG / 3TC / TDF (50/300/300mg)</div></label>
+                <label class="selection-card" id="arvC"><input type="checkbox" onchange="toggleCard(this, 'arvC')"><div class="card-text"><b>C.</b> Dolutegravir 50mg tablet</div></label>
+                <label class="selection-card" id="arvD"><input type="checkbox" onchange="toggleCard(this, 'arvD')"><div class="card-text"><b>D.</b> PrEP (Pre-Exposure Prophylaxis)</div></label>
             </div>
 
             <label class="field-label" style="margin-top:20px;"><i class="material-icons" style="font-size:18px">edit</i> PATIENT SIGNATURE</label>
@@ -237,13 +213,12 @@
                 <div class="sig-controls"><button type="button" class="btn-clear" onclick="clearSig()">Clear</button></div>
             </div>
 
-            <button type="submit" class="btn-submit">SUBMIT APPOINTMENT</button>
+            <button type="submit" class="btn-submit">SUBMIT REQUEST</button>
         </form>
     </div>
 </div>
 
 <script>
-    // Live Clock Logic
     function updateClock() {
         const now = new Date();
         document.getElementById('current-date').innerText = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -251,9 +226,16 @@
     }
     setInterval(updateClock, 1000); updateClock();
 
-    function updateStyle(cb, id) { document.getElementById(id).classList.toggle('selected', cb.checked); }
+    function toggleCard(cb, id) { document.getElementById(id).classList.toggle('selected', cb.checked); }
+    
+    function toggleOther(cb) {
+        const input = document.getElementById('inputOther');
+        const card = document.getElementById('labOtherCard');
+        card.classList.toggle('selected', cb.checked);
+        input.style.display = cb.checked ? 'block' : 'none';
+        if(cb.checked) input.focus();
+    }
 
-    // Signature Pad Logic
     const canvas = document.getElementById('signature-pad');
     const ctx = canvas.getContext('2d');
     let drawing = false;
@@ -263,7 +245,7 @@
         canvas.width = canvas.offsetWidth * ratio;
         canvas.height = canvas.offsetHeight * ratio;
         ctx.scale(ratio, ratio);
-        ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.strokeStyle = "#000";
+        ctx.lineWidth = 2.5; ctx.lineCap = 'round';
     }
     window.onload = resize;
 
@@ -282,11 +264,6 @@
     window.addEventListener('touchend', () => drawing = false);
 
     function clearSig() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-
-    document.getElementById('clinicForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert("Appointment Submitted Successfully!");
-    });
 </script>
 
 </body>

@@ -40,28 +40,46 @@
             .form-card { border-radius: var(--border-radius); margin: 20px; }
         }
 
-        /* CENTERED LARGE LOGO */
+        /* LIVE DATE & TIME HEADER */
+        .live-header {
+            background: #2d3436;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        #current-time {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #fab1a0;
+            font-weight: bold;
+        }
+
+        /* LOGO STYLING */
         .logo-container {
             width: 100%;
-            padding: 30px 20px;
+            padding: 30px 20px 10px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: var(--white);
         }
 
         .logo-container img {
-            width: 85%;
-            max-width: 420px;
+            width: 90%;
+            max-width: 480px;
             height: auto;
-            display: block;
         }
 
         .form-content { padding: 20px; }
 
         .hospital-header { text-align: center; margin-bottom: 25px; }
-        .hospital-header h1 { color: var(--hospital-blue); font-size: 1.3rem; margin: 0; text-transform: uppercase; }
-        .hospital-header p { margin: 5px 0; font-size: 0.85rem; color: #636e72; }
+        .hospital-header h1 { color: var(--hospital-blue); font-size: 1.4rem; margin: 0; text-transform: uppercase; }
+        .hospital-header p { margin: 5px 0; font-size: 0.9rem; color: #636e72; }
 
         .control-number-wrap {
             background: #fff5f5;
@@ -74,107 +92,109 @@
 
         .control-value { font-family: monospace; font-size: 1.3rem; color: #d63031; font-weight: bold; }
 
+        /* INPUT GROUPS */
+        .input-group { margin-bottom: 18px; }
+        .row { display: flex; gap: 15px; flex-wrap: wrap; }
+        .row .input-group { flex: 1; min-width: 150px; }
+
         label.field-label {
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: var(--hospital-blue);
         }
 
         input, select, textarea {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border: 1px solid #dfe6e9;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px; 
             background: #fff;
+            color: var(--text-main);
         }
 
-        label.section-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin: 25px 0 12px 0;
-            color: var(--hospital-blue);
-            border-bottom: 2px solid var(--light-blue);
-            padding-bottom: 5px;
-        }
-
-        /* ALIGNED ARV CARDS */
-        .med-selection-container { display: flex; flex-direction: column; gap: 10px; }
-
+        /* ARV CARDS */
         .med-card {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            padding: 15px;
+            gap: 15px;
+            padding: 18px;
             background: #ffffff;
             border: 1.5px solid #e2e8f0;
             border-radius: 12px;
             cursor: pointer;
+            margin-bottom: 12px;
         }
 
         .med-card input[type="checkbox"] {
             width: 22px;
             height: 22px;
-            margin-top: 2px;
             accent-color: var(--hospital-blue);
             flex-shrink: 0;
         }
 
         .med-card.selected { border-color: var(--hospital-blue); background: var(--light-blue); }
-        .med-info { display: flex; flex-direction: column; }
-        .med-desc { font-size: 0.85rem; color: #4a5568; line-height: 1.4; }
+        .med-desc { font-size: 0.85rem; color: #2d3436; line-height: 1.5; }
 
         /* SIGNATURE */
         .signature-container {
             border: 2px solid #dfe6e9;
-            background: #fafafa;
-            border-radius: 8px;
+            border-radius: 10px;
             position: relative;
             touch-action: none;
-            margin-top: 10px;
+            background: #fafafa;
         }
 
-        #signature-pad { width: 100%; height: 150px; display: block; }
+        #signature-pad { width: 100%; height: 160px; display: block; }
         
         .sig-controls {
             display: flex;
             justify-content: flex-end;
             background: #f1f1f1;
-            padding: 8px;
+            padding: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
         }
 
         .btn-clear {
             background: #e74c3c;
             color: white;
             border: none;
-            padding: 6px 14px;
-            border-radius: 5px;
-            font-size: 12px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
         }
 
         .btn-submit {
             background: var(--hospital-blue);
             color: white;
             border: none;
-            padding: 16px;
+            padding: 18px;
             width: 100%;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 1.1rem;
             font-weight: bold;
             margin-top: 30px;
+        }
+
+        @media print {
+            .live-header { background: #eee; color: #000; }
+            .btn-submit, .btn-clear, .sig-controls { display: none; }
         }
     </style>
 </head>
 <body>
 
 <div class="form-card">
+    <div class="live-header">
+        <div id="current-date">Sunday, December 21, 2025</div>
+        <div id="current-time">00:00:00 AM</div>
+    </div>
+
     <div class="logo-container">
         <img src="https://drive.google.com/uc?export=view&id=1xM8nGY2HRn8XDbQrloDgpZFY5zQoCNNj" alt="TDMH Logo">
     </div>
@@ -182,69 +202,97 @@
     <div class="form-content">
         <div class="hospital-header">
             <h1>HOMES Clinic</h1>
-            <p>Taytay Doctors Multispecialty Hospital • 2nd Floor</p>
+            <p>Taytay Doctors Multispecialty Hospital</p>
         </div>
 
         <form id="clinicForm">
             <div class="control-number-wrap">
-                <div id="ctrlNum" class="control-value">TDMH-HP-2026-01</div>
+                <div style="font-size: 10px; font-weight: bold; color: #d63031; margin-bottom: 4px;">APPOINTMENT REF NO.</div>
+                <div class="control-value">TDMH-HP-2026-01</div>
             </div>
 
-            <label class="field-label">Request Consultant</label>
-            <select name="consultant">
-                <option value="none">-- General Appointment / Refill Only --</option>
-            </select>
-
-            <label class="section-title"><i class="material-icons">medication</i> ARV MEDICINE REQUEST</label>
-            
-            <div class="med-selection-container">
-                <label class="med-card" id="cardA">
-                    <input type="checkbox" onchange="updateStyle(this, 'cardA')">
-                    <div class="med-info">
-                        <span class="med-desc"><strong>A.</strong> Tenofovir Disoproxil Fumarate/Lamivudine/Efavirenz 300mg/300mg/600mg tablet</span>
-                    </div>
-                </label>
-
-                <label class="med-card" id="cardB">
-                    <input type="checkbox" onchange="updateStyle(this, 'cardB')">
-                    <div class="med-info">
-                        <span class="med-desc"><strong>B.</strong> Dolutegravir/ Lamivudine /Tenofovir Disoproxil Fumarate 50mg/300mg/300mg tablet</span>
-                    </div>
-                </label>
-
-                <label class="med-card" id="cardC">
-                    <input type="checkbox" onchange="updateStyle(this, 'cardC')">
-                    <div class="med-info">
-                        <span class="med-desc"><strong>C.</strong> Dolutegravir 50mg tablet</span>
-                    </div>
-                </label>
-
-                <label class="med-card" id="cardD">
-                    <input type="checkbox" onchange="updateStyle(this, 'cardD')">
-                    <div class="med-info">
-                        <span class="med-desc"><strong>D.</strong> PrEP (Pre-Exposure Prophylaxis)</span>
-                    </div>
-                </label>
+            <div class="input-group">
+                <label class="field-label"><i class="material-icons" style="font-size:18px">vpn_key</i> Patient Code</label>
+                <input type="text" placeholder="e.g. ABC-12345" required>
             </div>
 
-            <label class="section-title"><i class="material-icons">edit</i> PATIENT SIGNATURE</label>
-            <div class="signature-container">
-                <canvas id="signature-pad"></canvas>
-                <div class="sig-controls">
-                    <button type="button" class="btn-clear" onclick="clearSig()">Clear Signature</button>
+            <div class="input-group">
+                <label class="field-label"><i class="material-icons" style="font-size:18px">phone</i> Contact Number</label>
+                <input type="tel" placeholder="09XXXXXXXXX" required>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    <label class="field-label"><i class="material-icons" style="font-size:18px">calendar_today</i> Request Schedule</label>
+                    <input type="date" required>
+                </div>
+                <div class="input-group">
+                    <label class="field-label"><i class="material-icons" style="font-size:18px">schedule</i> Preferred Time</label>
+                    <select required>
+                        <option value="">-- Select --</option>
+                        <option>08:00 AM</option><option>09:00 AM</option>
+                        <option>10:00 AM</option><option>11:00 AM</option>
+                        <option>01:00 PM</option><option>02:00 PM</option>
+                        <option>03:00 PM</option><option>04:00 PM</option>
+                    </select>
                 </div>
             </div>
 
-            <button type="submit" class="btn-submit">SUBMIT APPOINTMENT</button>
+            <div class="input-group">
+                <label class="field-label"><i class="material-icons" style="font-size:18px">person</i> Request Consultant</label>
+                <select name="consultant" required>
+                    <option value="">-- Select Doctor --</option>
+                    <option value="none">General Appointment / Refill Only</option>
+                    <option value="Mariano">Dr. Lorbenjie Mariano (Mon 1pm-3pm)</option>
+                    <option value="Rivera">Dr. Charles Kevin Rivera (Thu 3pm-5pm)</option>
+                </select>
+            </div>
+
+            <label class="field-label" style="margin-top:20px;"><i class="material-icons" style="font-size:18px">medication</i> ARV MEDICINE REQUEST</label>
+            <div class="med-container">
+                <label class="med-card" id="cardA">
+                    <input type="checkbox" onchange="updateStyle(this, 'cardA')">
+                    <div class="med-desc"><strong>A.</strong> Tenofovir Disoproxil Fumarate / Lamivudine / Efavirenz (300mg/300mg/600mg) tablet</div>
+                </label>
+                <label class="med-card" id="cardB">
+                    <input type="checkbox" onchange="updateStyle(this, 'cardB')">
+                    <div class="med-desc"><strong>B.</strong> Dolutegravir / Lamivudine / Tenofovir Disoproxil Fumarate (50mg/300mg/300mg) tablet</div>
+                </label>
+                <label class="med-card" id="cardC">
+                    <input type="checkbox" onchange="updateStyle(this, 'cardC')">
+                    <div class="med-desc"><strong>C.</strong> Dolutegravir 50mg tablet</div>
+                </label>
+                <label class="med-card" id="cardD">
+                    <input type="checkbox" onchange="updateStyle(this, 'cardD')">
+                    <div class="med-desc"><strong>D.</strong> PrEP (Pre-Exposure Prophylaxis)</div>
+                </label>
+            </div>
+
+            <label class="field-label" style="margin-top:20px;"><i class="material-icons" style="font-size:18px">edit</i> PATIENT SIGNATURE</label>
+            <div class="signature-container">
+                <canvas id="signature-pad"></canvas>
+                <div class="sig-controls"><button type="button" class="btn-clear" onclick="clearSig()">Clear</button></div>
+            </div>
+
+            <button type="submit" class="btn-submit">SUBMIT REQUEST</button>
         </form>
     </div>
 </div>
 
 <script>
-    function updateStyle(cb, id) {
-        document.getElementById(id).classList.toggle('selected', cb.checked);
+    // LIVE DATE & TIME
+    function updateClock() {
+        const now = new Date();
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').innerText = now.toLocaleDateString('en-US', dateOptions);
+        document.getElementById('current-time').innerText = now.toLocaleTimeString('en-US', { hour12: true });
     }
+    setInterval(updateClock, 1000);
+    updateClock();
 
+    function updateStyle(cb, id) { document.getElementById(id).classList.toggle('selected', cb.checked); }
+
+    // SIGNATURE PAD
     const canvas = document.getElementById('signature-pad');
     const ctx = canvas.getContext('2d');
     let drawing = false;
@@ -254,10 +302,12 @@
         canvas.width = canvas.offsetWidth * ratio;
         canvas.height = canvas.offsetHeight * ratio;
         ctx.scale(ratio, ratio);
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.lineCap = 'round';
+        ctx.strokeStyle = "#000";
     }
     window.onload = resize;
+    window.onresize = resize;
 
     function getPos(e) {
         const rect = canvas.getBoundingClientRect();
@@ -274,11 +324,6 @@
     window.addEventListener('touchend', () => drawing = false);
 
     function clearSig() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-
-    document.getElementById('clinicForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert("Appointment Submitted Successfully!");
-    });
 </script>
 
 </body>

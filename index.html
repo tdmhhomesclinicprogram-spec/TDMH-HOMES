@@ -28,7 +28,7 @@
         .nav-top { display: flex; justify-content: space-between; align-items: center; }
         .nav-menu { display: flex; gap: 8px; overflow-x: auto; padding: 5px 0; width: 100%; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
         
-        .nav-btn { flex: 0 0 auto; min-width: 130px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; color: #64748b; padding: 12px; border-radius: 10px; background: #f1f5f9; transition: 0.3s; }
+        .nav-btn { flex: 0 0 auto; min-width: 130px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; color: #64748b; padding: 12px; border-radius: 10px; background: #f1f5f9; }
         .nav-btn.active { color: white; background: var(--brand); }
 
         .hero { margin-top: 130px; background: var(--hero-grad); padding: 40px 20px; text-align: center; color: white; border-bottom-right-radius: 50px; }
@@ -40,20 +40,22 @@
         .tab-content { background: var(--card); border-radius: 25px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); display: none; margin-bottom: 30px; }
         .tab-content.active { display: block; }
         
-        /* IMPROVED FORM LAYOUT TO PREVENT OVERLAP */
-        .form-group { margin-bottom: 30px; display: flex; flex-direction: column; width: 100%; position: relative; }
+        /* FIXED FORM GROUPS */
+        .form-group { margin-bottom: 25px; display: flex; flex-direction: column; width: 100%; position: relative; }
         .form-group label { 
-            font-size: 13px; font-weight: 700; color: var(--brand); 
-            margin-bottom: 4px; margin-left: 5px;
-            background: transparent; align-self: flex-start;
+            font-size: 12px; font-weight: 700; color: var(--brand); 
+            margin-bottom: -9px; margin-left: 12px; z-index: 5;
+            background: #fff; padding: 0 6px; align-self: flex-start;
+            border-radius: 4px;
         }
         input, select, textarea { 
-            width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--border); 
-            font-family: inherit; font-size: 16px; background: #fff; outline: none; transition: border-color 0.2s;
+            width: 100%; padding: 16px 15px; border-radius: 12px; border: 2px solid var(--border); 
+            font-family: inherit; font-size: 15px; background: #fff; z-index: 1; outline: none;
         }
-        input:focus { border-color: var(--brand); }
 
-        .date-time-grid { display: grid; grid-template-columns: 1fr; gap: 15px; width: 100%; }
+        /* FIXED OVERLAPPING DATE/TIME */
+        .date-time-container { display: flex; gap: 15px; width: 100%; flex-wrap: wrap; }
+        .date-time-container .form-group { flex: 1; min-width: 140px; }
 
         .section-title { font-size: 18px; font-weight: 700; color: var(--brand); margin: 30px 0 15px; border-bottom: 3px solid #f1f5f9; padding-bottom: 5px; }
         
@@ -63,12 +65,7 @@
             display: flex; align-items: center; gap: 10px; cursor: pointer; background: #fff; 
             font-weight: 600; min-height: 55px; transition: all 0.2s ease;
         }
-        .card-opt.selected-opt {
-            border-color: var(--brand);
-            background-color: #f0f3ff;
-            color: var(--brand);
-            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.1);
-        }
+        .card-opt.selected-opt { border-color: var(--brand); background-color: #f0f3ff; color: var(--brand); }
         .card-opt input { width: 18px; height: 18px; pointer-events: none; }
 
         .res-box { padding: 20px; border-radius: 15px; margin: 20px 0; border-left: 8px solid var(--brand); background: #f8faff; border: 1px solid #ddd; border-left: 8px solid var(--brand); display: none; }
@@ -76,15 +73,14 @@
 
         .submit-main { background: var(--brand); color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 700; font-size: 17px; cursor: pointer; margin-top: 10px; }
         
-        .choice-row { display: flex; gap: 10px; margin: 10px 0 20px; }
-        .choice-btn { flex: 1; padding: 15px; border: 2px solid var(--border); border-radius: 12px; text-align: center; font-weight: 700; background: #fff; cursor: pointer; transition: 0.2s; font-size: 14px; }
+        .choice-row { display: flex; gap: 10px; margin-top: 10px; margin-bottom: 20px; }
+        .choice-btn { flex: 1; padding: 15px; border: 2px solid var(--border); border-radius: 12px; text-align: center; font-weight: 700; background: #fff; cursor: pointer; font-size: 14px; }
         .choice-btn.selected { background: var(--brand); color: white; border-color: var(--brand); }
 
         .staff-item { background: #f1f5f9; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 5px solid var(--brand); font-size: 14px; }
 
         @media (min-width: 768px) {
             .options-grid { grid-template-columns: repeat(3, 1fr); }
-            .date-time-grid { grid-template-columns: 1fr 1fr; }
             .tab-content { padding: 40px; }
         }
     </style>
@@ -117,72 +113,72 @@
 <div class="main-wrapper">
     <div id="tab-general" class="tab-content active">
         <div class="section-title">1. Patient Identification</div>
-        <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Enter Unique Code"></div>
+        <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Code"></div>
         <div class="form-group"><label>Patient Contact Number</label><input type="tel" id="p-phone" placeholder="09xxxxxxxxx"></div>
 
-        <div class="section-title">2. Clinical Services</div>
+        <div class="section-title">2. General Services</div>
         <div class="options-grid">
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Consultation"><span>Consultation</span></label>
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Laboratory"><span>Laboratory</span></label>
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Diagnostics"><span>Diagnostics</span></label>
         </div>
 
-        <div class="section-title">3. STI Management (Pen G)</div>
+        <div class="section-title">3. STI Treatment</div>
         <div class="options-grid">
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-1"><span>1st Dose</span></label>
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-2"><span>2nd Dose</span></label>
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-3"><span>3rd Dose</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-1"><span>1st Dose (PenG)</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-2"><span>2nd Dose (PenG)</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-3"><span>3rd Dose (PenG)</span></label>
         </div>
 
-        <div class="section-title">4. Preventive Immunizations</div>
+        <div class="section-title">4. Immunizations</div>
         <div class="options-grid">
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Fluvax"><span>Fluvax</span></label>
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Pneumovax"><span>Pneumovax</span></label>
         </div>
 
-        <div class="section-title">5. Appointment Scheduling</div>
-        <div class="date-time-grid">
+        <div class="section-title">5. Visit Scheduling</div>
+        <div class="date-time-container">
             <div class="form-group"><label>Preferred Date</label><input type="date" id="v-date"></div>
             <div class="form-group"><label>Preferred Time</label><input type="time" id="v-time"></div>
         </div>
-        <div class="form-group"><label>Additional Clinical Notes</label><textarea id="p-notes" placeholder="Specify other concerns..." rows="3"></textarea></div>
+        <div class="form-group"><label>Additional Notes</label><textarea id="p-notes" placeholder="..." rows="3"></textarea></div>
 
-        <button class="submit-main" onclick="submitData('General')">Submit Clinical Request</button>
+        <button class="submit-main" onclick="submitData('General')">Submit Request</button>
     </div>
 
     <div id="tab-prep" class="tab-content">
-        <div class="section-title">Step 1: Preliminary Screening</div>
-        <p style="font-weight:600;">1. Have you obtained a laboratory-confirmed HIV Negative result within the last 7 days?</p>
+        <div class="section-title">Step 1: Clinical Eligibility</div>
+        <p>1. Have you received a laboratory-confirmed HIV Negative result within the last 7 days?</p>
         <div class="choice-row">
-            <div class="choice-btn" id="q1y" onclick="gate(true)">Confirmed Negative</div>
-            <div class="choice-btn" id="q1n" onclick="gate(false)">No/Pending Result</div>
+            <div class="choice-btn" id="q1y" onclick="gate(true)">Yes, Confirmed</div>
+            <div class="choice-btn" id="q1n" onclick="gate(false)">No/Not Yet</div>
         </div>
 
         <div id="prep-all" style="display:none;">
-            <div class="section-title">Step 2: Clinical Risk & Renal Assessment</div>
+            <div class="section-title">Step 2: Medical & Risk Assessment</div>
             
-            <p style="font-weight:600;">2. Have you completed a Creatinine (Renal Function) screening in the last 3 months?</p>
+            <p>2. Have you completed a Serum Creatinine (Kidney Function) test within the last 3 months?</p>
             <div class="choice-row"><div class="choice-btn" id="q2y" onclick="setPrEP(2,'yes')">Yes</div><div class="choice-btn" id="q2n" onclick="setPrEP(2,'no')">No</div></div>
             
-            <p style="font-weight:600;">3. Have you engaged in condomless sexual intercourse in the past 6 months?</p>
-            <div class="choice-row"><div class="choice-btn" id="q3y" onclick="setPrEP(3,'yes')">Yes</div><div class="choice-btn" id="q3n" onclick="setPrEP(3,'no')">No</div></div>
+            <p>3. In the past 6 months, have you engaged in sexual activity where a condom was not used?</p>
+            <div class="choice-row"><div class="choice-btn" id="q3y" onclick="setPrEP(3,'yes')">Yes</div><div class="choice-btn" id="q4n" onclick="setPrEP(3,'no')">No</div></div>
             
-            <p style="font-weight:600;">4. Have you been diagnosed or treated for any STI within the last 6 months?</p>
+            <p>4. Have you been diagnosed or treated for any Sexually Transmitted Infection (STI) in the last 6 months?</p>
             <div class="choice-row"><div class="choice-btn" id="q4y" onclick="setPrEP(4,'yes')">Yes</div><div class="choice-btn" id="q4n" onclick="setPrEP(4,'no')">No</div></div>
             
-            <p style="font-weight:600;">5. To your knowledge, is your partner’s HIV status positive or currently unknown?</p>
+            <p>5. Is your current partner's HIV status either Positive or Unknown to you?</p>
             <div class="choice-row"><div class="choice-btn" id="q5y" onclick="setPrEP(5,'yes')">Yes</div><div class="choice-btn" id="q5n" onclick="setPrEP(5,'no')">No</div></div>
             
-            <p style="font-weight:600;">6. Do you find consistent and correct condom use challenging to maintain?</p>
+            <p>6. Do you encounter challenges in maintaining consistent condom use during sexual encounters?</p>
             <div class="choice-row"><div class="choice-btn" id="q6y" onclick="setPrEP(6,'yes')">Yes</div><div class="choice-btn" id="q6n" onclick="setPrEP(6,'no')">No</div></div>
 
-            <div id="prep-res" class="res-box" style="display:block; margin-top:20px;">
-                <b>Evaluation Summary</b>
-                <span id="prep-status-text">Please complete all assessment fields.</span>
+            <div id="prep-res" class="res-box" style="display:block;">
+                <b>Clinical Recommendation</b>
+                <span id="prep-status-text">Awaiting completion...</span>
             </div>
             
-            <div class="section-title">Step 3: Patient Information</div>
-            <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="prep-name" placeholder="Enter Code"></div>
+            <div class="section-title">Step 3: Contact Details</div>
+            <div class="form-group"><label>Patient Code</label><input type="text" id="prep-name" placeholder="Code"></div>
             <div class="form-group"><label>Patient Contact Number</label><input type="tel" id="prep-phone" placeholder="09xxxxxxxxx"></div>
             <button class="submit-main" onclick="submitData('PrEP')">Submit Assessment</button>
         </div>
@@ -190,20 +186,20 @@
     </div>
 
     <div id="tab-calc" class="tab-content">
-        <div class="section-title">Antiretroviral (ARV) Supply Calculator</div>
+        <div class="section-title">ARV Medication Supply Calculator</div>
         <div class="res-box" style="display:block; text-align:center;">
-            <b>Recommended Follow-up Visit</b>
-            <div id="calc-output" class="highlight-text">Calculate to view date</div>
+            <b>Next Recommended Visit</b>
+            <div id="calc-output" class="highlight-text">Enter details below</div>
         </div>
         <div class="form-group"><label>Date of Last Dispense</label><input type="date" id="c-date" oninput="runCalc()"></div>
-        <div class="form-group"><label>Total Quantity Dispensed (Pills)</label><input type="number" id="c-total" placeholder="0" oninput="runCalc()"></div>
-        <div class="form-group"><label>Remaining Pill Count (Current)</label><input type="number" id="c-left" placeholder="0" oninput="runCalc()"></div>
+        <div class="form-group"><label>Total Quantity (Pills)</label><input type="number" id="c-total" oninput="runCalc()"></div>
+        <div class="form-group"><label>Pills Remaining Today</label><input type="number" id="c-left" oninput="runCalc()"></div>
     </div>
 
     <div id="tab-staff" class="tab-content">
-        <div class="section-title">Clinical Queue Dashboard</div>
+        <div class="section-title">Patient Request Dashboard</div>
         <div id="staff-list"></div>
-        <button class="submit-main" style="background:#64748b; margin-top:20px;" onclick="clearLocal()">Clear Queue History</button>
+        <button class="submit-main" style="background:#64748b; margin-top:20px;" onclick="clearLocal()">Clear Dashboard History</button>
     </div>
 </div>
 
@@ -233,7 +229,7 @@
         document.getElementById('prep-all').style.display = v ? 'block' : 'none';
         const msg = document.getElementById('prep-gate-msg');
         msg.style.display = v ? 'none' : 'block';
-        if(!v) msg.innerHTML = "<b>Clinical Guidance:</b> PrEP eligibility requires a laboratory-confirmed HIV Negative result within 7 days. Please schedule testing first.";
+        if(!v) msg.innerHTML = "<b>Clinical Guidance:</b> Laboratory confirmation of HIV Negative status is a prerequisite for PrEP initiation.";
         document.getElementById('q1y').classList.toggle('selected', v);
         document.getElementById('q1n').classList.toggle('selected', !v);
     }
@@ -241,13 +237,14 @@
     function setPrEP(q, v) {
         prepAns[q] = v;
         document.querySelectorAll(`[id^='q${q}']`).forEach(b => b.classList.remove('selected'));
-        document.getElementById(`q${q}${v === 'yes' ? 'y' : 'n'}`).classList.add('selected');
+        const btnId = `q${q}${v === 'yes' ? 'y' : 'n'}`;
+        if(document.getElementById(btnId)) document.getElementById(btnId).classList.add('selected');
         
         const resText = document.getElementById('prep-status-text');
         if (prepAns[2] === 'no') {
-            resText.innerHTML = "✅ <span class='highlight-text'>Candidate for PrEP Initiation</span> <br>Profile suggests eligibility. However, a <b>Creatinine (Renal Function)</b> screening is required before medical clearance.";
+            resText.innerHTML = "✅ <span class='highlight-text'>Candidate for PrEP Initiation</span> <br>Based on your profile, you are a candidate for PrEP. However, a <b>Creatinine/Renal Function Test</b> is required before a physician can provide medical clearance.";
         } else if (Object.keys(prepAns).length >= 5) {
-            resText.innerHTML = "✅ <span class='highlight-text'>Candidate for Clinical Review</span> <br>Risk profile confirms eligibility for PrEP. Please submit to schedule your clinical consultation.";
+            resText.innerHTML = "✅ <span class='highlight-text'>Eligible for Consultation</span> <br>Your risk profile indicates a high clinical benefit from PrEP. Please submit your request to schedule a formal medical review.";
         }
     }
 
@@ -262,19 +259,16 @@
         }
     }
 
-    function unlockStaff() { if(prompt("Clinical Access PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
+    function unlockStaff() { if(prompt("Enter PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
 
     async function submitData(type) {
         const code = type === 'General' ? document.getElementById('p-code').value : document.getElementById('prep-name').value;
         const phone = type === 'General' ? document.getElementById('p-phone').value : document.getElementById('prep-phone').value;
-        const timeVal = type === 'General' ? document.getElementById('v-time').value : 'N/A';
-        const dateVal = type === 'General' ? document.getElementById('v-date').value : 'N/A';
-
         if(!code || !phone) return alert("Required: Patient Code and Contact Number.");
 
         const details = type === 'General' ? 
-            `Services: ${Array.from(document.querySelectorAll('.svc:checked')).map(c => c.value).join(', ')} | Date: ${dateVal} | Time: ${timeVal}` : 
-            `Clinical Survey: ${JSON.stringify(prepAns)}`;
+            `Services: ${Array.from(document.querySelectorAll('.svc:checked')).map(c => c.value).join(', ')} | Appt: ${document.getElementById('v-date').value} @ ${document.getElementById('v-time').value}` : 
+            `PrEP Risk Profile: ${JSON.stringify(prepAns)}`;
 
         const data = { type, code, phone, details, time: new Date().toLocaleString() };
         submissions.unshift(data);
@@ -282,24 +276,24 @@
 
         try {
             await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
-            alert("Clinical request transmitted successfully.");
+            alert("Submission Received Successfully.");
             location.reload(); 
-        } catch(e) { alert("Stored locally. Connection error."); }
+        } catch(e) { alert("Saved locally. Connection error."); }
     }
 
     function renderDashboard() {
         const list = document.getElementById('staff-list');
         list.innerHTML = submissions.map(s => `
             <div class="staff-item">
-                <div style="display:flex; justify-content:space-between"><b>${s.code}</b> <span style="font-weight:700; color:var(--brand)">${s.type}</span></div>
+                <div style="display:flex; justify-content:space-between"><b>${s.code}</b> <span>${s.type}</span></div>
                 <div>Contact: ${s.phone}</div>
-                <div style="color:#2b2d42; margin:5px 0; font-style:italic;">${s.details}</div>
+                <div style="color:#4361ee; margin:5px 0;">${s.details}</div>
                 <small style="color:#94a3b8;">${s.time}</small>
             </div>
-        `).join('') || "<p style='text-align:center;'>No clinical requests in queue.</p>";
+        `).join('') || "<p style='text-align:center;'>No records found.</p>";
     }
 
-    function clearLocal() { if(confirm("Permanently clear dashboard records?")) { submissions = []; localStorage.removeItem('tdmh_subs'); renderDashboard(); } }
+    function clearLocal() { if(confirm("Permanently clear dashboard history?")) { submissions = []; localStorage.removeItem('tdmh_subs'); renderDashboard(); } }
 </script>
 </body>
 </html>

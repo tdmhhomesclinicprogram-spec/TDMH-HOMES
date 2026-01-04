@@ -74,8 +74,7 @@
         .highlight-text { color: var(--brand); font-weight: 700; font-size: 1.1em; display: block; margin: 5px 0; }
 
         .submit-main { background: var(--brand); color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 700; font-size: 17px; cursor: pointer; margin-top: 10px; transition: opacity 0.2s; }
-        .submit-main:active { opacity: 0.8; }
-
+        
         .choice-row { display: flex; gap: 10px; margin-top: 10px; }
         .choice-btn { flex: 1; padding: 15px; border: 2px solid var(--border); border-radius: 12px; text-align: center; font-weight: 700; background: #fff; cursor: pointer; transition: 0.2s; }
         .choice-btn.selected { background: var(--brand); color: white; border-color: var(--brand); }
@@ -85,6 +84,7 @@
         @media (min-width: 768px) {
             .options-grid { grid-template-columns: repeat(3, 1fr); }
             .tab-content { padding: 40px; }
+            .date-time-row { display: flex; gap: 15px; }
         }
     </style>
 </head>
@@ -116,8 +116,8 @@
 <div class="main-wrapper">
     <div id="tab-general" class="tab-content active">
         <div class="section-title">1. Patient Identification</div>
-        <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Code"></div>
-        <div class="form-group"><label>Mobile Number</label><input type="tel" id="p-phone" placeholder="09xxxxxxxxx"></div>
+        <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Unique Code"></div>
+        <div class="form-group"><label>Patient Contact Number</label><input type="tel" id="p-phone" placeholder="09xxxxxxxxx"></div>
 
         <div class="section-title">2. General Services</div>
         <div class="options-grid">
@@ -140,7 +140,10 @@
         </div>
 
         <div class="section-title">5. Visit Scheduling</div>
-        <div class="form-group"><label>Preferred Date</label><input type="date" id="v-date"></div>
+        <div class="date-time-row">
+            <div class="form-group"><label>Preferred Date</label><input type="date" id="v-date"></div>
+            <div class="form-group"><label>Preferred Time</label><input type="time" id="v-time"></div>
+        </div>
         <div class="form-group"><label>Notes</label><textarea id="p-notes" placeholder="Additional details..." rows="3"></textarea></div>
 
         <button class="submit-main" onclick="submitData('General')">Submit Request</button>
@@ -158,16 +161,12 @@
             <div class="section-title">Step 2: Risk & Renal Health</div>
             <p>2. Creatinine (Kidney) test done recently?</p>
             <div class="choice-row"><div class="choice-btn" id="q2y" onclick="setPrEP(2,'yes')">Yes</div><div class="choice-btn" id="q2n" onclick="setPrEP(2,'no')">No</div></div>
-            
             <p>3. Condomless sex in past 6 months?</p>
             <div class="choice-row"><div class="choice-btn" id="q3y" onclick="setPrEP(3,'yes')">Yes</div><div class="choice-btn" id="q3n" onclick="setPrEP(3,'no')">No</div></div>
-            
             <p>4. Treated for STI in last 6 months?</p>
             <div class="choice-row"><div class="choice-btn" id="q4y" onclick="setPrEP(4,'yes')">Yes</div><div class="choice-btn" id="q4n" onclick="setPrEP(4,'no')">No</div></div>
-            
             <p>5. Partner HIV+ or status unknown?</p>
             <div class="choice-row"><div class="choice-btn" id="q5y" onclick="setPrEP(5,'yes')">Yes</div><div class="choice-btn" id="q5n" onclick="setPrEP(5,'no')">No</div></div>
-            
             <p>6. Difficult to use condoms consistently?</p>
             <div class="choice-row"><div class="choice-btn" id="q6y" onclick="setPrEP(6,'yes')">Yes</div><div class="choice-btn" id="q6n" onclick="setPrEP(6,'no')">No</div></div>
 
@@ -176,7 +175,9 @@
                 <span id="prep-status-text">Complete questions for assessment.</span>
             </div>
             
-            <div class="form-group" style="margin-top:20px;"><label>Patient Code</label><input type="text" id="prep-name"></div>
+            <div class="section-title">Step 3: Contact Details</div>
+            <div class="form-group"><label>Patient Code</label><input type="text" id="prep-name" placeholder="Unique Code"></div>
+            <div class="form-group"><label>Patient Contact Number</label><input type="tel" id="prep-phone" placeholder="09xxxxxxxxx"></div>
             <button class="submit-main" onclick="submitData('PrEP')">Submit Assessment</button>
         </div>
         <div id="prep-gate-msg" class="res-box"></div>
@@ -195,10 +196,8 @@
 
     <div id="tab-staff" class="tab-content">
         <div class="section-title">Patient Request Dashboard</div>
-        <div id="staff-list">
-            <p style="text-align:center; color:#666;">No recent submissions.</p>
-        </div>
-        <button class="submit-main" style="background:#64748b; margin-top:20px;" onclick="clearLocal()">Clear Local List</button>
+        <div id="staff-list"></div>
+        <button class="submit-main" style="background:#64748b; margin-top:20px;" onclick="clearLocal()">Clear Dashboard History</button>
     </div>
 </div>
 
@@ -218,7 +217,6 @@
 
     function toggleTheme() { document.body.classList.toggle('pride-mode'); }
 
-    // ROBUST HIGHLIGHT LOGIC FOR IPAD
     function toggleSelection(el) {
         const cb = el.querySelector('input');
         cb.checked = !cb.checked;
@@ -229,23 +227,21 @@
         document.getElementById('prep-all').style.display = v ? 'block' : 'none';
         const msg = document.getElementById('prep-gate-msg');
         msg.style.display = v ? 'none' : 'block';
-        if(!v) msg.innerHTML = "<b>PrEP Ineligible:</b> You must have a confirmed HIV Negative test result within the last 7 days.";
+        if(!v) msg.innerHTML = "<b>PrEP Ineligible:</b> HIV Negative status required.";
         document.getElementById('q1y').classList.toggle('selected', v);
         document.getElementById('q1n').classList.toggle('selected', !v);
     }
 
-    // UPDATED PREP RECOMMENDATION LOGIC
     function setPrEP(q, v) {
         prepAns[q] = v;
         document.querySelectorAll(`[id^='q${q}']`).forEach(b => b.classList.remove('selected'));
         document.getElementById(`q${q}${v === 'yes' ? 'y' : 'n'}`).classList.add('selected');
         
         const resText = document.getElementById('prep-status-text');
-        
         if (prepAns[2] === 'no') {
-            resText.innerHTML = "✅ <span class='highlight-text'>Candidate for PrEP</span> <br>You are a candidate, but a <b>Creatinine (Kidney) Test</b> is required before medical clearance. Please schedule a lab test.";
+            resText.innerHTML = "✅ <span class='highlight-text'>Candidate for PrEP</span> <br>You are a candidate, but a <b>Creatinine (Kidney) Test</b> is required before medical clearance.";
         } else if (Object.keys(prepAns).length >= 5) {
-            resText.innerHTML = "✅ <span class='highlight-text'>Ready for PrEP</span> <br>You are a strong candidate. Please submit to schedule your doctor's consultation.";
+            resText.innerHTML = "✅ <span class='highlight-text'>Ready for PrEP</span> <br>Candidate profile confirmed. Please submit to proceed.";
         }
     }
 
@@ -260,41 +256,49 @@
         }
     }
 
-    function unlockStaff() { if(prompt("Enter Staff PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
+    function unlockStaff() { if(prompt("PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
 
     async function submitData(type) {
         const code = type === 'General' ? document.getElementById('p-code').value : document.getElementById('prep-name').value;
-        if(!code) return alert("Missing Patient Code");
+        const phone = type === 'General' ? document.getElementById('p-phone').value : document.getElementById('prep-phone').value;
+        const timeVal = type === 'General' ? document.getElementById('v-time').value : 'N/A';
+        
+        if(!code || !phone) return alert("Please fill in Code and Phone Number.");
 
         const details = type === 'General' ? 
-            Array.from(document.querySelectorAll('.svc:checked')).map(c => c.value).join(', ') : 
-            Object.entries(prepAns).map(([k,v]) => `Q${k}:${v}`).join(' | ');
+            `Services: ${Array.from(document.querySelectorAll('.svc:checked')).map(c => c.value).join(', ')} | Time: ${timeVal}` : 
+            `PrEP Survey: ${JSON.stringify(prepAns)}`;
 
-        const data = { type, code, details, time: new Date().toLocaleString() };
-        
+        const data = { type, code, phone, details, time: new Date().toLocaleString() };
         submissions.unshift(data);
         localStorage.setItem('tdmh_subs', JSON.stringify(submissions));
 
         try {
             await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
-            alert("Data Sent to TDMH HOMES Cloud.");
-            if(type === 'General') document.querySelectorAll('.svc').forEach(c => { c.checked = false; c.parentElement.classList.remove('selected-opt'); });
+            alert("Sent Successfully!");
+            resetForms();
         } catch(e) { alert("Stored locally. Connection error."); }
+    }
+
+    function resetForms() {
+        document.querySelectorAll('input:not([type="button"]), textarea').forEach(i => i.value = '');
+        document.querySelectorAll('.selected-opt').forEach(el => el.classList.remove('selected-opt'));
+        document.querySelectorAll('.svc').forEach(c => c.checked = false);
     }
 
     function renderDashboard() {
         const list = document.getElementById('staff-list');
-        if(submissions.length === 0) { list.innerHTML = "<p style='text-align:center;'>No requests.</p>"; return; }
         list.innerHTML = submissions.map(s => `
             <div class="staff-item">
                 <div style="display:flex; justify-content:space-between"><b>${s.code}</b> <span>${s.type}</span></div>
+                <div>Contact: ${s.phone}</div>
                 <div style="color:#4361ee; margin:5px 0;">${s.details}</div>
                 <small style="color:#94a3b8;">${s.time}</small>
             </div>
-        `).join('');
+        `).join('') || "<p style='text-align:center;'>No records.</p>";
     }
 
-    function clearLocal() { if(confirm("Clear local dashboard?")) { submissions = []; localStorage.removeItem('tdmh_subs'); renderDashboard(); } }
+    function clearLocal() { if(confirm("Clear dashboard?")) { submissions = []; localStorage.removeItem('tdmh_subs'); renderDashboard(); } }
 </script>
 </body>
 </html>

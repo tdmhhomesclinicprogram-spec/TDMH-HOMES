@@ -8,62 +8,60 @@
     <style>
         :root {
             --brand: #4361ee; --brand-dark: #3f37c9; --accent: #f72585;
-            --bg: #f8f9fc; --card: #ffffff; --text: #2b2d42;
-            --success: #00d1b2; --warning: #ffb703; --danger: #ef4444; --border: #e2e8f0;
+            --bg: #f1f5f9; --card: #ffffff; --text: #1e293b;
+            --success: #10b981; --border: #cbd5e1;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Fredoka', sans-serif; background-color: var(--bg); margin: 0; color: var(--text); padding-bottom: 100px; line-height: 1.5; }
+        body { font-family: 'Fredoka', sans-serif; background-color: var(--bg); margin: 0; color: var(--text); padding-bottom: 50px; }
 
-        header { position: fixed; top: 0; left: 0; width: 100%; z-index: 2000; background: var(--card); box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
-        nav { padding: 12px 5%; max-width: 1200px; margin: 0 auto; }
+        /* HEADER & NAVIGATION */
+        header { position: fixed; top: 0; left: 0; width: 100%; z-index: 2000; background: var(--card); border-bottom: 2px solid var(--border); }
+        nav { padding: 10px 5%; max-width: 1200px; margin: 0 auto; }
         .nav-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .logo { font-size: 20px; font-weight: 700; color: var(--brand); }
-        
-        .nav-menu { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; -webkit-overflow-scrolling: touch; }
-        .nav-btn { flex: 1; min-width: 100px; background: #f1f5f9; border: none; font-size: 12px; font-weight: 600; cursor: pointer; color: #64748b; padding: 12px 8px; border-radius: 12px; transition: 0.3s; }
-        .nav-btn.active { color: white; background: var(--brand); box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3); }
+        .logo { font-size: 22px; font-weight: 700; color: var(--brand); letter-spacing: -1px; }
+        .nav-menu { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .nav-btn { flex: 1; min-width: 110px; background: #e2e8f0; border: none; font-size: 13px; font-weight: 600; cursor: pointer; color: #475569; padding: 12px; border-radius: 10px; transition: 0.2s; }
+        .nav-btn.active { color: white; background: var(--brand); }
 
-        .hero { margin-top: 135px; background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); padding: 40px 20px 60px; text-align: center; color: white; border-bottom-right-radius: 60px; }
-        .main-wrapper { max-width: 850px; margin: -40px auto 40px; padding: 0 15px; position: relative; z-index: 10; }
-        
-        .tab-content { background: var(--card); border-radius: 30px; padding: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+        /* HERO SECTION */
+        .hero { margin-top: 130px; background: var(--brand); padding: 30px 20px; text-align: center; color: white; }
+        .main-wrapper { max-width: 900px; margin: 20px auto; padding: 0 15px; }
 
-        /* INPUTS & LABELS FOR MOBILE/IPAD */
-        .form-group { margin-bottom: 25px; display: flex; flex-direction: column; }
-        label { font-weight: 700; color: #4a5568; display: block; margin-bottom: 12px; font-size: 14px; }
-        
+        /* CARDS & CONTAINERS */
+        .section-card { background: var(--card); border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 20px; border: 1px solid var(--border); }
+        .section-title { font-size: 16px; font-weight: 700; color: var(--brand); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
+
+        /* FORMS & LABELS */
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; font-size: 14px; color: #64748b; margin-bottom: 8px; }
         input, select, textarea { 
-            width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); 
-            font-family: inherit; font-size: 16px; background: #fff; appearance: none;
+            width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #e2e8f0; 
+            font-family: inherit; font-size: 16px; background: #fff; transition: 0.2s;
         }
+        input:focus { border-color: var(--brand); outline: none; background: #f8faff; }
 
-        .doc-box { background: #eff6ff; padding: 18px; border-radius: 20px; margin-bottom: 25px; border: 1px solid #bfdbfe; }
-        .doc-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; color: #1e40af; }
-
-        /* HIGHLIGHT OPTIONS */
-        .options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin: 10px 0 25px; }
-        .card-opt { 
-            border: 2px solid var(--border); padding: 14px; border-radius: 14px; 
-            display: flex; align-items: center; gap: 10px; cursor: pointer; 
-            background: #fff; transition: 0.2s;
+        /* OPTION GRIDS */
+        .options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+        .check-box { 
+            border: 2px solid #e2e8f0; padding: 12px; border-radius: 12px; 
+            display: flex; align-items: center; gap: 10px; cursor: pointer; background: #fff; font-size: 13px; font-weight: 600;
         }
-        .card-opt:has(input:checked) { 
-            background: #eef2ff; border-color: var(--brand); box-shadow: 0 0 0 1px var(--brand);
-        }
-
-        .choice-btn { flex: 1; padding: 14px; border: 2px solid var(--border); border-radius: 12px; text-align: center; cursor: pointer; font-weight: 700; background: white; }
-        .choice-btn.selected { background: var(--brand); color: white; border-color: var(--brand); }
+        .check-box:has(input:checked) { background: #eff6ff; border-color: var(--brand); color: var(--brand); }
 
         /* STAFF DASHBOARD */
-        .staff-card { background: white; border: 1px solid #ddd; border-left: 6px solid var(--brand); padding: 20px; border-radius: 18px; margin-bottom: 15px; position: relative; }
-        .tag-container { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
-        .tag { background: #eef2ff; color: var(--brand); padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
-        .contact-link { color: var(--brand); font-weight: 700; text-decoration: none; border-bottom: 1px dashed var(--brand); }
-        .search-bar { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--brand); margin-bottom: 15px; font-family: inherit; }
+        .staff-card { border-left: 5px solid var(--brand); padding: 15px; margin-bottom: 15px; background: white; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .btn-action { padding: 10px; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; font-size: 12px; }
+        .btn-serve { background: var(--success); color: white; flex: 2; }
+        .btn-contact { background: var(--brand); color: white; flex: 1; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (min-width: 768px) {
+            .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -72,151 +70,173 @@
     <nav>
         <div class="nav-top">
             <div class="logo">🏥 TDMH HOMES</div>
-            <div onclick="unlockStaff()" style="cursor:pointer; font-size: 20px; opacity: 0.3;">🔒</div>
+            <div onclick="unlockStaff()" style="cursor:pointer; opacity: 0.1;">🔒</div>
         </div>
         <div class="nav-menu">
-            <button id="btn-refill" class="nav-btn active" onclick="tab('refill')">Refill</button>
-            <button id="btn-prep" class="nav-btn" onclick="tab('prep')">PrEP</button>
-            <button id="btn-calc" class="nav-btn" onclick="tab('calc')">ARV Calculator</button>
-            <button id="btn-staff" class="nav-btn" onclick="tab('staff')" style="display:none; color: var(--accent);">DASHBOARD</button>
+            <button id="btn-refill" class="nav-btn active" onclick="tab('refill')">Refill Request</button>
+            <button id="btn-prep" class="nav-btn" onclick="tab('prep')">PrEP Portal</button>
+            <button id="btn-calc" class="nav-btn" onclick="tab('calc')">Calculator</button>
+            <button id="btn-staff" class="nav-btn" onclick="tab('staff')" style="display:none; color:var(--accent);">DASHBOARD</button>
         </div>
     </nav>
 </header>
 
 <div class="hero">
-    <h1>Health Portal</h1>
-    <div style="font-weight: 600; opacity: 0.9;">HOMES CLINIC: 09209662447</div>
+    <h1 style="margin:0; font-size: 24px;">Patient Service Portal</h1>
+    <p style="margin:5px 0 0; opacity:0.8; font-size:14px;">HOMES CLINIC: 09209662447</p>
 </div>
 
 <div class="main-wrapper">
 
     <div id="tab-refill" class="tab-content active">
-        <div class="doc-box">
-            <div style="font-weight: 800; margin-bottom: 10px; color: var(--brand);">IDS CONSULTANT SCHEDULE</div>
-            <div class="doc-row"><b>Dr. L. Mariano</b> <span>Mon: 1:00 PM - 3:00 PM</span></div>
-            <div class="doc-row"><b>Dr. C.K.L. Rivera</b> <span>Thu: 3:00 PM - 5:00 PM</span></div>
-        </div>
-
-        <div class="form-group">
-            <label>Full Patient Name</label>
-            <input type="text" id="p-id" placeholder="Ex: Juan Dela Cruz">
-        </div>
-
-        <div class="form-group">
-            <label>Preferred Contact Mode</label>
-            <div class="choice-row" style="display:flex; gap:10px; margin-bottom:10px;">
-                <div class="choice-btn" id="contact-sms" onclick="setContact('SMS')">📱 SMS</div>
-                <div class="choice-btn" id="contact-email" onclick="setContact('Email')">📧 Email</div>
+        
+        <div class="section-card" style="background: #eff6ff; border-color: #bfdbfe;">
+            <div class="section-title">📅 IDS CONSULTANT SCHEDULE</div>
+            <div style="font-size: 14px; display:flex; justify-content:space-between; margin-bottom:5px;">
+                <b>Dr. L. Mariano</b> <span>Mon: 1:00 PM - 3:00 PM</span>
             </div>
-            <input type="text" id="p-contact-val" placeholder="Phone number or email">
+            <div style="font-size: 14px; display:flex; justify-content:space-between;">
+                <b>Dr. C.K.L. Rivera</b> <span>Thu: 3:00 PM - 5:00 PM</span>
+            </div>
         </div>
 
-        <label>Clinic Services Needed</label>
-        <div class="options-grid">
-            <label class="card-opt"><input type="checkbox" class="svc" value="Consultation"><span>Consultation</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Laboratory"><span>Lab Test</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Fluvax"><span>Fluvax</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Pneumovax"><span>Pneumovax</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Pen G 1st"><span>Pen G: 1st Dose</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Pen G 2nd"><span>Pen G: 2nd Dose</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Pen G 3rd"><span>Pen G: 3rd Dose</span></label>
+        <div class="section-card">
+            <div class="section-title">👤 Patient Information</div>
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="p-id" placeholder="Ex: Juan Dela Cruz">
+            </div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Contact Mode</label>
+                    <select id="p-contact-type" onchange="updateContactPlaceholder()">
+                        <option value="SMS">📱 SMS / Phone</option>
+                        <option value="Email">📧 Email</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Phone or Email Address</label>
+                    <input type="text" id="p-contact-val" placeholder="09XX-XXX-XXXX">
+                </div>
+            </div>
         </div>
 
-        <label>ARV Medication Options</label>
-        <div class="options-grid">
-            <label class="card-opt"><input type="checkbox" class="med" value="TLE"><span>TLE</span></label>
-            <label class="card-opt"><input type="checkbox" class="med" value="TLD"><span>TLD</span></label>
-            <label class="card-opt"><input type="checkbox" class="med" value="Dolutegravir"><span>Dolutegravir</span></label>
-            <label class="card-opt"><input type="checkbox" class="med" value="PrEP"><span>PrEP</span></label>
+        <div class="section-card">
+            <div class="section-title">💉 Clinical Procedures</div>
+            <label>STI Pen G Doses</label>
+            <div class="options-grid" style="margin-bottom:15px;">
+                <label class="check-box"><input type="checkbox" class="svc" value="PenG 1st"><span>1st Dose</span></label>
+                <label class="check-box"><input type="checkbox" class="svc" value="PenG 2nd"><span>2nd Dose</span></label>
+                <label class="check-box"><input type="checkbox" class="svc" value="PenG 3rd"><span>3rd Dose</span></label>
+            </div>
+            <label>Immunizations</label>
+            <div class="options-grid">
+                <label class="check-box"><input type="checkbox" class="svc" value="Fluvax"><span>Fluvax</span></label>
+                <label class="check-box"><input type="checkbox" class="svc" value="Pneumovax"><span>Pneumovax</span></label>
+                <label class="check-box"><input type="checkbox" class="svc" value="HepaB"><span>Hepa B</span></label>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label>Preferred Visit Date</label>
-            <input type="date" id="p-date">
+        <div class="section-card">
+            <div class="section-title">💊 Medication & Pharmacy</div>
+            <label>Select ARV Type</label>
+            <div class="options-grid" style="margin-bottom:20px;">
+                <label class="check-box"><input type="checkbox" class="med" value="TLE"><span>TLE</span></label>
+                <label class="check-box"><input type="checkbox" class="med" value="TLD"><span>TLD</span></label>
+                <label class="check-box"><input type="checkbox" class="med" value="Dolutegravir"><span>Dolutegravir</span></label>
+                <label class="check-box"><input type="checkbox" class="med" value="PrEP"><span>PrEP</span></label>
+            </div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Preferred Visit Date</label>
+                    <input type="date" id="p-date">
+                </div>
+                <div class="form-group">
+                    <label>Preferred Time</label>
+                    <select id="p-time">
+                        <option value="AM (8-12)">Morning (8AM-12PM)</option>
+                        <option value="PM (1-5)">Afternoon (1PM-5PM)</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label>Preferred Time</label>
-            <select id="p-time">
-                <option value="">Choose Time Slot</option>
-                <option value="AM (8:00 - 12:00)">Morning (8:00 AM - 12:00 PM)</option>
-                <option value="PM (1:00 - 4:00)">Afternoon (1:00 PM - 4:00 PM)</option>
-                <option value="1:00 PM (IDS Consult)">1:00 PM (IDS Consult Mon/Thu)</option>
-                <option value="3:00 PM (IDS Consult)">3:00 PM (IDS Consult Thu Only)</option>
-            </select>
+        <div class="section-card">
+            <div class="section-title">📝 Additional Details</div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Last Date of Refill</label>
+                    <input type="date" id="p-last-refill">
+                </div>
+                <div class="form-group">
+                    <label>Pills Left Today</label>
+                    <input type="number" id="p-remain" placeholder="0">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Other Clinical Concerns</label>
+                <textarea id="p-notes" rows="2" placeholder="Write any specific requests here..."></textarea>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label>Clinical Notes / Other Concerns</label>
-            <textarea id="p-notes" rows="3" placeholder="Write any specific requests here..."></textarea>
-        </div>
-
-        <button id="submit-btn" class="nav-btn active" style="width:100%; padding:20px; font-size:16px;" onclick="submitRefill()">Submit Official Request</button>
-    </div>
-
-    <div id="tab-prep" class="tab-content">
-        <h2 style="color: var(--brand); margin-top:0;">PrEP Eligibility Assessment</h2>
-        <label>1. HIV Negative (Tested within 7 days)?</label>
-        <div class="choice-row" style="display:flex; gap:10px; margin-bottom:15px;">
-            <div class="choice-btn" id="q1-y" onclick="gate(true)">YES</div>
-            <div class="choice-btn" id="q1-n" onclick="gate(false)">NO</div>
-        </div>
-        <div id="prep-all" style="display:none;">
-            <label>2. Kidney Function (CrCl) > 60?</label>
-            <div class="choice-row" style="margin-bottom:15px;"><div class="choice-btn" id="q2-y" onclick="setChoice('q2','yes')">YES</div><div class="choice-btn" id="q2-n" onclick="setChoice('q2','no')">NO</div></div>
-            <label>3. Condomless sex in 6 months?</label>
-            <div class="choice-row" style="margin-bottom:15px;"><div class="choice-btn" id="q3-y" onclick="setChoice('q3','yes')">YES</div><div class="choice-btn" id="q3-n" onclick="setChoice('q3','no')">NO</div></div>
-            <label>4. Recent STI treatment?</label>
-            <div class="choice-row" style="margin-bottom:15px;"><div class="choice-btn" id="q4-y" onclick="setChoice('q4','yes')">YES</div><div class="choice-btn" id="q4-n" onclick="setChoice('q4','no')">NO</div></div>
-            <label>5. Partner is HIV+ or Unknown Status?</label>
-            <div class="choice-row" style="margin-bottom:15px;"><div class="choice-btn" id="q5-y" onclick="setChoice('q5','yes')">YES</div><div class="choice-btn" id="q5-n" onclick="setChoice('q5','no')">NO</div></div>
-            <label>6. Difficulty using condoms consistently?</label>
-            <div class="choice-row" style="margin-bottom:15px;"><div class="choice-btn" id="q6-y" onclick="setChoice('q6','yes')">YES</div><div class="choice-btn" id="q6-n" onclick="setChoice('q6','no')">NO</div></div>
-        </div>
-        <div id="prep-res" style="display:none; padding:20px; border-radius:15px; margin-top:20px; border: 2px solid var(--brand); background: #f0f7ff;"></div>
+        <button id="submit-btn" class="nav-btn active" style="width:100%; padding:20px; font-size:16px; border-radius:15px;" onclick="submitRefill()">Submit Official Request</button>
     </div>
 
     <div id="tab-calc" class="tab-content">
-        <h2 style="color: var(--brand); margin-top:0;">ARV Refill Calculator</h2>
-        <div id="target-date" style="text-align:center; padding:30px; background:#f0f3ff; border:2px dashed var(--brand); border-radius:25px; margin-bottom:25px; font-weight:700; color:var(--brand);">Result will appear here</div>
-        <div class="form-group"><label>Date of Last Dispense</label><input type="date" id="c-date" oninput="runCalc()"></div>
-        <div class="form-group"><label>Pills Received (Total Quantity)</label><input type="number" id="c-total" oninput="runCalc()"></div>
-        <div class="form-group"><label>Pills Currently Remaining</label><input type="number" id="c-left" oninput="runCalc()"></div>
+        <div class="section-card">
+            <div class="section-title">🧮 ARV Predictor Calculator</div>
+            <div id="target-date" style="text-align:center; padding:30px; background:#f8fafc; border:2px dashed var(--brand); border-radius:15px; margin-bottom:20px; font-weight:700; color:var(--brand); font-size: 20px;">
+                Input details to see date
+            </div>
+            <div class="form-group"><label>Date of Last Dispense</label><input type="date" id="c-date" oninput="runCalc()"></div>
+            <div class="form-group"><label>Total Quantity Received</label><input type="number" id="c-total" placeholder="e.g. 30" oninput="runCalc()"></div>
+            <div class="form-group"><label>Pills Remaining at Refill Date</label><input type="number" id="c-left" placeholder="e.g. 5" oninput="runCalc()"></div>
+        </div>
+    </div>
+
+    <div id="tab-prep" class="tab-content">
+        <div class="section-card">
+            <div class="section-title">🛡️ PrEP Eligibility</div>
+            <p style="font-size:14px; color:#64748b;">Answer these 6 questions to check eligibility:</p>
+            <div id="prep-questions">
+                <div class="form-group">
+                    <label>1. HIV Negative (Tested within 7 days)?</label>
+                    <div style="display:flex; gap:10px;"><button class="nav-btn" onclick="this.style.background='var(--brand)'; this.style.color='white'">YES</button><button class="nav-btn">NO</button></div>
+                </div>
+                <p style="font-size:13px; font-style:italic;">Staff will verify the remaining clinical criteria (Kidney function, STI status, and Behavioral risk) during your visit.</p>
+            </div>
+        </div>
     </div>
 
     <div id="tab-staff" class="tab-content">
-        <h2 style="margin:0; color:var(--brand)">Active Queue</h2>
-        <input type="text" id="staffSearch" class="search-bar" placeholder="🔍 Search patient name..." oninput="updateStaffView()">
-        <div id="staff-list">Please refresh cloud...</div>
-        <button onclick="restoreDataFromSheet()" style="width:100%; padding:15px; margin-top:10px; background:#ddd; border:none; border-radius:12px; font-weight:700;">🔄 Refresh Cloud</button>
+        <div class="section-card">
+            <div class="section-title">👨‍⚕️ Staff Queue Management</div>
+            <input type="text" id="staffSearch" class="input" style="width:100%; padding:12px; margin-bottom:15px; border-radius:10px; border:2px solid var(--brand);" placeholder="🔍 Search patient name..." oninput="updateStaffView()">
+            <div id="staff-list">Loading queue...</div>
+            <button onclick="restoreDataFromSheet()" style="width:100%; margin-top:15px; padding:10px; border:none; background:#e2e8f0; border-radius:10px; font-weight:700; cursor:pointer;">🔄 Refresh Cloud Data</button>
+        </div>
     </div>
+
 </div>
 
 <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1wG9EH4Fu_KXeDWNAexnPJGASLfzoHi1EYYjRuccSGYr34ZrC-0TEzZI7csp5kP2P6Q/exec";
-    
     let db = [];
-    let currentContact = "SMS";
-    let prepChoices = {};
 
     function tab(t) {
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tab-' + t).classList.add('active');
         document.getElementById('btn-' + t).classList.add('active');
-    }
-
-    function setContact(type) {
-        currentContact = type;
-        document.getElementById('contact-sms').classList.toggle('selected', type === 'SMS');
-        document.getElementById('contact-email').classList.toggle('selected', type === 'Email');
+        window.scrollTo(0,0);
     }
 
     async function submitRefill() {
         const name = document.getElementById('p-id').value;
-        if(!name) return alert("Please enter your name.");
+        if(!name) return alert("Name is required.");
+        
         const btn = document.getElementById('submit-btn');
-        btn.disabled = true; btn.innerText = "Processing...";
+        btn.disabled = true; btn.innerText = "Submitting...";
 
         let svcs = []; document.querySelectorAll('.svc:checked').forEach(c => svcs.push(c.value));
         let meds = []; document.querySelectorAll('.med:checked').forEach(c => meds.push(c.value));
@@ -224,10 +244,12 @@
         const payload = {
             time: new Date().toLocaleString(),
             name: name,
-            contactType: currentContact,
+            contactType: document.getElementById('p-contact-type').value,
             contact: document.getElementById('p-contact-val').value,
             visitDate: document.getElementById('p-date').value,
             visitTime: document.getElementById('p-time').value,
+            lastRefill: document.getElementById('p-last-refill').value,
+            remain: document.getElementById('p-remain').value,
             services: svcs,
             meds: meds,
             notes: document.getElementById('p-notes').value
@@ -235,7 +257,7 @@
 
         try {
             await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
-            alert("Sent successfully! We will contact you shortly.");
+            alert("Success! Request sent to HOMES Clinic.");
             location.reload();
         } catch (e) {
             alert("Connection error.");
@@ -245,51 +267,53 @@
 
     async function restoreDataFromSheet() {
         const list = document.getElementById('staff-list');
-        list.innerHTML = "Syncing with Google Sheets...";
+        list.innerHTML = "Syncing...";
         try {
             const res = await fetch(SCRIPT_URL + "?action=getRequests");
             db = await res.json();
             updateStaffView();
-        } catch (e) { list.innerHTML = "Error loading queue. Check deployment settings."; }
+        } catch (e) { list.innerHTML = "Error loading queue. Check deployment."; }
     }
 
     function updateStaffView() {
-        const query = document.getElementById('staffSearch').value.toLowerCase();
+        const q = document.getElementById('staffSearch').value.toLowerCase();
         const list = document.getElementById('staff-list');
-        const filtered = db.filter(item => item.name.toLowerCase().includes(query));
+        const filtered = db.filter(i => i.name.toLowerCase().includes(q));
 
-        list.innerHTML = filtered.map((item, index) => {
-            const contactType = item.contactType === "Email" ? `mailto:${item.contact}` : `sms:${item.contact}`;
-            return `
+        list.innerHTML = filtered.map((item, index) => `
             <div class="staff-card">
-                <div style="font-size:10px; color:gray;">${item.time}</div>
-                <div style="font-size:18px; font-weight:700;">${item.name.toUpperCase()}</div>
+                <div style="font-size:11px; color:#64748b;">ID: ${item.time}</div>
+                <div style="font-size:18px; font-weight:700; margin-bottom:8px;">${item.name.toUpperCase()}</div>
+                <div style="font-size:13px; margin-bottom:10px;">
+                    📅 <b>${item.visitDate}</b> @ ${item.visitTime} <br>
+                    💊 Last: ${item.lastRefill} | Left: ${item.remain}
+                </div>
                 <div class="tag-container">
                     ${item.services.map(s => `<span class="tag">${s}</span>`).join('')}
                     ${item.meds.map(m => `<span class="tag" style="background:#fee2e2; color:#ef4444;">${m}</span>`).join('')}
                 </div>
-                <div style="font-size:13px; margin:5px 0;"><b>Visit:</b> ${item.visitDate} @ ${item.visitTime || 'TBD'}</div>
-                <div style="font-size:13px; margin-bottom:10px;"><b>Contact:</b> <a href="${contactType}" class="contact-link">${item.contact}</a></div>
-                <div style="font-size:12px; font-style:italic; padding:8px; background:#f8fafc; border-radius:8px; margin-bottom:10px;">Notes: ${item.notes}</div>
-                <button onclick="db.splice(${index},1); updateStaffView();" style="width:100%; background:var(--success); color:white; border:none; padding:12px; border-radius:10px; font-weight:700; cursor:pointer;">Mark as Served ✓</button>
+                <div style="display:flex; gap:10px; margin-top:15px;">
+                    <button class="btn-action btn-contact" onclick="window.open('tel:${item.contact}')">📞 Call</button>
+                    <button class="btn-action btn-serve" onclick="servePatient(${index})">Mark Served ✓</button>
+                </div>
             </div>
-        `}).join('') || "Queue empty.";
+        `).join('') || "Queue is empty.";
+    }
+
+    function servePatient(idx) {
+        if(confirm("Confirm patient served?")) {
+            db.splice(idx, 1);
+            updateStaffView();
+        }
     }
 
     function unlockStaff() {
-        if(prompt("Staff PIN:") === "1234") {
+        if(prompt("Enter Staff PIN:") === "1234") {
             document.getElementById('btn-staff').style.display = 'block';
             tab('staff');
             restoreDataFromSheet();
         }
     }
-
-    function gate(v) {
-        document.getElementById('prep-all').style.display = v ? 'block' : 'none';
-        if(!v) { document.getElementById('prep-res').style.display = 'block'; document.getElementById('prep-res').innerHTML = "An HIV Neg test result is required."; }
-    }
-
-    function setChoice(q, v) { prepChoices[q] = v; document.getElementById(q + '-y').classList.toggle('selected', v === 'yes'); document.getElementById(q + '-n').classList.toggle('selected', v === 'no'); }
 
     function runCalc() {
         const d = document.getElementById('c-date').value;
@@ -298,8 +322,13 @@
         if(d && t) {
             let target = new Date(d);
             target.setDate(target.getDate() + (t + l - 7));
-            document.getElementById('target-date').innerHTML = "Refill by:<br><span style='font-size:28px;'>" + target.toDateString() + "</span>";
+            document.getElementById('target-date').innerHTML = "Refill By:<br><span style='font-size:26px;'>" + target.toDateString() + "</span>";
         }
+    }
+
+    function updateContactPlaceholder() {
+        const type = document.getElementById('p-contact-type').value;
+        document.getElementById('p-contact-val').placeholder = type === "SMS" ? "09XX-XXX-XXXX" : "example@mail.com";
     }
 </script>
 </body>

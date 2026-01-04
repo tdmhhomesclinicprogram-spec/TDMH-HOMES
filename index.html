@@ -9,15 +9,15 @@
         :root {
             --brand: #4361ee; --brand-dark: #3f37c9;
             --bg: #f8f9fc; --card: #ffffff; --text: #2b2d42;
-            --border: #cbd5e1; --success: #00d1b2;
+            --border: #cbd5e1; --success: #00d1b2; --danger: #ef4444;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Fredoka', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 50px; }
+        body { font-family: 'Fredoka', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 50px; color: var(--text); }
         
         header { position: fixed; top: 0; width: 100%; z-index: 2000; background: var(--card); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         nav { padding: 10px 15px; max-width: 1200px; margin: 0 auto; }
         .nav-menu { display: flex; gap: 8px; overflow-x: auto; padding: 5px 0; }
-        .nav-btn { flex: 1; min-width: 110px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; color: #64748b; padding: 12px; border-radius: 10px; background: #f1f5f9; }
+        .nav-btn { flex: 1; min-width: 110px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; color: #64748b; padding: 12px; border-radius: 10px; background: #f1f5f9; white-space: nowrap; }
         .nav-btn.active { color: white; background: var(--brand); }
 
         .hero { margin-top: 110px; background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); padding: 30px 15px; text-align: center; color: white; border-bottom-right-radius: 40px; }
@@ -27,24 +27,24 @@
         .tab-content { background: var(--card); border-radius: 20px; padding: 25px; box-shadow: 0 5px 25px rgba(0,0,0,0.05); display: none; }
         .tab-content.active { display: block; }
 
-        /* IPAD OVERLAP PROTECTION: VERTICAL STACKING */
-        .form-group { margin-bottom: 25px; display: flex; flex-direction: column; width: 100%; }
-        label { font-weight: 700; color: #4a5568; margin-bottom: 8px; font-size: 15px; line-height: 1.4; }
-        input, select, textarea { width: 100%; padding: 16px; border-radius: 12px; border: 2px solid var(--border); font-family: inherit; font-size: 16px; background: #fff; }
+        .form-group { margin-bottom: 20px; display: flex; flex-direction: column; width: 100%; }
+        label { font-weight: 700; color: #4a5568; margin-bottom: 8px; font-size: 14px; }
+        input, select, textarea { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); font-family: inherit; font-size: 16px; background: #fff; outline: none; transition: 0.2s; }
+        input:focus { border-color: var(--brand); }
 
-        .section-title { font-size: 18px; font-weight: 700; color: var(--brand); margin: 30px 0 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 5px; }
+        .section-title { font-size: 17px; font-weight: 700; color: var(--brand); margin: 25px 0 12px; border-bottom: 2px solid #f1f5f9; padding-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* SERVICES GRID */
-        .options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 15px; }
-        .card-opt { border: 2px solid var(--border); padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 8px; cursor: pointer; background: #fff; font-size: 14px; font-weight: 500; }
-        .card-opt:has(input:checked) { background: #eef2ff; border-color: var(--brand); }
+        .options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 15px; }
+        .card-opt { border: 2px solid var(--border); padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 8px; cursor: pointer; background: #fff; font-size: 13px; font-weight: 600; }
+        .card-opt:has(input:checked) { background: #eef2ff; border-color: var(--brand); color: var(--brand); }
 
-        /* PREP QUESTIONS */
         .choice-btn { flex: 1; padding: 15px; border: 2px solid var(--border); border-radius: 12px; text-align: center; cursor: pointer; font-weight: 700; background: white; transition: 0.2s; }
         .choice-btn.selected { background: var(--brand); color: white; border-color: var(--brand); }
 
-        .res-box { padding: 20px; border-radius: 15px; margin: 20px 0; border-left: 5px solid var(--brand); background: #f0f7ff; font-size: 14px; line-height: 1.6; display: none; }
-        .submit-main { background: var(--brand); color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 10px; }
+        .res-box { padding: 15px; border-radius: 12px; margin: 15px 0; border-left: 5px solid var(--brand); background: #f0f7ff; font-size: 13px; line-height: 1.5; display: none; }
+        .privacy-note { font-size: 11px; color: #94a3b8; text-align: center; margin-top: 20px; line-height: 1.4; padding: 10px; border: 1px dashed var(--border); border-radius: 10px; }
+        
+        .submit-main { background: var(--brand); color: white; width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3); }
         .staff-card { border: 2px solid #eef2ff; border-left: 6px solid var(--brand); padding: 15px; border-radius: 15px; margin-bottom: 15px; background: white; }
     </style>
 </head>
@@ -57,7 +57,7 @@
                 <button id="btn-general" class="nav-btn active" onclick="tab('general')">General Services</button>
                 <button id="btn-prep" class="nav-btn" onclick="tab('prep')">PrEP Assessment</button>
                 <button id="btn-calc" class="nav-btn" onclick="tab('calc')">ARV Calculator</button>
-                <button id="btn-staff" class="nav-btn" onclick="tab('staff')" style="display:none; background:#ff4757; color:white;">DASHBOARD</button>
+                <button id="btn-staff" class="nav-btn" onclick="tab('staff')" style="display:none; background:var(--danger); color:white;">DASHBOARD</button>
             </div>
             <div onclick="unlockStaff()" style="cursor:pointer; padding:10px; opacity:0.3;">🔒</div>
         </div>
@@ -73,23 +73,23 @@
 
 <div class="main-wrapper">
 
-    <div id="tab-refill" class="tab-content active">
+    <div id="tab-general" class="tab-content active">
         <div class="section-title">1. Patient Contact</div>
-        <div class="form-group"><label>HOMES Patient Code </label><input type="text" id="p-code" placeholder="Enter code"></div>
-        <div class="form-group"><label>Mobile Number</label><input type="tel" id="p-phone" placeholder="09123456789"></div>
+        <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Enter patient code"></div>
+        <div class="form-group"><label>Mobile Number</label><input type="tel" id="p-phone" placeholder="09XXXXXXXXX"></div>
 
-        <div class="section-title">2. Consultations & Lab</div>
+        <div class="section-title">2. Clinical Services</div>
         <div class="options-grid">
             <label class="card-opt"><input type="checkbox" class="svc" value="Consult"><span>Consultation</span></label>
             <label class="card-opt"><input type="checkbox" class="svc" value="Lab"><span>Laboratory</span></label>
             <label class="card-opt"><input type="checkbox" class="svc" value="Diag"><span>Diagnostics</span></label>
         </div>
 
-        <div class="section-title">3. STI Pen G Dose</div>
+        <div class="section-title">3. STI Treatment & Dosing</div>
         <div class="options-grid">
-            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-1"><span>1st Dose</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-2"><span>2nd Dose</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-3"><span>3rd Dose</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-1"><span>PenG 1st</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-2"><span>PenG 2nd</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-3"><span>PenG 3rd</span></label>
         </div>
 
         <div class="section-title">4. Immunizations</div>
@@ -98,19 +98,21 @@
             <label class="card-opt"><input type="checkbox" class="svc" value="Pneumovax"><span>Pneumovax</span></label>
         </div>
 
-        <div class="section-title">5. ARV Status & Visit</div>
-        <div class="form-group"><label>Last Dispense Date</label><input type="date" id="p-last-date"></div>
-        <div class="form-group"><label>Remaining Pills Today</label><input type="number" id="p-rem" placeholder="0"></div>
+        <div class="section-title">5. Scheduling</div>
         <div class="form-group"><label>Preferred Visit Date</label><input type="date" id="v-date"></div>
         <div class="form-group"><label>Preferred Visit Time</label><input type="time" id="v-time"></div>
+        
+        <div class="section-title">6. Additional Notes (Optional)</div>
+        <div class="form-group"><textarea id="p-notes" rows="3" placeholder="Any specific requests or symptoms..."></textarea></div>
 
-        <button class="submit-main" id="refill-sub" onclick="submitData('Refill')">Submit Request</button>
+        <button class="submit-main" id="refill-sub" onclick="submitData('General')">Submit Request</button>
+        <p class="privacy-note">🔒 <b>Confidentiality Notice:</b> All information provided is strictly confidential and used only for medical scheduling under TDMH HOMES privacy protocols.</p>
     </div>
 
     <div id="tab-prep" class="tab-content">
-        <div class="section-title">Step 1: HIV Status</div>
+        <div class="section-title">Step 1: HIV Status Check</div>
         <div class="form-group">
-            <label>1. Have you tested HIV Negative within the last 7 days?</label>
+            <label>Have you tested HIV Negative within the last 7 days?</label>
             <div style="display:flex; gap:10px;">
                 <div class="choice-btn" id="q1y" onclick="gate(true)">YES</div>
                 <div class="choice-btn" id="q1n" onclick="gate(false)">NO</div>
@@ -118,9 +120,9 @@
         </div>
 
         <div id="prep-all" style="display:none;">
-            <div class="section-title">Step 2: Risk & Kidney Evaluation</div>
+            <div class="section-title">Step 2: Risk Evaluation</div>
             <div class="form-group">
-                <label>2. Have you had a Kidney Function Test (Creatinine) recently?</label>
+                <label>2. Have you had a Kidney Function (Creatinine) test recently?</label>
                 <div style="display:flex; gap:10px;"><div class="choice-btn" id="q2y" onclick="setPrEP(2,'yes')">YES</div><div class="choice-btn" id="q2n" onclick="setPrEP(2,'no')">NO</div></div>
             </div>
             <div class="form-group">
@@ -140,10 +142,11 @@
                 <div style="display:flex; gap:10px;"><div class="choice-btn" id="q6y" onclick="setPrEP(6,'yes')">YES</div><div class="choice-btn" id="q6n" onclick="setPrEP(6,'no')">NO</div></div>
             </div>
 
-            <div id="prep-res" class="res-box" style="display:block;">Please complete all 6 questions for a recommendation.</div>
+            <div id="prep-res" class="res-box" style="display:block;">Complete questions for clinical recommendation.</div>
 
-            <div class="form-group"><label>Patient Name</label><input type="text" id="prep-name" placeholder="Name"></div>
+            <div class="form-group"><label>Full Name</label><input type="text" id="prep-name" placeholder="Name"></div>
             <div class="form-group"><label>Mobile Number</label><input type="tel" id="prep-phone" placeholder="09XXXXXXXXX"></div>
+            <div class="form-group"><label>Additional Client Notes</label><textarea id="prep-notes" rows="2" placeholder="Notes for the counselor..."></textarea></div>
             <button class="submit-main" id="prep-sub" onclick="submitData('PrEP')">Submit PrEP Request</button>
         </div>
         <div id="prep-gate-msg" class="res-box"></div>
@@ -151,16 +154,17 @@
 
     <div id="tab-calc" class="tab-content">
         <div class="section-title">ARV Refill Calculator</div>
-        <div id="calc-res" class="res-box" style="text-align:center; display:block;">Enter data to calculate visit date</div>
+        <div id="calc-res" class="res-box" style="text-align:center; display:block;">Enter meds status below</div>
         <div class="form-group"><label>Date of Last Dispense</label><input type="date" id="c-date" oninput="runCalc()"></div>
-        <div class="form-group"><label>Total Meds Received</label><input type="number" id="c-total" placeholder="30" oninput="runCalc()"></div>
+        <div class="form-group"><label>Total Quantity Received</label><input type="number" id="c-total" placeholder="30" oninput="runCalc()"></div>
         <div class="form-group"><label>Pills Left Today</label><input type="number" id="c-left" placeholder="5" oninput="runCalc()"></div>
     </div>
 
     <div id="tab-staff" class="tab-content">
-        <div class="section-title">Active Patient Queue</div>
-        <div id="staff-list"><p style="text-align:center; color:gray;">Syncing data requires Master PIN...</p></div>
-        <button onclick="syncQueue()" class="submit-main" style="background:#6c757d;">🔄 Refresh Queue</button>
+        <div class="section-title" style="color:var(--danger)">🔒 Staff-Only Patient Queue</div>
+        <p style="font-size:11px; color:gray; margin-bottom:15px;">Maintain patient confidentiality. Exit dashboard when not in use.</p>
+        <div id="staff-list"></div>
+        <button onclick="syncQueue()" class="submit-main" style="background:#6c757d;">🔄 Sync Fresh Records</button>
     </div>
 </div>
 
@@ -171,39 +175,46 @@
     function tab(t) {
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('tab-' + t).classList.add('active');
+        const contentId = (t === 'general') ? 'tab-general' : 'tab-' + t;
+        document.getElementById(contentId).classList.add('active');
         document.getElementById('btn-' + t).classList.add('active');
     }
 
     async function submitData(type) {
-        const btn = type === 'Refill' ? document.getElementById('refill-sub') : document.getElementById('prep-sub');
-        const name = type === 'Refill' ? document.getElementById('p-name').value : document.getElementById('prep-name').value;
-        const phone = type === 'Refill' ? document.getElementById('p-phone').value : document.getElementById('prep-phone').value;
+        const btn = type === 'General' ? document.getElementById('refill-sub') : document.getElementById('prep-sub');
+        const name = type === 'General' ? document.getElementById('p-code').value : document.getElementById('prep-name').value;
+        const phone = type === 'General' ? document.getElementById('p-phone').value : document.getElementById('prep-phone').value;
+        const notes = type === 'General' ? document.getElementById('p-notes').value : document.getElementById('prep-notes').value;
 
-        if(!name || !phone) return alert("Required: Name & Phone");
-        btn.disabled = true; btn.innerText = "Sending...";
+        if(!name || !phone) return alert("Required: Code/Name & Phone");
+        btn.disabled = true; btn.innerText = "Processing...";
 
         let svcs = []; document.querySelectorAll('.svc:checked').forEach(c => svcs.push(c.value));
+        
         const payload = {
-            time: new Date().toLocaleString(), type: type, name: name, contact: phone, services: svcs,
-            lastRefill: document.getElementById('p-last-date')?.value || "",
-            pillsLeft: document.getElementById('p-rem')?.value || "0",
+            time: new Date().toLocaleString(), 
+            type: type, 
+            name: name, 
+            contact: phone, 
+            services: svcs.join(", "),
+            notes: notes,
             visitDate: document.getElementById('v-date')?.value || "",
             visitTime: document.getElementById('v-time')?.value || ""
         };
 
         try {
             await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
-            alert("Submission Successful!");
+            alert("Submission Received. We will contact you shortly.");
             location.reload();
-        } catch (e) { alert("Server error."); btn.disabled = false; }
+        } catch (e) { alert("Error connecting to server."); btn.disabled = false; }
     }
 
+    // PrEP Logic
     function gate(v) {
         document.getElementById('prep-all').style.display = v ? 'block' : 'none';
         const msg = document.getElementById('prep-gate-msg');
         msg.style.display = v ? 'none' : 'block';
-        if(!v) msg.innerHTML = "<b>Action Required:</b> To proceed with PrEP, an HIV Negative result (within 7 days) is mandatory. Visit TDMH for testing.";
+        if(!v) msg.innerHTML = "<b>Clinical Requirement:</b> An HIV Negative result (within 7 days) is mandatory to start PrEP. Please visit TDMH for testing.";
         document.getElementById('q1y').classList.toggle('selected', v);
         document.getElementById('q1n').classList.toggle('selected', !v);
     }
@@ -217,77 +228,57 @@
 
     function evaluatePrEP() {
         const res = document.getElementById('prep-res');
-        res.style.display = 'block';
         if(prepAns[2] === 'no') {
-            res.innerHTML = "<b>Recommendation:</b> A <b>Creatinine Blood Test</b> is required before starting PrEP to check kidney health. Please visit TDMH (Mon-Fri).";
-        } else if (prepAns[3]==='no' && prepAns[4]==='no' && prepAns[5]==='no' && prepAns[6]==='no') {
-            res.innerHTML = "<b>Clinical Profile:</b> Based on responses, you appear to be at <b>Low Risk</b>. PrEP is still an option—submit your details for a consult.";
-        } else if (Object.keys(prepAns).length >= 5) {
-            res.innerHTML = "<b>Eligibility Met:</b> You are a candidate for PrEP. Please submit your name and phone to schedule your initiation.";
+            res.innerHTML = "<b>Recommendation:</b> A Creatinine Blood Test is needed. Please visit TDMH.";
+        } else {
+            res.innerHTML = "<b>Assessment:</b> Based on your responses, you are eligible for a PrEP consultation. Please submit your details below.";
         }
     }
 
+    // Dashboard Logic
     async function syncQueue() {
-    const list = document.getElementById('staff-list');
-    list.innerHTML = "<p style='text-align:center;'>🔄 Syncing with Cloud...</p>";
-    
-    try {
-        const res = await fetch(`${SCRIPT_URL}?action=getQueue&cb=${Date.now()}`);
-        const data = await res.json();
-        
-        if (data.length === 0) {
-            list.innerHTML = "<p style='text-align:center; color:gray; padding:20px;'>Queue is empty.</p>";
-            return;
-        }
-
-        list.innerHTML = data.map(i => {
-            // Create a professional SMS template
-            const smsMessage = encodeURIComponent(`Hi ${i.name}, this is TDMH HOMES. We received your ${i.type} request. Are you available to discuss your visit on ${i.visitDate}?`);
+        const list = document.getElementById('staff-list');
+        list.innerHTML = "<p style='text-align:center;'>🔄 Syncing Confidential Records...</p>";
+        try {
+            const res = await fetch(`${SCRIPT_URL}?action=getQueue&cb=${Date.now()}`);
+            const data = await res.json();
+            if(data.length === 0) { list.innerHTML = "<p style='text-align:center; padding:20px;'>Queue is empty.</p>"; return; }
             
-            return `
+            list.innerHTML = data.map(i => {
+                const sms = encodeURIComponent(`Hi ${i.name}, this is TDMH HOMES regarding your ${i.type} request. Are you free to discuss your schedule?`);
+                return `
                 <div class="staff-card">
-                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                         <div>
-                            <div style="font-weight:700; font-size:16px; color:var(--text);">${i.name.toUpperCase()}</div>
-                            <div style="font-size:12px; color:var(--brand); font-weight:600;">${i.type.toUpperCase()}</div>
+                            <div style="font-weight:700; font-size:16px;">${i.name.toUpperCase()}</div>
+                            <div style="font-size:12px; color:var(--brand); font-weight:600;">${i.type}</div>
                         </div>
-                        <div style="text-align:right; font-size:11px; color:#64748b;">
-                            Appt: ${i.visitDate}<br>${i.visitTime}
-                        </div>
-                    </div>
-
-                    <div style="background:#f8f9fc; padding:10px; border-radius:8px; margin-bottom:12px; font-size:13px;">
-                        <b>Services:</b> ${i.services || 'General Consultation'}
+                        <div style="text-align:right; font-size:11px; color:#64748b;">Visit: ${i.visitDate}</div>
                     </div>
                     
-                    <div style="display:flex; gap:8px;">
-                        <a href="tel:${i.phone}" style="flex:1; background:var(--brand); color:white; text-align:center; padding:12px; border-radius:10px; text-decoration:none; font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; gap:5px;">
-                            📞 Call
-                        </a>
-                        
-                        <a href="sms:${i.phone}?body=${smsMessage}" style="flex:1; background:var(--success); color:white; text-align:center; padding:12px; border-radius:10px; text-decoration:none; font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; gap:5px;">
-                            💬 SMS
-                        </a>
+                    <div style="background:#f8f9fc; padding:10px; border-radius:8px; margin:10px 0; font-size:12px;">
+                        <b>Services:</b> ${i.services || 'None selected'}<br>
+                        <div style="margin-top:5px; padding-top:5px; border-top:1px solid #e2e8f0; color:#475569;">
+                            <b>Client Note:</b> ${i.notes || 'No additional notes provided.'}
+                        </div>
                     </div>
 
-                    <button onclick="servePatient(${i.rowId})" style="width:100%; margin-top:10px; background:white; border:1px solid var(--border); padding:10px; border-radius:10px; font-size:12px; cursor:pointer; font-weight:600; color:#64748b;">
-                        ✅ Mark as Served & Remove
-                    </button>
-                </div>
-            `;
-        }).join('');
-        
-    } catch (e) {
-        list.innerHTML = "<div style='text-align:center; color:red; padding:20px;'>Sync Error. Check WebApp Deployment.</div>";
+                    <div style="display:flex; gap:8px;">
+                        <a href="tel:${i.phone}" style="flex:1; background:var(--brand); color:white; text-align:center; padding:12px; border-radius:10px; text-decoration:none; font-weight:700; font-size:14px;">📞 Call</a>
+                        <a href="sms:${i.phone}?body=${sms}" style="flex:1; background:var(--success); color:white; text-align:center; padding:12px; border-radius:10px; text-decoration:none; font-weight:700; font-size:14px;">💬 SMS</a>
+                    </div>
+                    <button onclick="servePatient(${i.rowId})" style="width:100%; margin-top:10px; background:white; border:1px solid var(--border); padding:10px; border-radius:10px; font-size:12px; cursor:pointer; font-weight:600; color:#64748b;">✅ Mark as Served</button>
+                </div>`;
+            }).join('');
+        } catch (e) { list.innerHTML = "<p style='color:red; text-align:center;'>Sync Error. Check Deployment Access.</p>"; }
     }
-}
 
     async function servePatient(id) {
-        if(!confirm("Remove patient from queue?")) return;
+        if(!confirm("Confirm completion? This removes the patient from the cloud queue.")) return;
         try {
             await fetch(`${SCRIPT_URL}?action=deleteRow&id=${id}`);
             syncQueue();
-        } catch(e) { alert("Error."); }
+        } catch(e) { alert("Action Failed."); }
     }
 
     function runCalc() {
@@ -297,15 +288,11 @@
         if(d && t) {
             let target = new Date(d);
             target.setDate(target.getDate() + (t + l - 7));
-            document.getElementById('calc-res').innerHTML = "<b>Next Visit Date:</b><br><span style='font-size:22px; color:var(--brand);'>" + target.toDateString() + "</span>";
+            document.getElementById('calc-res').innerHTML = "<b>Refill Window Target:</b><br><span style='font-size:22px; color:var(--brand);'>" + target.toDateString() + "</span>";
         }
     }
 
-    function unlockStaff() { if(prompt("Staff PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
+    function unlockStaff() { if(prompt("Secure Access PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
 </script>
 </body>
 </html>
-
-
-
-

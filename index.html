@@ -228,24 +228,59 @@
     }
 
     async function syncQueue() {
-        const list = document.getElementById('staff-list');
-        list.innerHTML = "Fetching records...";
-        try {
-            const res = await fetch(`${SCRIPT_URL}?action=getQueue&cb=${Date.now()}`);
-            const data = await res.json();
-            if(data.length === 0) { list.innerHTML = "Queue is empty."; return; }
-            list.innerHTML = data.map(i => `
+    const list = document.getElementById('staff-list');
+    list.innerHTML = "<p style='text-align:center;'>🔄 Syncing with Cloud...</p>";
+    
+    try {
+        const res = await fetch(`${SCRIPT_URL}?action=getQueue&cb=${Date.now()}`);
+        const data = await res.json();
+        
+        if (data.length === 0) {
+            list.innerHTML = "<p style='text-align:center; color:gray; padding:20px;'>Queue is empty.</p>";
+            return;
+        }
+
+        list.innerHTML = data.map(i => {
+            // Create a professional SMS template
+            const smsMessage = encodeURIComponent(`Hi ${i.name}, this is TDMH HOMES. We received your ${i.type} request. Are you available to discuss your visit on ${i.visitDate}?`);
+            
+            return `
                 <div class="staff-card">
-                    <div style="font-weight:700;">${i.name.toUpperCase()}</div>
-                    <div style="font-size:12px; color:var(--brand);">${i.type} | Visit: ${i.visitDate}</div>
-                    <div style="display:flex; gap:10px; margin-top:10px;">
-                        <a href="tel:${i.phone}" style="flex:1; background:var(--brand); color:white; text-align:center; padding:10px; border-radius:10px; text-decoration:none; font-weight:700;">📞 Call</a>
-                        <button onclick="servePatient(${i.rowId})" style="flex:1; background:#f1f2f6; border:1px solid #ccc; border-radius:10px; font-weight:700;">Served</button>
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+                        <div>
+                            <div style="font-weight:700; font-size:16px; color:var(--text);">${i.name.toUpperCase()}</div>
+                            <div style="font-size:12px; color:var(--brand); font-weight:600;">${i.type.toUpperCase()}</div>
+                        </div>
+                        <div style="text-align:right; font-size:11px; color:#64748b;">
+                            Appt: ${i.visitDate}<br>${i.visitTime}
+                        </div>
                     </div>
+
+                    <div style="background:#f8f9fc; padding:10px; border-radius:8px; margin-bottom:12px; font-size:13px;">
+                        <b>Services:</b> ${i.services || 'General Consultation'}
+                    </div>
+                    
+                    <div style="display:flex; gap:8px;">
+                        <a href="tel:${i.phone}" style="flex:1; background:var(--brand); color:white; text-align:center; padding:12px; border-radius:10px; text-decoration:none; font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; gap:5px;">
+                            📞 Call
+                        </a>
+                        
+                        <a href="sms:${i.phone}?body=${smsMessage}" style="flex:1; background:var(--success); color:white; text-align:center; padding:12px; border-radius:10px; text-decoration:none; font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; gap:5px;">
+                            💬 SMS
+                        </a>
+                    </div>
+
+                    <button onclick="servePatient(${i.rowId})" style="width:100%; margin-top:10px; background:white; border:1px solid var(--border); padding:10px; border-radius:10px; font-size:12px; cursor:pointer; font-weight:600; color:#64748b;">
+                        ✅ Mark as Served & Remove
+                    </button>
                 </div>
-            `).join('');
-        } catch (e) { list.innerHTML = "Sync Error."; }
+            `;
+        }).join('');
+        
+    } catch (e) {
+        list.innerHTML = "<div style='text-align:center; color:red; padding:20px;'>Sync Error. Check WebApp Deployment.</div>";
     }
+}
 
     async function servePatient(id) {
         if(!confirm("Remove patient from queue?")) return;
@@ -270,3 +305,4 @@
 </script>
 </body>
 </html>
+

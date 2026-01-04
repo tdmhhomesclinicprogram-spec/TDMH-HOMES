@@ -9,7 +9,7 @@
         :root {
             --brand: #4361ee; --brand-dark: #3f37c9; --brand-light: #eef2ff;
             --bg: #f8f9fc; --card: #ffffff; --text: #2b2d42;
-            --border: #e2e8f0; --success: #00d1b2; --danger: #ff4757; --warning: #ff9f43;
+            --border: #e2e8f0; --success: #00d1b2; --danger: #ff4757;
             --hero-grad: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
         }
 
@@ -59,32 +59,31 @@
 
         /* FUN SUBMIT BUTTON */
         .submit-main { 
-            background: var(--brand); color: white; width: 100%; padding: 20px; border: none; border-radius: 22px; 
-            font-weight: 700; font-size: 18px; cursor: pointer; margin-top: 30px; transition: 0.3s;
-            box-shadow: 0 8px 0 var(--brand-dark); position: relative;
+            background: var(--brand); color: white; width: 100%; padding: 20px; border: none; border-radius: 20px; 
+            font-weight: 800; font-size: 18px; cursor: pointer; margin-top: 30px; 
+            box-shadow: 0 8px 0 var(--brand-dark); transition: 0.1s;
         }
-        .submit-main:hover { transform: translateY(-2px); }
-        .submit-main:active { transform: translateY(6px); box-shadow: 0 2px 0 var(--brand-dark); }
+        .submit-main:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--brand-dark); }
 
         .choice-row { display: flex; gap: 10px; margin-top: 10px; }
         .choice-btn { flex: 1; padding: 14px; border: 1.5px solid var(--border); border-radius: 15px; text-align: center; font-weight: 700; background: #fff; cursor: pointer; font-size: 14px; transition: 0.2s; }
         .choice-btn.selected { background: var(--brand); color: white; border-color: var(--brand); }
 
-        .res-box { padding: 20px; border-radius: 20px; background: var(--brand-light); border: 1px solid var(--brand); margin: 20px 0; display: none; }
+        .res-box { padding: 20px; border-radius: 20px; background: var(--brand-light); border: 1px solid var(--brand); margin: 20px 0; }
         .highlight-text { color: var(--brand); font-weight: 700; font-size: 1.2em; display: block; margin-top: 5px; }
 
-        /* DASHBOARD ENHANCEMENTS */
-        .staff-item { background: #ffffff; padding: 20px; border-radius: 22px; margin-bottom: 15px; border: 1.5px solid var(--border); box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
-        .contact-tray { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        .tray-btn { padding: 12px; border-radius: 12px; text-decoration: none; text-align: center; font-weight: 700; font-size: 13px; color: white; }
-        .tray-call { background: var(--brand); }
-        .tray-sms { background: var(--success); }
+        /* DASHBOARD IMPROVEMENTS */
+        .staff-item { background: #fff; padding: 20px; border-radius: 20px; margin-bottom: 15px; border: 1.5px solid var(--border); border-left: 6px solid var(--brand); box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .staff-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .btn-action { padding: 12px; border-radius: 12px; text-align: center; text-decoration: none; font-weight: 700; font-size: 13px; }
+        .btn-call { background: var(--brand-light); color: var(--brand); }
+        .btn-sms { background: #e8fdf5; color: #10b981; }
         
-        .status-actions { display: flex; gap: 5px; margin-top: 15px; }
-        .status-chip { flex: 1; padding: 8px; border-radius: 10px; font-size: 10px; font-weight: 800; text-align: center; background: #f1f5f9; cursor: pointer; border: 1px solid transparent; }
-        .status-chip.active-pending { background: #fff4e5; color: var(--warning); border-color: var(--warning); }
-        .status-chip.active-confirmed { background: #eef2ff; color: var(--brand); border-color: var(--brand); }
-        .status-chip.active-completed { background: #e6fffa; color: var(--success); border-color: var(--success); }
+        .status-tray { display: flex; gap: 5px; margin-top: 15px; background: #f1f5f9; padding: 5px; border-radius: 12px; }
+        .stat-btn { flex: 1; padding: 8px; border-radius: 8px; border: none; font-size: 10px; font-weight: 800; cursor: pointer; background: transparent; color: #64748b; }
+        .stat-btn.active-pending { background: #fff; color: #f59e0b; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .stat-btn.active-confirm { background: var(--brand); color: #fff; }
+        .stat-btn.active-done { background: #10b981; color: #fff; }
 
         @media (min-width: 600px) { .options-grid { grid-template-columns: 1fr 1fr; } }
     </style>
@@ -131,19 +130,19 @@
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Consultation"><span>General Consultation</span></label>
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Laboratory"><span>Laboratory / Blood Test</span></label>
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Diagnostics"><span>Imaging / Diagnostics</span></label>
-        </div>
+       </div>
 
         <div class="section-title">4. ARV Medication Refill</div>
         <div class="options-grid">
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="TLD"><span>TLD (ARV)</span></label>
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="TLE"><span>TLE (ARV)</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="TLD"><span>TLD (Dolutegravir Base)</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="TLE"><span>TLE (Efavirenz Base)</span></label>
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PrEP"><span>PrEP (TDF/FTC)</span></label>
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Pediatric"><span>Pediatric ARV</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Pediatric"><span>Pediatric Formulations</span></label>
         </div>
         
-        <div style="margin-top:15px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-            <div class="form-group"><label>Last Date of Refill</label><input type="date" id="p-last-refill"></div>
-            <div class="form-group"><label>Pills Remaining Today</label><input type="number" id="p-rem-qty" placeholder="Qty"></div>
+        <div style="margin-top:20px; background:#f8fafc; padding:20px; border-radius:15px; border:1px dashed var(--border);">
+            <div class="form-group"><label>Date of Last Medication Refill</label><input type="date" id="p-last-date"></div>
+            <div class="form-group"><label>Number of Pills Remaining Today</label><input type="number" id="p-last-qty" placeholder="Quantity"></div>
         </div>
 
         <div class="section-title">5. STI Treatment (PenG)</div>
@@ -157,12 +156,12 @@
         <div class="options-grid">
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="FluVax"><span>Flu Vaccine</span></label>
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="HepB"><span>Pneumo Vaccine</span></label>
-        </div>
+      </div>
 
         <div class="section-title">7. Additional Notes</div>
         <div class="form-group"><textarea id="p-notes" placeholder="Tell us more about your request..." rows="3"></textarea></div>
 
-        <button class="submit-main" onclick="submitData('General')">Submit Health Request 🚀</button>
+        <button class="submit-main" onclick="submitData('General')">Submit Health Request ✨</button>
     </div>
 
     <div id="tab-prep" class="tab-content">
@@ -186,37 +185,37 @@
             <p style="font-size: 14px;">6. Do you encounter challenges in maintaining consistent condom use?</p>
             <div class="choice-row"><div class="choice-btn" id="q6y" onclick="setPrEP(6,'yes')">Yes</div><div class="choice-btn" id="q6n" onclick="setPrEP(6,'no')">No</div></div>
 
-            <div id="prep-res" class="res-box" style="display:block;">
+            <div id="prep-res" class="res-box" style="display:block; text-align: center;">
                 <b>Clinical Recommendation:</b>
-                <span id="prep-status-text">Processing assessment...</span>
+                <span id="prep-status-text" class="highlight-text">Awaiting all inputs...</span>
             </div>
             
             <div class="section-title">Step 3: Identification</div>
             <div class="form-group"><label>Patient Code</label><input type="text" id="prep-name" placeholder="Code"></div>
             <div class="form-group"><label>Contact Number</label><input type="tel" id="prep-phone" placeholder="09xxxxxxxxx"></div>
-            <button class="submit-main" onclick="submitData('PrEP')">Submit Assessment 📝</button>
+            <button class="submit-main" onclick="submitData('PrEP')">Submit Clinical Assessment ✨</button>
         </div>
         <div id="prep-gate-msg" class="res-box"></div>
     </div>
 
     <div id="tab-calc" class="tab-content">
-        <div class="section-title">Supply Calculator</div>
+        <div class="section-title">Supply & Adherence Calculator</div>
         <div class="res-box" style="display:block; text-align:center; border:none; background:#f1f5f9;">
-            <div style="font-size:12px; font-weight:700; opacity:0.6;">TOTAL DAYS REMAINING</div>
-            <div id="calc-days-rem" style="font-size:32px; font-weight:800; color:var(--brand);">0 Days</div>
-            <div style="margin:10px 0; border-top:1px solid #ddd; padding-top:10px;">
-                <b>Estimated Visit Date:</b>
-                <div id="calc-output" class="highlight-text">Waiting for input...</div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:15px;">
+                <div><small>Pills on Hand</small><div id="calc-pills-hand" style="font-size:24px; font-weight:800; color:var(--brand);">0</div></div>
+                <div><small>Days Supply</small><div id="calc-days-hand" style="font-size:24px; font-weight:800; color:var(--brand);">0</div></div>
             </div>
-            <div style="font-size:11px; opacity:0.7;" id="calc-pills-hand">Total Pills on Hand: 0</div>
+            <hr style="opacity:0.1">
+            <b style="font-size:12px; color:#64748b;">RECOMMENDED RETURN DATE (7-DAY BUFFER)</b>
+            <div id="calc-output" class="highlight-text" style="font-size:28px;">Waiting for input...</div>
         </div>
         <div class="form-group"><label>Date of Last Dispense</label><input type="date" id="c-date" oninput="runCalc()"></div>
-        <div class="form-group"><label>Quantity Given Last Time (Pills)</label><input type="number" id="c-total" oninput="runCalc()"></div>
-        <div class="form-group"><label>Extra/Old Pills Still on Hand</label><input type="number" id="c-left" oninput="runCalc()"></div>
+        <div class="form-group"><label>Quantity Dispensed (Pills)</label><input type="number" id="c-total" oninput="runCalc()"></div>
+        <div class="form-group"><label>Buffer/Carry-over Pills (Left from before)</label><input type="number" id="c-left" oninput="runCalc()"></div>
     </div>
 
     <div id="tab-staff" class="tab-content">
-        <div class="section-title">Live Patient Requests</div>
+        <div class="section-title">Clinical Request Dashboard</div>
         <div id="staff-list"></div>
         <button class="submit-main" style="background:#64748b; box-shadow:none;" onclick="clearLocal()">Clear Dashboard History</button>
     </div>
@@ -248,7 +247,7 @@
         document.getElementById('prep-all').style.display = v ? 'block' : 'none';
         const msg = document.getElementById('prep-gate-msg');
         msg.style.display = v ? 'none' : 'block';
-        if(!v) msg.innerHTML = "<b>Clinical Guidance:</b> Laboratory confirmed HIV Negative status is a mandatory prerequisite for PrEP initiation.";
+        if(!v) msg.innerHTML = "<b>Guidance:</b> A laboratory-confirmed HIV Negative result is mandatory for PrEP initiation. Please schedule a blood test first.";
         document.getElementById('q1y').classList.toggle('selected', v);
         document.getElementById('q1n').classList.toggle('selected', !v);
     }
@@ -261,43 +260,31 @@
         
         const resText = document.getElementById('prep-status-text');
         if (prepAns[2] === 'no') {
-            resText.innerHTML = "⚠️ <span class='highlight-text'>Candidate for Initiation</span> <br>Serum Creatinine Test is required prior to prescription.";
-        } else if (prepAns[3] === 'yes' || prepAns[5] === 'yes') {
-            resText.innerHTML = "✅ <span class='highlight-text'>PrEP Eligible</span> <br>High priority candidate for clinical PrEP initiation.";
-        } else {
-            resText.innerHTML = "✅ <span class='highlight-text'>Initiation Possible</span> <br>Consultation recommended to discuss HIV prevention options.";
+            resText.innerHTML = "PREREQUISITE NEEDED<br><span style='font-size:14px; color:#64748b;'>Serum Creatinine Test is required before initiation.</span>";
+        } else if (Object.keys(prepAns).length >= 5) {
+            resText.innerHTML = "ELIGIBLE FOR PrEP<br><span style='font-size:14px; color:#64748b;'>Clinical indicators suggest high PrEP benefit.</span>";
         }
     }
 
     function runCalc() {
-        const dateInput = document.getElementById('c-date').value;
-        const qtyGiven = parseInt(document.getElementById('c-total').value) || 0;
-        const extraPills = parseInt(document.getElementById('c-left').value) || 0;
-        const totalPills = qtyGiven + extraPills;
-        
-        document.getElementById('calc-pills-hand').innerText = "Total Pills on Hand: " + totalPills;
+        const d = document.getElementById('c-date').value;
+        const disp = parseInt(document.getElementById('c-total').value) || 0;
+        const carry = parseInt(document.getElementById('c-left').value) || 0;
+        const total = disp + carry;
 
-        if(dateInput && totalPills > 0) {
-            let dispenseDate = new Date(dateInput);
-            let today = new Date();
-            
-            // Days since dispense
-            let timeDiff = today.getTime() - dispenseDate.getTime();
-            let daysPassed = Math.floor(timeDiff / (1000 * 3600 * 24));
-            
-            let currentStock = totalPills - daysPassed;
-            let daysRem = currentStock > 0 ? currentStock : 0;
-            
-            document.getElementById('calc-days-rem').innerText = daysRem + " Days";
+        document.getElementById('calc-pills-hand').innerText = total;
+        document.getElementById('calc-days-hand').innerText = total;
 
-            let rd = new Date();
-            rd.setDate(rd.getDate() + daysRem - 7); // 7-day safety buffer
+        if(d && total > 0) {
+            let rd = new Date(d);
+            rd.setDate(rd.getDate() + total - 7); // 7-day safety buffer
             document.getElementById('calc-output').innerText = rd.toDateString();
         }
     }
 
     function unlockStaff() { 
-        const p = prompt("Enter Clinical PIN:"); 
+        // Using a hidden password input for privacy
+        const p = prompt("Enter Staff PIN:");
         if(p === "HOMES@2026BaB") { 
             document.getElementById('btn-staff').style.display='block'; 
             tab('staff'); 
@@ -312,9 +299,9 @@
         let details = "";
         if(type === 'General') {
             const svcs = Array.from(document.querySelectorAll('.svc:checked')).map(c => c.value).join(', ');
-            details = `Svcs: ${svcs} | Refill: ${document.getElementById('p-last-refill').value} (Rem: ${document.getElementById('p-rem-qty').value}) | Visit: ${document.getElementById('v-date').value} ${document.getElementById('v-time').value} | Notes: ${document.getElementById('p-notes').value}`;
+            details = `Services: ${svcs} | Refill: ${document.getElementById('p-last-date').value} (${document.getElementById('p-last-qty').value} left) | Date: ${document.getElementById('v-date').value} ${document.getElementById('v-time').value} | Notes: ${document.getElementById('p-notes').value}`;
         } else {
-            details = `Recommendation: ${document.getElementById('prep-status-text').innerText} | Ans: ${JSON.stringify(prepAns)}`;
+            details = `Screening Result: ${document.getElementById('prep-status-text').innerText} | Answers: ${JSON.stringify(prepAns)}`;
         }
 
         const data = { type, code, phone, details, time: new Date().toLocaleString(), status: 'pending' };
@@ -323,46 +310,50 @@
 
         try {
             await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
-            alert("Record Synchronized to Cloud.");
+            alert("Record Submitted.");
             location.reload(); 
-        } catch(e) { alert("Stored locally. Sync failed."); }
+        } catch(e) { alert("Stored locally. Connection error."); }
     }
 
-    function updateStatus(idx, newStatus) {
-        submissions[idx].status = newStatus;
+    function updateStatus(idx, newStat) {
+        submissions[idx].status = newStat;
         localStorage.setItem('tdmh_subs', JSON.stringify(submissions));
+        
+        // If "completed", send to Google Sheets
+        if(newStat === 'completed') {
+            fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(submissions[idx]) });
+            alert("Finalized and synced to Google Sheets.");
+        }
         renderDashboard();
-        // Option: Send to Google Sheet again here if required
-        fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(submissions[idx]) });
     }
 
     function renderDashboard() {
         const list = document.getElementById('staff-list');
         list.innerHTML = submissions.map((s, i) => `
             <div class="staff-item">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <b style="font-size:18px;">${s.code}</b> 
-                    <span style="font-size:10px; padding:4px 8px; background:#eee; border-radius:5px;">${s.type}</span>
+                <div style="display:flex; justify-content:space-between">
+                    <b>${s.code}</b> 
+                    <span style="font-size:10px; font-weight:800; color:var(--brand)">${s.type}</span>
                 </div>
+                <div style="font-size:13px; margin:5px 0;">Contact: ${s.phone}</div>
+                <div style="background:#f1f5f9; padding:10px; border-radius:10px; font-size:11px; margin:10px 0;">${s.details}</div>
                 
-                <div style="font-size:13px; margin:10px 0; color:#444;">${s.details}</div>
-                
-                <div class="contact-tray">
-                    <a href="tel:${s.phone}" class="tray-btn tray-call">📞 Call Patient</a>
-                    <a href="sms:${s.phone}" class="tray-btn tray-sms">💬 Send SMS</a>
+                <div class="staff-actions">
+                    <a href="tel:${s.phone}" class="btn-action btn-call">📞 Call Patient</a>
+                    <a href="sms:${s.phone}" class="btn-action btn-sms">💬 SMS Patient</a>
                 </div>
 
-                <div class="status-actions">
-                    <div class="status-chip ${s.status === 'pending' ? 'active-pending' : ''}" onclick="updateStatus(${i}, 'pending')">PENDING</div>
-                    <div class="status-chip ${s.status === 'confirmed' ? 'active-confirmed' : ''}" onclick="updateStatus(${i}, 'confirmed')">CONFIRM</div>
-                    <div class="status-chip ${s.status === 'completed' ? 'active-completed' : ''}" onclick="updateStatus(${i}, 'completed')">DONE</div>
+                <div class="status-tray">
+                    <button class="stat-btn ${s.status === 'pending' ? 'active-pending' : ''}" onclick="updateStatus(${i}, 'pending')">PENDING</button>
+                    <button class="stat-btn ${s.status === 'confirmed' ? 'active-confirm' : ''}" onclick="updateStatus(${i}, 'confirmed')">CONFIRM</button>
+                    <button class="stat-btn ${s.status === 'completed' ? 'active-done' : ''}" onclick="updateStatus(${i}, 'completed')">FINISH & SYNC</button>
                 </div>
-                <div style="font-size:9px; opacity:0.5; margin-top:10px; text-align:right;">Sent: ${s.time}</div>
+                <div style="font-size:9px; opacity:0.4; text-align:right; margin-top:8px;">${s.time}</div>
             </div>
-        `).join('') || "<p style='text-align:center;'>No clinical requests found.</p>";
+        `).join('') || "<p style='text-align:center;'>No clinical requests.</p>";
     }
 
-    function clearLocal() { if(confirm("Permanently clear dashboard records?")) { submissions = []; localStorage.removeItem('tdmh_subs'); renderDashboard(); } }
+    function clearLocal() { if(confirm("Clear local dashboard history?")) { submissions = []; localStorage.removeItem('tdmh_subs'); renderDashboard(); } }
 </script>
 </body>
 </html>

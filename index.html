@@ -249,8 +249,8 @@
         const left = parseInt(document.getElementById('c-left').value) || 0;
         if(lastDate && total > 0) {
             let date = new Date(lastDate);
-            // Formula: Dispense Date + (Total - Left - 7)
-            let daysToAdd = (total - left) - 7;
+            // Formula: Dispense Date + (Total + Left - 7)
+            let daysToAdd = (total + left) - 7;
             date.setDate(date.getDate() + daysToAdd);
             document.getElementById('target-date').innerText = "Refill Date: " + date.toDateString();
         }
@@ -295,3 +295,4 @@
 </script>
 </body>
 </html>
+

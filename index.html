@@ -40,7 +40,6 @@
         .tab-content { background: var(--card); border-radius: 25px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); display: none; margin-bottom: 30px; }
         .tab-content.active { display: block; }
         
-        /* FIXED FORM GROUPS */
         .form-group { margin-bottom: 25px; display: flex; flex-direction: column; width: 100%; position: relative; }
         .form-group label { 
             font-size: 12px; font-weight: 700; color: var(--brand); 
@@ -106,7 +105,7 @@
     <h1 class="main-title">TDMH HOMES</h1>
     <div class="sched-box">
         <b>🏥 CLINICAL DOCTOR'S SCHEDULE:</b><br>
-        Dr. L.Mariano: Mon 1-3PM | Dr. C.K.L Rivera: Thu 3-5PM
+        Dr. L.Mariano: Mon 1-3PM | Dr. C.K.L.Rivera: Thu 3-5PM
     </div>
 </div>
 
@@ -116,24 +115,26 @@
         <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Code"></div>
         <div class="form-group"><label>Patient Contact Number</label><input type="tel" id="p-phone" placeholder="09xxxxxxxxx"></div>
 
-        <div class="section-title">2. Clinical Services</div>
+        <div class="section-title">2. ARV Medication Refill</div>
+        <div class="options-grid">
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="TLD"><span>TLD (Tenofovir/Lamivudine/Dolutegravir)</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="TLE"><span>TLE (Tenofovir/Lamivudine/Efavirenz)</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PrEP"><span>PrEP (TDF/FTC)</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Pediatric"><span>Pediatric ARV Formulations</span></label>
+        </div>
+
+        <div class="section-title">3. General Services</div>
         <div class="options-grid">
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Consultation"><span>Consultation</span></label>
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Laboratory"><span>Laboratory</span></label>
             <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Diagnostics"><span>Diagnostics</span></label>
         </div>
 
-        <div class="section-title">3. STI Treatment(Pen G)</div>
+        <div class="section-title">4. STI Treatment (PenG)</div>
         <div class="options-grid">
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-1"><span>1st Dose (PenG)</span></label>
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-2"><span>2nd Dose (PenG)</span></label>
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-3"><span>3rd Dose (PenG)</span></label>
-        </div>
-
-        <div class="section-title">4. Immunizations</div>
-        <div class="options-grid">
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Fluvax"><span>Fluvax</span></label>
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Pneumovax"><span>Pneumovax</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-1"><span>1st Dose</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-2"><span>2nd Dose</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-3"><span>3rd Dose</span></label>
         </div>
 
         <div class="section-title">5. Visit Scheduling</div>
@@ -155,21 +156,16 @@
         </div>
 
         <div id="prep-all" style="display:none;">
-            <div class="section-title">Step 2: Medical & Risk Assessment</div>
-            
+            <div class="section-title">Step 2: Medical Assessment</div>
             <p>2. Have you completed a Serum Creatinine (Kidney Function) test within the last 3 months?</p>
             <div class="choice-row"><div class="choice-btn" id="q2y" onclick="setPrEP(2,'yes')">Yes</div><div class="choice-btn" id="q2n" onclick="setPrEP(2,'no')">No</div></div>
-            
             <p>3. In the past 6 months, have you engaged in sexual activity where a condom was not used?</p>
-            <div class="choice-row"><div class="choice-btn" id="q3y" onclick="setPrEP(3,'yes')">Yes</div><div class="choice-btn" id="q4n" onclick="setPrEP(3,'no')">No</div></div>
-            
-            <p>4. Have you been diagnosed or treated for any Sexually Transmitted Infection (STI) in the last 6 months?</p>
+            <div class="choice-row"><div class="choice-btn" id="q3y" onclick="setPrEP(3,'yes')">Yes</div><div class="choice-btn" id="q3n" onclick="setPrEP(3,'no')">No</div></div>
+            <p>4. Have you been diagnosed or treated for any STI in the last 6 months?</p>
             <div class="choice-row"><div class="choice-btn" id="q4y" onclick="setPrEP(4,'yes')">Yes</div><div class="choice-btn" id="q4n" onclick="setPrEP(4,'no')">No</div></div>
-            
             <p>5. Is your current partner's HIV status either Positive or Unknown to you?</p>
             <div class="choice-row"><div class="choice-btn" id="q5y" onclick="setPrEP(5,'yes')">Yes</div><div class="choice-btn" id="q5n" onclick="setPrEP(5,'no')">No</div></div>
-            
-            <p>6. Do you encounter challenges in maintaining consistent condom use during sexual encounters?</p>
+            <p>6. Do you encounter challenges in maintaining consistent condom use?</p>
             <div class="choice-row"><div class="choice-btn" id="q6y" onclick="setPrEP(6,'yes')">Yes</div><div class="choice-btn" id="q6n" onclick="setPrEP(6,'no')">No</div></div>
 
             <div id="prep-res" class="res-box" style="display:block;">
@@ -229,7 +225,7 @@
         document.getElementById('prep-all').style.display = v ? 'block' : 'none';
         const msg = document.getElementById('prep-gate-msg');
         msg.style.display = v ? 'none' : 'block';
-        if(!v) msg.innerHTML = "<b>Clinical Guidance:</b> Laboratory confirmation of HIV Negative status is a prerequisite for PrEP initiation.";
+        if(!v) msg.innerHTML = "<b>Guidance:</b> HIV Negative status is a prerequisite for PrEP initiation.";
         document.getElementById('q1y').classList.toggle('selected', v);
         document.getElementById('q1n').classList.toggle('selected', !v);
     }
@@ -242,9 +238,9 @@
         
         const resText = document.getElementById('prep-status-text');
         if (prepAns[2] === 'no') {
-            resText.innerHTML = "✅ <span class='highlight-text'>Candidate for PrEP Initiation</span> <br>Based on your profile, you are a candidate for PrEP. However, a <b>Creatinine/Renal Function Test</b> is required before a physician can provide medical clearance.";
+            resText.innerHTML = "✅ <span class='highlight-text'>Candidate for PrEP Initiation</span> <br>You are a candidate, but a <b>Serum Creatinine Test</b> is required for clearance.";
         } else if (Object.keys(prepAns).length >= 5) {
-            resText.innerHTML = "✅ <span class='highlight-text'>Eligible for Consultation</span> <br>Your risk profile indicates a high clinical benefit from PrEP. Please submit your request to schedule a formal medical review.";
+            resText.innerHTML = "✅ <span class='highlight-text'>Eligible for Consultation</span> <br>Profile confirmed. Please submit your request.";
         }
     }
 
@@ -259,7 +255,7 @@
         }
     }
 
-    function unlockStaff() { if(prompt("Enter PIN:") === "HOMES@2026BAB") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
+    function unlockStaff() { if(prompt("Enter PIN:") === "HOMES@2026BaB") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
 
     async function submitData(type) {
         const code = type === 'General' ? document.getElementById('p-code').value : document.getElementById('prep-name').value;
@@ -267,8 +263,8 @@
         if(!code || !phone) return alert("Required: Patient Code and Contact Number.");
 
         const details = type === 'General' ? 
-            `Services: ${Array.from(document.querySelectorAll('.svc:checked')).map(c => c.value).join(', ')} | Appt: ${document.getElementById('v-date').value} @ ${document.getElementById('v-time').value}` : 
-            `PrEP Risk Profile: ${JSON.stringify(prepAns)}`;
+            `Services/ARVs: ${Array.from(document.querySelectorAll('.svc:checked')).map(c => c.value).join(', ')} | Date: ${document.getElementById('v-date').value} | Time: ${document.getElementById('v-time').value}` : 
+            `Survey: ${JSON.stringify(prepAns)}`;
 
         const data = { type, code, phone, details, time: new Date().toLocaleString() };
         submissions.unshift(data);
@@ -278,7 +274,7 @@
             await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
             alert("Submission Received Successfully.");
             location.reload(); 
-        } catch(e) { alert("Saved locally. Connection error."); }
+        } catch(e) { alert("Stored locally. Connection error."); }
     }
 
     function renderDashboard() {
@@ -293,9 +289,7 @@
         `).join('') || "<p style='text-align:center;'>No records found.</p>";
     }
 
-    function clearLocal() { if(confirm("Permanently clear dashboard history?")) { submissions = []; localStorage.removeItem('tdmh_subs'); renderDashboard(); } }
+    function clearLocal() { if(confirm("Clear history?")) { submissions = []; localStorage.removeItem('tdmh_subs'); renderDashboard(); } }
 </script>
 </body>
 </html>
-
-

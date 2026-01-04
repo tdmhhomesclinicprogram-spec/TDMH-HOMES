@@ -45,70 +45,54 @@
         .tab-content { background: var(--card); border-radius: 25px; padding: clamp(15px, 5vw, 35px); box-shadow: 0 10px 40px rgba(0,0,0,0.08); display: none; margin-bottom: 30px; }
         .tab-content.active { display: block; }
         
-        /* FIXED: LABEL INSIDE BOX SYSTEM */
+        /* FIXED LABELS FOR MOBILE/IPAD */
         .form-group { position: relative; margin-bottom: 25px; width: 100%; }
         .form-group label { 
-            position: absolute; 
-            top: -12px; 
-            left: 12px; 
-            background: white; 
-            padding: 0 10px;
-            font-size: 13px; 
-            font-weight: 700; 
-            color: var(--brand); 
-            z-index: 2; 
-            border-radius: 4px;
-            pointer-events: none;
+            position: absolute; top: -12px; left: 12px; background: white; padding: 0 10px;
+            font-size: 13px; font-weight: 700; color: var(--brand); z-index: 2; border-radius: 4px;
         }
         
         input, select, textarea { 
-            width: 100%; 
-            padding: 18px 15px; 
-            border-radius: 12px; 
-            border: 2px solid var(--border); 
-            font-family: inherit; 
-            font-size: 16px; 
-            background: #fff; 
-            position: relative;
-            z-index: 1;
-            appearance: none;
+            width: 100%; padding: 18px 15px; border-radius: 12px; border: 2px solid var(--border); 
+            font-family: inherit; font-size: 16px; background: #fff; position: relative; z-index: 1;
         }
 
         .section-title { font-size: 20px; font-weight: 700; color: var(--brand); margin: 35px 0 20px; border-bottom: 3px solid #f1f5f9; padding-bottom: 8px; }
         
-        /* FIXED: GRID ALIGNMENT */
+        /* HIGHLIGHTS FOR GENERAL SERVICES */
         .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 20px; }
-        .card-opt { border: 2px solid var(--border); padding: 12px 15px; border-radius: 12px; display: flex; align-items: center; gap: 12px; cursor: pointer; background: #fff; font-weight: 600; min-height: 55px; font-size: 15px; transition: 0.2s; }
-        .card-opt input[type="checkbox"] { width: 20px; height: 20px; margin: 0; }
+        .card-opt { 
+            border: 2px solid var(--border); padding: 12px 15px; border-radius: 12px; 
+            display: flex; align-items: center; gap: 12px; cursor: pointer; background: #fff; 
+            font-weight: 600; min-height: 55px; font-size: 15px; transition: 0.2s; 
+        }
+        /* Highlight when checked */
+        .card-opt:has(input:checked) {
+            border-color: var(--brand);
+            background-color: #f0f3ff;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.1);
+        }
 
-        .res-box { padding: 25px; border-radius: 15px; margin: 25px 0; border-left: 8px solid var(--brand); background: #f8faff; font-size: 16px; line-height: 1.6; display: none; border-top: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; }
+        .res-box { padding: 25px; border-radius: 15px; margin: 25px 0; border-left: 8px solid var(--brand); background: #f8faff; font-size: 16px; line-height: 1.6; display: none; border: 1px solid #e2e8f0; border-left: 8px solid var(--brand); }
         .res-box b { font-size: 18px; display: block; margin-bottom: 8px; color: #1e293b; text-transform: uppercase; }
         .highlight-text { color: var(--brand); font-weight: 700; font-size: 1.2em; display: block; margin: 10px 0; }
 
-        .calc-breakdown { background: #f1f5f9; padding: 15px; border-radius: 10px; margin-top: 15px; font-size: 14px; color: #475569; border: 1px dashed #cbd5e1; line-height: 1.6; }
+        .submit-main { background: var(--brand); color: white; width: 100%; padding: 22px; border: none; border-radius: 15px; font-weight: 700; font-size: 18px; cursor: pointer; margin-top: 15px; }
 
-        .submit-main { background: var(--brand); color: white; width: 100%; padding: 22px; border: none; border-radius: 15px; font-weight: 700; font-size: 18px; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3); }
-        
-        /* FIXED: CHOICE BUTTONS FOR TOUCH */
+        /* PREP CHOICE BUTTONS */
         .choice-container { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
-        .choice-label { font-weight: 700; font-size: 16px; color: #4a5568; line-height: 1.4; display: block; }
+        .choice-label { font-weight: 700; font-size: 16px; color: #4a5568; }
         .choice-row { display: flex; gap: 10px; width: 100%; }
-        .choice-btn { flex: 1; padding: 15px 10px; border: 2px solid var(--border); border-radius: 12px; text-align: center; cursor: pointer; font-weight: 700; background: white; font-size: 14px; min-height: 60px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .choice-btn { flex: 1; padding: 15px; border: 2px solid var(--border); border-radius: 12px; text-align: center; cursor: pointer; font-weight: 700; background: white; font-size: 14px; min-height: 60px; display: flex; align-items: center; justify-content: center; }
         .choice-btn.selected { background: var(--brand); color: white; border-color: var(--brand); }
 
-        .star-container { text-align: center; margin-top: 40px; padding: 20px; background: var(--card); border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .stars { display: flex; justify-content: center; gap: 10px; font-size: 35px; cursor: pointer; }
-        .star.active { color: #ffcc00; }
+        /* STAFF DASHBOARD STYLES */
+        .staff-card { background: #fff; border: 1px solid #e2e8f0; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 5px solid var(--brand); }
+        .staff-tag { font-size: 11px; padding: 3px 8px; border-radius: 5px; background: #f1f5f9; font-weight: 700; }
 
-        /* Tablet & Desktop Adjustments */
-        @media (min-width: 600px) {
-            .options-grid { grid-template-columns: repeat(2, 1fr); }
-        }
         @media (min-width: 768px) {
             .options-grid { grid-template-columns: repeat(3, 1fr); }
             .choice-row { max-width: 500px; }
-            nav { flex-direction: row; justify-content: space-between; align-items: center; }
-            .nav-menu { width: auto; padding: 0; }
         }
     </style>
 </head>
@@ -139,14 +123,6 @@
 </div>
 
 <div class="main-wrapper">
-    <div class="confidential-banner">
-        <span>🛡️</span>
-        <div>
-            <b>Confidentiality & Privacy</b><br>
-            <small>Data submitted is encrypted and strictly for the use of TDMH clinical management only.</small>
-        </div>
-    </div>
-
     <div id="tab-general" class="tab-content active">
         <div class="section-title">1. Patient Identification</div>
         <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Unique code"></div>
@@ -154,16 +130,16 @@
 
         <div class="section-title">2. General Services</div>
         <div class="options-grid">
-            <label class="card-opt"><input type="checkbox" class="svc" value="Consult"><span>Consultation</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Lab"><span>Laboratory</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Diag"><span>Diagnostics</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="Consultation"><span>Consultation</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="Laboratory"><span>Laboratory</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="Diagnostics"><span>Diagnostics</span></label>
         </div>
 
         <div class="section-title">3. STI Treatment (Pen G)</div>
         <div class="options-grid">
-            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-1"><span>1st Dose</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-2"><span>2nd Dose</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-3"><span>3rd Dose</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-1st"><span>1st Dose</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-2nd"><span>2nd Dose</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-3rd"><span>3rd Dose</span></label>
         </div>
 
         <div class="section-title">4. Immunizations</div>
@@ -172,10 +148,8 @@
             <label class="card-opt"><input type="checkbox" class="svc" value="Pneumovax"><span>Pneumovax</span></label>
         </div>
 
-        <div class="section-title">5. Visit Scheduling & Notes</div>
-        <div class="form-group"><label>Preferred Visit Date</label><input type="date" id="v-date"></div>
-        <div class="form-group"><label>Preferred Visit Time</label><input type="time" id="v-time"></div>
-        <div class="form-group"><label>Additional Client Notes</label><textarea id="p-notes" placeholder="Write here..." rows="3"></textarea></div>
+        <div class="form-group"><label>Visit Date</label><input type="date" id="v-date"></div>
+        <div class="form-group"><label>Notes</label><textarea id="p-notes" rows="3"></textarea></div>
 
         <button class="submit-main" onclick="submitData('General')">Submit Request</button>
     </div>
@@ -191,40 +165,20 @@
         </div>
 
         <div id="prep-all" style="display:none;">
-            <div class="section-title">Step 2: Risk Profile & Renal Health</div>
-            
-            <div class="choice-container">
-                <span class="choice-label">2. Have you completed a Creatinine (Kidney Function) test recently?</span>
-                <div class="choice-row"><div class="choice-btn" id="q2y" onclick="setPrEP(2,'yes')">Yes</div><div class="choice-btn" id="q2n" onclick="setPrEP(2,'no')">No</div></div>
-            </div>
+            <div class="section-title">Step 2: Risk Profile</div>
+            <div class="choice-container"><span class="choice-label">2. Creatinine (Kidney Function) test recently?</span>
+                <div class="choice-row"><div class="choice-btn" id="q2y" onclick="setPrEP(2,'yes')">Yes</div><div class="choice-btn" id="q2n" onclick="setPrEP(2,'no')">No</div></div></div>
+            <div class="choice-container"><span class="choice-label">3. Condomless sexual activity in past 6 months?</span>
+                <div class="choice-row"><div class="choice-btn" id="q3y" onclick="setPrEP(3,'yes')">Yes</div><div class="choice-btn" id="q3n" onclick="setPrEP(3,'no')">No</div></div></div>
+            <div class="choice-container"><span class="choice-label">4. Treated for an STI in the last 6 months?</span>
+                <div class="choice-row"><div class="choice-btn" id="q4y" onclick="setPrEP(4,'yes')">Yes</div><div class="choice-btn" id="q4n" onclick="setPrEP(4,'no')">No</div></div></div>
+            <div class="choice-container"><span class="choice-label">5. Partner Status Positive or Unknown?</span>
+                <div class="choice-row"><div class="choice-btn" id="q5y" onclick="setPrEP(5,'yes')">Yes</div><div class="choice-btn" id="q5n" onclick="setPrEP(5,'no')">No</div></div></div>
+            <div class="choice-container"><span class="choice-label">6. Difficult to use condoms consistently?</span>
+                <div class="choice-row"><div class="choice-btn" id="q6y" onclick="setPrEP(6,'yes')">Yes</div><div class="choice-btn" id="q6n" onclick="setPrEP(6,'no')">No</div></div></div>
 
-            <div class="choice-container">
-                <span class="choice-label">3. Exposure: Have you engaged in condomless sexual activity in the past 6 months?</span>
-                <div class="choice-row"><div class="choice-btn" id="q3y" onclick="setPrEP(3,'yes')">Yes</div><div class="choice-btn" id="q3n" onclick="setPrEP(3,'no')">No</div></div>
-            </div>
-
-            <div class="choice-container">
-                <span class="choice-label">4. History: Have you been treated for an STI in the last 6 months?</span>
-                <div class="choice-row"><div class="choice-btn" id="q4y" onclick="setPrEP(4,'yes')">Yes</div><div class="choice-btn" id="q4n" onclick="setPrEP(4,'no')">No</div></div>
-            </div>
-
-            <div class="choice-container">
-                <span class="choice-label">5. Partner Status: Is your partner's HIV status Positive or Unknown?</span>
-                <div class="choice-row"><div class="choice-btn" id="q5y" onclick="setPrEP(5,'yes')">Yes</div><div class="choice-btn" id="q5n" onclick="setPrEP(5,'no')">No</div></div>
-            </div>
-
-            <div class="choice-container">
-                <span class="choice-label">6. Prevention: Do you find it difficult to use condoms consistently?</span>
-                <div class="choice-row"><div class="choice-btn" id="q6y" onclick="setPrEP(6,'yes')">Yes</div><div class="choice-btn" id="q6n" onclick="setPrEP(6,'no')">No</div></div>
-            </div>
-
-            <div id="prep-res" class="res-box" style="display:block;">
-                <b>Clinical Recommendation</b>
-                <span id="prep-status-text">Please complete all assessment questions to view your status.</span>
-            </div>
-            
-            <div class="form-group" style="margin-top:40px;"><label>Patient Name/Code</label><input type="text" id="prep-name"></div>
-            <div class="form-group"><label>Mobile Number</label><input type="tel" id="prep-phone"></div>
+            <div id="prep-res" class="res-box" style="display:block;"><b>Recommendation</b><span id="prep-status-text">Complete questions...</span></div>
+            <div class="form-group"><label>Patient Code</label><input type="text" id="prep-name"></div>
             <button class="submit-main" onclick="submitData('PrEP')">Submit PrEP Assessment</button>
         </div>
         <div id="prep-gate-msg" class="res-box"></div>
@@ -232,54 +186,48 @@
 
     <div id="tab-calc" class="tab-content">
         <div class="section-title">ARV Medication Supply Calculator</div>
-        <div id="calc-res" class="res-box" style="display:block; text-align:center;">
+        <div class="res-box" style="display:block; text-align:center;">
             <b>Next Recommended Visit</b>
             <div id="calc-output" class="highlight-text">Enter details below</div>
-            <div id="calc-breakdown" class="calc-breakdown" style="display:none;"></div>
+            <div id="calc-breakdown" style="font-size:13px; color:#666; margin-top:10px;"></div>
         </div>
-        
         <div class="form-group"><label>Date of Last Dispense</label><input type="date" id="c-date" oninput="runCalc()"></div>
-        <div class="form-group"><label>Total Quantity (Pills)</label><input type="number" id="c-total" placeholder="Pills received" oninput="runCalc()"></div>
-        <div class="form-group"><label>Pills Remaining Today</label><input type="number" id="c-left" placeholder="Current count" oninput="runCalc()"></div>
+        <div class="form-group"><label>Total Quantity (Pills)</label><input type="number" id="c-total" oninput="runCalc()"></div>
+        <div class="form-group"><label>Pills Remaining Today</label><input type="number" id="c-left" oninput="runCalc()"></div>
     </div>
 
-    <div class="star-container">
-        <h3>How was your portal experience?</h3>
-        <div class="stars" id="star-rating">
-            <span class="star" onclick="rate(1)">★</span>
-            <span class="star" onclick="rate(2)">★</span>
-            <span class="star" onclick="rate(3)">★</span>
-            <span class="star" onclick="rate(4)">★</span>
-            <span class="star" onclick="rate(5)">★</span>
+    <div id="tab-staff" class="tab-content">
+        <div class="section-title">Patient Request Queue</div>
+        <div id="staff-list">
+            <p style="text-align:center; color:#94a3b8;">No recent submissions found in this session.</p>
         </div>
-        <p id="star-msg" style="margin-top:10px; font-weight:600; color:var(--brand);"></p>
     </div>
 </div>
 
 <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz4oRkBdfBwITAHfmeNeb0VClOCh9y0FgeSHgTvdoZOydIvQtBdcjWuLuEjGC-aZqks/exec";
     let prepAns = {};
-
-    function toggleTheme() {
-        const body = document.getElementById('main-body');
-        const isPride = body.classList.toggle('pride-mode');
-        document.getElementById('theme-btn').innerText = isPride ? '☀️ Switch to Light Mode' : '🎨 Switch to Pride Mode';
-        localStorage.setItem('theme', isPride ? 'pride' : 'light');
-    }
+    let localSubmissions = [];
 
     function tab(t) {
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tab-' + t).classList.add('active');
         document.getElementById('btn-' + t).classList.add('active');
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo(0, 0);
+    }
+
+    function toggleTheme() {
+        const body = document.getElementById('main-body');
+        const isPride = body.classList.toggle('pride-mode');
+        document.getElementById('theme-btn').innerText = isPride ? '☀️ Light Mode' : '🎨 Pride Mode';
     }
 
     function gate(v) {
         document.getElementById('prep-all').style.display = v ? 'block' : 'none';
         const msg = document.getElementById('prep-gate-msg');
         msg.style.display = v ? 'none' : 'block';
-        if(!v) msg.innerHTML = "<b>Clinical Requirement:</b> PrEP initiation requires a laboratory-confirmed HIV Negative result within the last 7 days. Please schedule an HIV test first.";
+        if(!v) msg.innerHTML = "<b>PrEP Requires Negative Result:</b> HIV Test required within 7 days.";
         document.getElementById('q1y').classList.toggle('selected', v);
         document.getElementById('q1n').classList.toggle('selected', !v);
     }
@@ -294,46 +242,68 @@
     function evaluatePrEP() {
         const resText = document.getElementById('prep-status-text');
         if(prepAns[2] === 'no') {
-            resText.innerHTML = "⚠️ <span class='highlight-text'>Action Required:</span> A <b>Creatinine (Kidney Function)</b> blood test is necessary before medical clearance for PrEP.";
-        } else if (Object.keys(prepAns).length >= 5) {
-            resText.innerHTML = "✅ <span class='highlight-text'>Candidate for PrEP:</span> Your risk profile indicates that you would significantly benefit from PrEP. Please submit your details to proceed with a doctor's consultation.";
+            resText.innerHTML = "⚠️ <span class='highlight-text'>Creatinine Needed:</span> Kidney test required for clearance.";
+        } else {
+            resText.innerHTML = "✅ <span class='highlight-text'>Candidate:</span> Risk profile suggests PrEP benefit.";
         }
     }
 
     function runCalc() {
-        const lastDateVal = document.getElementById('c-date').value;
-        const totalPills = parseInt(document.getElementById('c-total').value) || 0;
-        const pillsLeft = parseInt(document.getElementById('c-left').value) || 0;
-        const output = document.getElementById('calc-output');
-        const breakdown = document.getElementById('calc-breakdown');
-
-        if(lastDateVal && totalPills >= 0) {
-            let refillDate = new Date(lastDateVal);
-            const totalDaysSupply = totalPills + pillsLeft;
-            refillDate.setDate(refillDate.getDate() + totalDaysSupply - 7);
-            
-            output.innerHTML = refillDate.toDateString();
-            breakdown.style.display = "block";
-            breakdown.innerHTML = `<b>Inventory Breakdown:</b><br>
-                                   • Total Available: ${totalDaysSupply} Days<br>
-                                   • Safety Buffer: -7 Days Applied<br>
-                                   • Exhaustion Date: ${new Date(new Date(lastDateVal).getTime() + (totalDaysSupply * 86400000)).toDateString()}`;
+        const d = document.getElementById('c-date').value;
+        const t = parseInt(document.getElementById('c-total').value) || 0;
+        const l = parseInt(document.getElementById('c-left').value) || 0;
+        if(d && t) {
+            let rd = new Date(d);
+            rd.setDate(rd.getDate() + (t + l) - 7);
+            document.getElementById('calc-output').innerText = rd.toDateString();
+            document.getElementById('calc-breakdown').innerText = `Buffer: 7 days included.`;
         }
     }
 
-    function rate(n) {
-        const stars = document.querySelectorAll('.star');
-        stars.forEach((s, i) => s.classList.toggle('active', i < n));
-        document.getElementById('star-msg').innerText = "Thank you for your feedback!";
-    }
-
-    function unlockStaff() { if(prompt("Enter PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
+    function unlockStaff() { if(prompt("Staff PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
 
     async function submitData(type) {
-        alert("Encrypted Submission Sent to TDMH HOMES Cloud.");
+        const data = {
+            type: type,
+            code: type === 'General' ? document.getElementById('p-code').value : document.getElementById('prep-name').value,
+            phone: type === 'General' ? document.getElementById('p-phone').value : 'N/A',
+            details: type === 'General' ? Array.from(document.querySelectorAll('.svc:checked')).map(x => x.value).join(', ') : JSON.stringify(prepAns),
+            timestamp: new Date().toLocaleString()
+        };
+
+        if(!data.code) return alert("Please enter Patient Code.");
+
+        // Add to local Dashboard view
+        localSubmissions.unshift(data);
+        renderStaff();
+
+        try {
+            // Actual submission to Google Script
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            alert("Sent to TDMH HOMES Cloud Successfully.");
+        } catch(e) {
+            alert("Data saved locally. Connection error.");
+        }
     }
 
-    window.onload = () => { if(localStorage.getItem('theme') === 'pride') toggleTheme(); };
+    function renderStaff() {
+        const container = document.getElementById('staff-list');
+        container.innerHTML = localSubmissions.map(s => `
+            <div class="staff-card">
+                <div style="display:flex; justify-content:space-between">
+                    <b>${s.code}</b>
+                    <span class="staff-tag">${s.type}</span>
+                </div>
+                <div style="font-size:13px; margin-top:5px;">${s.details}</div>
+                <div style="font-size:11px; color:#94a3b8; margin-top:5px;">${s.timestamp}</div>
+            </div>
+        `).join('');
+    }
 </script>
 </body>
 </html>

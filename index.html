@@ -9,7 +9,7 @@
         :root {
             --brand: #4361ee; --brand-dark: #3f37c9; --brand-light: #eef2ff;
             --bg: #f8f9fc; --card: #ffffff; --text: #2b2d42;
-            --border: #e2e8f0; --success: #00d1b2; --danger: #ff4757; --warning: #ff9f43;
+            --border: #e2e8f0; --success: #00d1b2; --danger: #ff4757; --warning: #f1c40f;
             --hero-grad: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
         }
 
@@ -53,36 +53,55 @@
         .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
         .card-opt { border: 1.5px solid var(--border); padding: 15px; border-radius: 15px; display: flex; align-items: center; gap: 12px; cursor: pointer; background: #fff; transition: 0.2s; font-weight: 600; font-size: 14px; }
         .card-opt.selected-opt { border-color: var(--brand); background-color: var(--brand-light); color: var(--brand); }
-        .card-opt input { width: 18px; height: 18px; pointer-events: none; }
 
-        .choice-row { display: flex; gap: 10px; margin-top: 10px; }
-        .choice-btn { flex: 1; padding: 14px; border: 1.5px solid var(--border); border-radius: 15px; text-align: center; font-weight: 700; background: #fff; cursor: pointer; font-size: 14px; transition: 0.2s; }
-        .choice-btn.selected { background: var(--brand); color: white; border-color: var(--brand); }
+        .submit-main { 
+            background: var(--brand); color: white; width: 100%; padding: 20px; border: none; border-radius: 20px; 
+            font-weight: 800; font-size: 18px; cursor: pointer; margin-top: 30px; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.2); position: relative; overflow: hidden;
+        }
+        .submit-main:active { transform: scale(0.95) rotate(-1deg); }
+        .submit-main::before {
+            content: "🚀"; position: absolute; left: -30px; transition: 0.5s; font-size: 24px;
+        }
+        .submit-main:hover::before { left: 20px; }
 
-        .res-box { padding: 20px; border-radius: 20px; background: var(--brand-light); border: 1px solid var(--brand); margin: 20px 0; display: none; }
-        .highlight-text { color: var(--brand); font-weight: 700; font-size: 1.2em; display: block; margin-top: 5px; }
+        /* DASHBOARD STATUS */
+        .status-badge { padding: 4px 12px; border-radius: 50px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-confirmed { background: #d1ecf1; color: #0c5460; }
+        .status-completed { background: #d4edda; color: #155724; }
 
-        /* DASHBOARD STATUS STYLES */
-        .staff-item { background: #f8fafc; padding: 15px; border-radius: 15px; margin-bottom: 12px; border: 1px solid var(--border); border-left: 5px solid var(--brand); }
-        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; }
-        .status-pending { background: #ffeaa7; color: #d35400; }
-        .status-confirmed { background: #dff9fb; color: #0984e3; }
-        .status-completed { background: #ccfbf1; color: #00a8ff; }
+        .staff-item { background: #fff; padding: 20px; border-radius: 20px; margin-bottom: 15px; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .action-row { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-action { flex: 1; padding: 10px; border-radius: 12px; border: none; font-weight: 700; font-size: 12px; cursor: pointer; text-decoration: none; text-align: center; }
 
-        .action-bar { display: flex; gap: 10px; margin-top: 10px; }
-        .btn-call { background: var(--success); color: white; flex: 1; padding: 8px; border-radius: 10px; text-decoration: none; text-align: center; font-size: 12px; font-weight: 700; }
-        .btn-sms { background: var(--brand); color: white; flex: 1; padding: 8px; border-radius: 10px; text-decoration: none; text-align: center; font-size: 12px; font-weight: 700; }
+        /* Calculator Styles */
+        .calc-res { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .calc-card { background: var(--brand-light); padding: 15px; border-radius: 15px; text-align: center; border: 1px dashed var(--brand); }
+        .calc-card span { display: block; font-size: 22px; font-weight: 800; color: var(--brand); }
 
-        @media (min-width: 600px) { .options-grid { grid-template-columns: 1fr 1fr; } }
+        .password-modal { 
+            position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); 
+            z-index:9999; display:none; align-items:center; justify-content:center; padding:20px;
+        }
     </style>
 </head>
 <body>
+
+<div id="pwd-modal" class="password-modal">
+    <div style="background:white; padding:30px; border-radius:30px; width:100%; max-width:400px; text-align:center;">
+        <h3>Staff Authentication</h3>
+        <input type="password" id="staff-pwd-input" placeholder="Enter Security PIN" style="margin-bottom:20px; text-align:center;">
+        <button class="submit-main" onclick="verifyPwd()" style="margin:0;">Access Dashboard</button>
+        <button onclick="closePwd()" style="margin-top:15px; background:none; border:none; color:var(--danger); cursor:pointer;">Cancel</button>
+    </div>
+</div>
 
 <header>
     <nav>
         <div class="nav-top">
             <button onclick="toggleTheme()" id="theme-btn" style="padding:8px 15px; border-radius:20px; border:none; font-weight:700; background:#f1f5f9; cursor:pointer;">🎨 Theme</button>
-            <div onclick="unlockStaff()" style="cursor:pointer; opacity:0.3; padding:10px;">🔒</div>
+            <div onclick="openPwd()" style="cursor:pointer; opacity:0.3; padding:10px;">🔒</div>
         </div>
         <div class="nav-menu">
             <button id="btn-general" class="nav-btn active" onclick="tab('general')">General Services</button>
@@ -107,97 +126,93 @@
         <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Enter Code"></div>
         <div class="form-group"><label>Contact Number</label><input type="tel" id="p-phone" placeholder="09xxxxxxxxx"></div>
 
-        <div class="section-title">2. Preferred Date & Time</div>
-        <div class="date-time-container">
-            <div class="form-group"><label>Date of Visit</label><input type="date" id="v-date"></div>
-            <div class="form-group"><label>Time of Visit</label><input type="time" id="v-time"></div>
+        <div class="section-title">2. Visit Schedule</div>
+        <div class="date-time-container" style="display: grid; grid-template-columns: 1fr 1fr; gap:10px;">
+            <div class="form-group"><label>Date</label><input type="date" id="v-date"></div>
+            <div class="form-group"><label>Time</label><input type="time" id="v-time"></div>
         </div>
 
         <div class="section-title">3. Clinical Services</div>
         <div class="options-grid">
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Consultation"><span>General Consultation</span></label>
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Laboratory"><span>Laboratory / Blood Test</span></label>
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Diagnostics"><span>Imaging / Diagnostics</span></label>
-       </div>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Consultation"><span>Consultation</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Laboratory"><span>Laboratory</span></label>
+        </div>
 
         <div class="section-title">4. ARV Medication Refill</div>
         <div class="options-grid">
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="TLD"><span>TLD (T/L/D)</span></label>
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="TLE"><span>TLE (T/L/E)</span></label>
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PrEP"><span>PrEP (TDF/FTC)</span></label>
-            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Pediatric"><span>Pediatric Formulations</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="TLD"><span>TLD</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="TLE"><span>TLE</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PrEP"><span>PrEP</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Pediatric"><span>Pediatric</span></label>
         </div>
         
-        <div style="background: #f8fafc; padding: 15px; border-radius: 15px; margin-top: 10px; border: 1px dashed var(--border);">
-            <div class="form-group"><label>Date of Last Refill</label><input type="date" id="last-refill-date"></div>
-            <div class="form-group"><label>Pills Remaining (Count today)</label><input type="number" id="pills-remaining" placeholder="0"></div>
-        </div>
+        <div class="form-group" style="margin-top:15px;"><label>Last Date of Refill</label><input type="date" id="last-refill-date"></div>
+        <div class="form-group"><label>Quantity Remaining (Pills)</label><input type="number" id="pills-rem-input" placeholder="How many pills do you have left?"></div>
 
         <div class="section-title">5. Additional Notes</div>
-        <div class="form-group"><textarea id="p-notes" placeholder="Tell us more about your request..." rows="3"></textarea></div>
+        <div class="form-group"><textarea id="p-notes" placeholder="Any specific concerns?" rows="3"></textarea></div>
 
-        <button class="submit-main" onclick="submitData('General')">Submit Health Request</button>
+        <button class="submit-main" onclick="submitData('General')">SEND REQUEST NOW</button>
     </div>
 
     <div id="tab-prep" class="tab-content">
-        <div class="section-title">Step 1: Clinical Eligibility</div>
-        <p style="font-size: 15px;">1. Have you received a laboratory-confirmed HIV Negative result within the last 7 days?</p>
+        <div class="section-title">Clinical Eligibility Assessment</div>
+        <p style="font-size: 14px; font-weight: 600;">1. Have you received a laboratory-confirmed HIV Negative result within the last 7 days?</p>
         <div class="choice-row">
             <div class="choice-btn" id="q1y" onclick="gate(true)">Yes, Confirmed</div>
             <div class="choice-btn" id="q1n" onclick="gate(false)">No/Not Yet</div>
         </div>
 
         <div id="prep-all" style="display:none;">
-            <div class="section-title">Step 2: Medical Risk Profile</div>
-            <p style="font-size: 13px; font-weight:600;">2. Have you completed a Serum Creatinine (Kidney Function) test within the last 3 months?</p>
+            <div class="section-title">Medical Risk Profile</div>
+            <p style="font-size: 13px;">2. Have you completed a Serum Creatinine (Kidney Function) test within the last 3 months?</p>
             <div class="choice-row"><div class="choice-btn" id="q2y" onclick="setPrEP(2,'yes')">Yes</div><div class="choice-btn" id="q2n" onclick="setPrEP(2,'no')">No</div></div>
-            <p style="font-size: 13px; font-weight:600;">3. In the past 6 months, have you engaged in sexual activity where a condom was not used?</p>
+            <p style="font-size: 13px;">3. Have you engaged in sexual activity without a condom in the last 6 months?</p>
             <div class="choice-row"><div class="choice-btn" id="q3y" onclick="setPrEP(3,'yes')">Yes</div><div class="choice-btn" id="q3n" onclick="setPrEP(3,'no')">No</div></div>
-            <p style="font-size: 13px; font-weight:600;">4. Have you been diagnosed or treated for any STI in the last 6 months?</p>
+            <p style="font-size: 13px;">4. Have you been diagnosed or treated for any STI in the last 6 months?</p>
             <div class="choice-row"><div class="choice-btn" id="q4y" onclick="setPrEP(4,'yes')">Yes</div><div class="choice-btn" id="q4n" onclick="setPrEP(4,'no')">No</div></div>
-            <p style="font-size: 13px; font-weight:600;">5. Is your current partner's HIV status either Positive or Unknown to you?</p>
+            <p style="font-size: 13px;">5. Is your partner's HIV status Positive or Unknown to you?</p>
             <div class="choice-row"><div class="choice-btn" id="q5y" onclick="setPrEP(5,'yes')">Yes</div><div class="choice-btn" id="q5n" onclick="setPrEP(5,'no')">No</div></div>
-            <p style="font-size: 13px; font-weight:600;">6. Do you encounter challenges in maintaining consistent condom use?</p>
+            <p style="font-size: 13px;">6. Do you find it challenging to maintain consistent condom use?</p>
             <div class="choice-row"><div class="choice-btn" id="q6y" onclick="setPrEP(6,'yes')">Yes</div><div class="choice-btn" id="q6n" onclick="setPrEP(6,'no')">No</div></div>
 
-            <div id="prep-res" class="res-box" style="display:block; border-left: 5px solid var(--brand);">
+            <div id="prep-res" class="res-box" style="display:block;">
                 <b>Clinical Recommendation:</b>
-                <span id="prep-status-text" style="display:block; margin-top:5px; font-weight:600; color:var(--brand);">Awaiting full assessment...</span>
+                <span id="prep-status-text" class="highlight-text">Waiting for assessment...</span>
             </div>
             
-            <div class="section-title">Step 3: Patient Information</div>
-            <div class="form-group"><label>Patient Code</label><input type="text" id="prep-name" placeholder="Enter Code"></div>
+            <div class="section-title">Patient Info</div>
+            <div class="form-group"><label>Patient Code</label><input type="text" id="prep-name" placeholder="Code"></div>
             <div class="form-group"><label>Contact Number</label><input type="tel" id="prep-phone" placeholder="09xxxxxxxxx"></div>
-            <button class="submit-main" onclick="submitData('PrEP')">Submit Assessment</button>
+            <button class="submit-main" onclick="submitData('PrEP')">SUBMIT ASSESSMENT</button>
         </div>
         <div id="prep-gate-msg" class="res-box"></div>
     </div>
 
     <div id="tab-calc" class="tab-content">
-        <div class="section-title">ARV Supply Calculator</div>
-        <div class="res-box" style="display:block; text-align:center; border:none; background:#f1f5f9;">
-            <div style="font-size: 12px; color: #64748b;">Total Pills on Hand</div>
-            <div id="calc-total-pills" class="highlight-text" style="font-size: 2em;">0</div>
-            <div style="font-size: 12px; color: #64748b; margin-top:10px;">Estimated Days of Supply Remaining</div>
-            <div id="calc-days-left" style="font-weight: 700; color: var(--success);">0 Days</div>
-            <hr style="opacity:0.1; margin: 15px 0;">
-            <small>Recommended Next Refill Before:</small>
-            <div id="calc-output" class="highlight-text">Select Dates...</div>
+        <div class="section-title">Advanced ARV Supply Calculator</div>
+        <div class="calc-res">
+            <div class="calc-card"><small>Total Pills on Hand</small><span id="calc-total-pills">0</span></div>
+            <div class="calc-card"><small>Supply Days Remaining</small><span id="calc-total-days">0</span></div>
+        </div>
+        <div class="res-box" style="display:block; text-align:center; background:var(--brand); color:white;">
+            <small>ESTIMATED NEXT VISIT DATE</small>
+            <div id="calc-output" style="font-size:20px; font-weight:800;">Waiting for input...</div>
         </div>
         <div class="form-group"><label>Date of Last Dispense</label><input type="date" id="c-date" oninput="runCalc()"></div>
-        <div class="form-group"><label>Quantity Recently Received (Pills)</label><input type="number" id="c-total" placeholder="e.g. 30, 90" oninput="runCalc()"></div>
-        <div class="form-group"><label>Pills Carried Over From Previous Supply</label><input type="number" id="c-left" placeholder="Pills left before new refill" oninput="runCalc()"></div>
+        <div class="form-group"><label>Quantity Dispensed (Pills)</label><input type="number" id="c-total" oninput="runCalc()"></div>
+        <div class="form-group"><label>Buffer/Leftover Pills</label><input type="number" id="c-left" oninput="runCalc()"></div>
     </div>
 
     <div id="tab-staff" class="tab-content">
-        <div class="section-title">Clinical Request Dashboard</div>
+        <div class="section-title">Clinical Requests Dashboard</div>
         <div id="staff-list"></div>
-        <button class="submit-main" style="background:#64748b;" onclick="clearLocal()">Clear Dashboard History</button>
+        <button class="submit-main" style="background:#64748b;" onclick="clearLocal()">Wipe Dashboard Cache</button>
     </div>
 </div>
 
 <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz4oRkBdfBwITAHfmeNeb0VClOCh9y0FgeSHgTvdoZOydIvQtBdcjWuLuEjGC-aZqks/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/YOUR_DEPLOYED_URL/exec";
     let prepAns = {};
     let submissions = JSON.parse(localStorage.getItem('tdmh_subs') || '[]');
 
@@ -211,6 +226,17 @@
     }
 
     function toggleTheme() { document.body.classList.toggle('pride-mode'); }
+    function openPwd() { document.getElementById('pwd-modal').style.display='flex'; }
+    function closePwd() { document.getElementById('pwd-modal').style.display='none'; }
+    
+    function verifyPwd() {
+        const p = document.getElementById('staff-pwd-input').value;
+        if(p === "HOMES@2026BaB") {
+            document.getElementById('btn-staff').style.display='block';
+            closePwd();
+            tab('staff');
+        } else { alert("Incorrect Security PIN"); }
+    }
 
     function toggleSelection(el) {
         const cb = el.querySelector('input');
@@ -222,7 +248,7 @@
         document.getElementById('prep-all').style.display = v ? 'block' : 'none';
         const msg = document.getElementById('prep-gate-msg');
         msg.style.display = v ? 'none' : 'block';
-        if(!v) msg.innerHTML = "<b>Clinical Guidance:</b> A confirmed HIV Negative status within the last 7 days is required to initiate PrEP.";
+        if(!v) msg.innerHTML = "<b>Guidance:</b> A valid HIV Negative status within the last 7 days is required to initiate PrEP.";
         document.getElementById('q1y').classList.toggle('selected', v);
         document.getElementById('q1n').classList.toggle('selected', !v);
     }
@@ -235,94 +261,96 @@
         
         const resText = document.getElementById('prep-status-text');
         if (prepAns[2] === 'no') {
-            resText.innerHTML = "⚠️ <b>High Eligibility</b>: Kidney Function (Creatinine) test required before prescription.";
-        } else if (Object.keys(prepAns).length >= 5) {
-            resText.innerHTML = "✅ <b>Clinically Eligible</b>: PrEP is highly recommended based on your risk profile.";
+            resText.innerHTML = "🟠 Candidate: Requires Creatinine Test.";
+        } else {
+            resText.innerHTML = "🟢 Highly Eligible: Consultation Recommended.";
         }
     }
 
     function runCalc() {
         const d = document.getElementById('c-date').value;
-        const received = parseInt(document.getElementById('c-total').value) || 0;
-        const carryOver = parseInt(document.getElementById('c-left').value) || 0;
-        const total = received + carryOver;
+        const t = parseInt(document.getElementById('c-total').value) || 0;
+        const l = parseInt(document.getElementById('c-left').value) || 0;
+        const totalPills = t + l;
+        document.getElementById('calc-total-pills').innerText = totalPills;
+        document.getElementById('calc-total-days').innerText = totalPills;
 
-        document.getElementById('calc-total-pills').innerText = total;
-        document.getElementById('calc-days-left').innerText = total + " Days";
-
-        if(d && total > 0) {
+        if(d && totalPills > 0) {
             let rd = new Date(d);
-            rd.setDate(rd.getDate() + total - 7); // 7-day buffer for refill
+            rd.setDate(rd.getDate() + totalPills - 7); // 7 day buffer
             document.getElementById('calc-output').innerText = rd.toDateString();
         }
     }
 
-    function unlockStaff() { 
-        // Simple password prompt, can be improved with a hidden input field if needed
-        const pin = prompt("Enter Clinical Access PIN:");
-        if(pin === "HOMES@2026BaB") { 
-            document.getElementById('btn-staff').style.display='block'; 
-            tab('staff'); 
-        } 
-    }
-
     async function submitData(type) {
+        const btn = event.target;
+        btn.innerText = "🚀 PROCESSING...";
+        
         const code = type === 'General' ? document.getElementById('p-code').value : document.getElementById('prep-name').value;
         const phone = type === 'General' ? document.getElementById('p-phone').value : document.getElementById('prep-phone').value;
-        if(!code || !phone) return alert("Required: Patient Code and Contact Number.");
+        
+        if(!code || !phone) {
+            btn.innerText = "SEND REQUEST NOW";
+            return alert("Patient Code and Contact are required.");
+        }
 
         let details = "";
         if(type === 'General') {
             const svcs = Array.from(document.querySelectorAll('.svc:checked')).map(c => c.value).join(', ');
-            details = `Services: ${svcs} | Last Refill: ${document.getElementById('last-refill-date').value} | Rem: ${document.getElementById('pills-remaining').value} | Visit: ${document.getElementById('v-date').value} ${document.getElementById('v-time').value} | Notes: ${document.getElementById('p-notes').value}`;
+            details = `Svcs: ${svcs} | Last Refill: ${document.getElementById('last-refill-date').value} | Rem: ${document.getElementById('pills-rem-input').value} | Notes: ${document.getElementById('p-notes').value}`;
         } else {
-            details = `Rec: ${document.getElementById('prep-status-text').innerText}`;
+            details = `Recommendation: ${document.getElementById('prep-status-text').innerText}`;
         }
 
-        const data = { type, code, phone, details, status: 'pending', time: new Date().toLocaleString() };
-        submissions.unshift(data);
+        const payload = { type, code, phone, details, status: 'pending', time: new Date().toLocaleString() };
+        
+        // Save to Dashboard
+        submissions.unshift(payload);
         localStorage.setItem('tdmh_subs', JSON.stringify(submissions));
 
         try {
-            await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
-            alert("Request Submitted to HOMES Clinical Team.");
-            location.reload(); 
-        } catch(e) { alert("Stored locally. Connection error."); }
+            await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+            btn.innerText = "✨ SUCCESS!";
+            setTimeout(() => location.reload(), 1000);
+        } catch(e) { 
+            alert("Connection Error. Saved to local dashboard."); 
+            btn.innerText = "SEND REQUEST NOW";
+        }
     }
 
-    function updateStatus(index, newStatus) {
-        submissions[index].status = newStatus;
+    function setStatus(idx, stat) {
+        submissions[idx].status = stat;
         localStorage.setItem('tdmh_subs', JSON.stringify(submissions));
         renderDashboard();
-        // Send update to Google Sheet
-        fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(submissions[index]) });
+        // Send status update to Google Sheets
+        fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(submissions[idx]) });
     }
 
     function renderDashboard() {
         const list = document.getElementById('staff-list');
         list.innerHTML = submissions.map((s, idx) => `
             <div class="staff-item">
-                <span class="status-badge status-${s.status}">${s.status}</span>
-                <div style="display:flex; justify-content:space-between"><b>${s.code}</b> <span style="font-size:10px; opacity:0.6;">${s.type}</span></div>
-                <div style="font-size:13px; margin:5px 0; color:var(--brand); font-weight:600;">${s.phone}</div>
-                <div style="font-size:12px; margin-bottom:10px; opacity:0.8;">${s.details}</div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <b>${s.code}</b>
+                    <span class="status-badge status-${s.status}">${s.status}</span>
+                </div>
+                <div style="font-size:12px; margin:5px 0; color:#64748b;">${s.type} Request</div>
+                <div style="color:var(--brand); font-size:13px; font-weight:600; margin-bottom:10px;">${s.details}</div>
                 
-                <div class="action-bar">
-                    <a href="tel:${s.phone}" class="btn-call">📞 Call</a>
-                    <a href="sms:${s.phone}" class="btn-sms">💬 SMS</a>
+                <div class="action-row">
+                    <a href="tel:${s.phone}" class="btn-action" style="background:var(--brand); color:white;">📞 Call</a>
+                    <a href="sms:${s.phone}" class="btn-action" style="background:var(--success); color:white;">💬 SMS</a>
                 </div>
 
-                <div class="choice-row" style="margin-top:10px;">
-                    <div class="choice-btn" style="padding:5px; font-size:10px;" onclick="updateStatus(${idx}, 'confirmed')">Confirm</div>
-                    <div class="choice-btn" style="padding:5px; font-size:10px; background:var(--success); color:white;" onclick="updateStatus(${idx}, 'completed')">Complete</div>
+                <div class="action-row">
+                    <button onclick="setStatus(${idx}, 'confirmed')" class="btn-action" style="background:#f1f5f9; color:var(--text);">Confirm</button>
+                    <button onclick="setStatus(${idx}, 'completed')" class="btn-action" style="background:#f1f5f9; color:var(--text);">Complete</button>
                 </div>
-
-                <div style="font-size:10px; opacity:0.5; margin-top:10px;">Submitted: ${s.time}</div>
             </div>
-        `).join('') || "<p style='text-align:center;'>No active requests.</p>";
+        `).join('') || "<p style='text-align:center;'>No requests yet.</p>";
     }
 
-    function clearLocal() { if(confirm("Clear local dashboard history?")) { submissions = []; localStorage.removeItem('tdmh_subs'); renderDashboard(); } }
+    function clearLocal() { if(confirm("Clear history?")) { submissions = []; localStorage.removeItem('tdmh_subs'); renderDashboard(); } }
 </script>
 </body>
 </html>

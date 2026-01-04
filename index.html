@@ -12,11 +12,10 @@
             --success: #00d1b2; --warning: #ffb703; --border: #e2e8f0;
         }
 
-        /* Essential Mobile & iPad Fixes */
+        /* iPad & Mobile Optimization */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Fredoka', sans-serif; background-color: var(--bg); margin: 0; color: var(--text); padding-bottom: 80px; overflow-x: hidden; }
 
-        /* Fixed Header Setup */
         header { 
             position: fixed; top: 0; left: 0; width: 100%; z-index: 2000;
             background: var(--card); box-shadow: 0 4px 15px rgba(0,0,0,0.08);
@@ -28,11 +27,12 @@
         .nav-btn { flex: 1; background: #f1f5f9; border: none; font-size: 13px; font-weight: 600; cursor: pointer; color: #64748b; padding: 12px 5px; border-radius: 12px; transition: 0.3s; }
         .nav-btn.active { color: white; background: var(--brand); box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3); }
 
-        /* Content Spacing for Fixed Header */
         .hero { margin-top: 110px; background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); padding: 40px 20px 60px; text-align: center; color: white; border-bottom-right-radius: 60px; }
-        .main-wrapper { max-width: 800px; margin: -40px auto 40px; padding: 0 15px; position: relative; z-index: 10; }
+        .hero h1 { margin: 0; font-size: 24px; }
+        /* CP No set to White as requested */
+        .clinic-contact { margin: 8px 0 0; opacity: 1; font-size: 15px; color: #ffffff; font-weight: 500; }
 
-        /* Tabs & Cards */
+        .main-wrapper { max-width: 800px; margin: -40px auto 40px; padding: 0 15px; position: relative; z-index: 10; }
         .tab-content { background: var(--card); border-radius: 30px; padding: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -40,40 +40,33 @@
         .tag { font-size: 11px; background: #eef2ff; color: var(--brand); padding: 5px 12px; border-radius: 50px; font-weight: 700; margin-bottom: 10px; display: inline-block; text-transform: uppercase; }
         h2 { font-size: 22px; margin: 0 0 15px; color: var(--brand); }
         
-        /* Form Styling for Touch */
         label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 16px; color: #4a5568; }
         input, select, textarea { width: 100%; padding: 14px; border-radius: 14px; border: 2px solid var(--border); font-family: inherit; font-size: 16px; margin-bottom: 20px; background: #fdfdfd; -webkit-appearance: none; }
         
-        /* Service & Radio Grids - FIXED FOR MOBILE */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
         .card-opt { border: 2px solid var(--border); padding: 12px; border-radius: 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; background: #fff; min-height: 55px; }
         .card-opt span { font-size: 14px; font-weight: 500; }
         .card-opt input { width: 18px; height: 18px; margin: 0; flex-shrink: 0; }
 
-        /* Consultant Box */
         .consultant-box { background: #f8fafc; border: 1px solid var(--border); border-radius: 20px; padding: 15px; margin-bottom: 20px; }
         .c-row { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #edf2f7; }
-        .c-row:last-child { border: none; }
 
-        /* Result Boxes */
         .calc-display { background: #fff0f6; border: 2px dashed var(--accent); padding: 25px; border-radius: 25px; text-align: center; margin-bottom: 20px; }
         .result-box { padding: 20px; border-radius: 20px; margin-top: 20px; text-align: center; display: none; border: 2px solid var(--brand); }
 
-        /* Chat System */
+        /* Staff Note Styling */
+        .staff-card { background: white; border-left: 5px solid var(--brand); padding: 15px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .note-preview { background: #fffbeb; padding: 10px; border-radius: 10px; border: 1px solid #fef3c7; margin-top: 8px; font-size: 14px; color: #92400e; }
+
         #chat-trigger { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; box-shadow: 0 8px 20px rgba(247, 37, 133, 0.3); z-index: 3000; cursor: pointer; }
-        #chat-window { position: fixed; bottom: 90px; right: 20px; width: 300px; height: 400px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; flex-direction: column; z-index: 3000; overflow: hidden; border: 1px solid #eee; }
+        #chat-window { position: fixed; bottom: 90px; right: 20px; width: 300px; height: 420px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; flex-direction: column; z-index: 3000; overflow: hidden; border: 1px solid #eee; }
         .chat-header { background: var(--accent); color: white; padding: 15px; font-weight: 700; display: flex; justify-content: space-between; }
-        .chat-body { flex: 1; padding: 15px; overflow-y: auto; background: #f9fafb; font-size: 14px; }
+        .chat-body { flex: 1; padding: 15px; overflow-y: auto; background: #f9fafb; }
 
-        /* Staff Portal Styling */
-        .staff-card { background: white; border-left: 5px solid var(--brand); padding: 15px; border-radius: 15px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-
-        /* Tablet/Desktop Tweaks */
         @media (min-width: 768px) {
             .grid { grid-template-columns: repeat(3, 1fr); }
             nav { flex-direction: row; justify-content: space-between; }
             .nav-menu { width: auto; }
-            .nav-btn { padding: 12px 20px; }
         }
     </style>
 </head>
@@ -96,7 +89,7 @@
 
 <div class="hero">
     <h1 id="hero-txt">Health Services Portal</h1>
-    <p style="margin: 5px 0 0; opacity: 0.9; font-size: 14px;">HOMES CLINIC: 09209662447</p>
+    <p class="clinic-contact">HOMES CLINIC: 09209662447</p>
 </div>
 
 <div class="main-wrapper">
@@ -108,17 +101,15 @@
             <div class="c-row"><b>Dr. C.K.L. Rivera</b> <span>Thu: 3pm - 5pm</span></div>
         </div>
 
-        <div class="form-group">
-            <label>Patient Full Name / ID</label>
-            <input type="text" id="p-id" placeholder="Enter ID">
-        </div>
+        <label>Patient Full Name / ID</label>
+        <input type="text" id="p-id" placeholder="TDMH-XXXX-XXXX">
 
         <label>Select Required Services</label>
         <div class="grid">
             <label class="card-opt"><input type="checkbox" class="svc" value="Consult"><span>👨‍⚕️ Consult</span></label>
             <label class="card-opt"><input type="checkbox" class="svc" value="ARV"><span>💊 ARV</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Lab"><span>🧪 Lab</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Diag"><span>🩻 Diag</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="Laboratory"><span>🧪 Lab</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="Diagnosis"><span>🩻 Diag</span></label>
         </div>
 
         <label>STI Pen G Doses</label>
@@ -136,6 +127,9 @@
 
         <label>Preferred Visit Date</label>
         <input type="date" id="p-date">
+
+        <label>Additional Notes</label>
+        <textarea id="p-notes" rows="3" placeholder="Enter special requests, symptoms, or viral load results here..."></textarea>
 
         <button class="nav-btn active" style="width:100%; padding:20px; font-size:18px;" onclick="submitRefill()">Submit Official Request 🚀</button>
     </div>
@@ -175,7 +169,7 @@
     </div>
 
     <div id="tab-calc" class="tab-content">
-        <span class="tag">Formula: Last Date + Received - Left - 7 Buffer</span>
+        <span class="tag">Pill Prediction Tool</span>
         <div class="calc-display">
             <div id="target-date" style="font-size: 26px; font-weight: 700; color: var(--brand);">Awaiting Data...</div>
         </div>
@@ -183,13 +177,13 @@
         <label>Last Dispense Date</label>
         <input type="date" id="c-date" oninput="runCalc()">
         <label>Total Pills Received Previously</label>
-        <input type="number" id="c-total" placeholder="e.g. 30" oninput="runCalc()">
+        <input type="number" id="c-total" placeholder="Total" oninput="runCalc()">
         <label>Pills Remaining Today</label>
-        <input type="number" id="c-left" placeholder="e.g. 5" oninput="runCalc()">
+        <input type="number" id="c-left" placeholder="Left" oninput="runCalc()">
     </div>
 
     <div id="tab-staff" class="tab-content">
-        <span class="tag">Admin Only</span>
+        <span class="tag">Admin Queue</span>
         <h2>Pending Requests</h2>
         <div id="staff-list"></div>
     </div>
@@ -198,12 +192,12 @@
 
 <div id="chat-trigger" onclick="toggleChat()">💬</div>
 <div id="chat-window">
-    <div class="chat-header"><span>HOMES Support</span><span onclick="toggleChat()">×</span></div>
+    <div class="chat-header"><span>HOMES Support</span><span onclick="toggleChat()" style="cursor:pointer;">×</span></div>
     <div class="chat-body" id="chat-msgs">
-        <p style="background:#fff; padding:10px; border-radius:10px; margin:0;">Hello! How can we help you today?</p>
+        <p style="background:#fff; padding:10px; border-radius:10px; margin:0; font-size:14px;">How can we help you?</p>
     </div>
     <div style="padding:10px; border-top:1px solid #eee; display:flex; gap:5px;">
-        <input type="text" id="chat-in" placeholder="Type..." style="margin:0; padding:10px;">
+        <input type="text" id="chat-in" placeholder="Type message..." style="margin:0; padding:10px; flex:1;">
         <button onclick="sendChat()" style="background:var(--accent); color:white; border:none; padding:10px; border-radius:10px;">Send</button>
     </div>
 </div>
@@ -216,7 +210,8 @@
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tab-' + t).classList.add('active');
         document.getElementById('btn-' + t).classList.add('active');
-        document.getElementById('hero-txt').innerText = t === 'calc' ? 'Pill Predictor' : (t === 'prep' ? 'PrEP Assessment' : 'Refill Portal');
+        const titles = {refill:'Refill Portal', prep:'PrEP Assessment', calc:'Pill Predictor', staff:'Staff Dashboard'};
+        document.getElementById('hero-txt').innerText = titles[t];
     }
 
     function unlockStaff() {
@@ -236,31 +231,27 @@
         const q3 = document.querySelector('input[name="q3"]:checked')?.value;
         const res = document.getElementById('prep-res');
         res.style.display = 'block';
-        
         if(q2 === 'no') {
-            res.innerHTML = "<b>Review Necessary</b><br>You may use PrEP, but kidney function (Creatinine) must be reviewed first.";
+            res.innerHTML = "<b>Review Necessary</b><br>Check creatinine first.";
             res.style.borderColor = "var(--warning)";
         } else if(q3 === 'yes') {
-            res.innerHTML = "<b>Strong Candidate 🌟</b><br>PrEP is highly recommended based on your recent activity.";
+            res.innerHTML = "<b>Strong Candidate 🌟</b><br>Highly Recommended.";
             res.style.borderColor = "var(--success)";
         } else {
-            res.innerHTML = "<b>Consult Provider</b><br>Discuss clinical options with our IDS specialists.";
+            res.innerHTML = "<b>Consult Provider</b><br>Discuss with a specialist.";
             res.style.borderColor = "var(--brand)";
         }
     }
 
-    // PILL PREDICTOR FORMULA
     function runCalc() {
         const lastDate = document.getElementById('c-date').value;
         const total = parseInt(document.getElementById('c-total').value) || 0;
         const left = parseInt(document.getElementById('c-left').value) || 0;
-
         if(lastDate && total > 0) {
             let date = new Date(lastDate);
-            // Formula: Dispense Date + (Total Pills - Left Today - 7 Buffer)
+            // Formula: Dispense Date + (Total - Left - 7)
             let daysToAdd = (total - left) - 7;
             date.setDate(date.getDate() + daysToAdd);
-            
             document.getElementById('target-date').innerText = "Refill Date: " + date.toDateString();
         }
     }
@@ -268,11 +259,14 @@
     function submitRefill() {
         const name = document.getElementById('p-id').value;
         const date = document.getElementById('p-date').value;
-        if(!name || !date) return alert("Please fill in Name and Date");
+        const notes = document.getElementById('p-notes').value;
+        if(!name || !date) return alert("Fill in ID and Date.");
         
-        db.push({ name, date, id: Date.now() });
+        db.push({ name, date, notes, id: Date.now() });
         updateStaff();
-        alert("Request Sent to HOMES Staff!");
+        alert("Request Sent to Staff!");
+        document.getElementById('p-id').value = "";
+        document.getElementById('p-notes').value = "";
     }
 
     function updateStaff() {
@@ -280,7 +274,8 @@
         list.innerHTML = db.map(item => `
             <div class="staff-card">
                 <b>Patient:</b> ${item.name}<br>
-                <b>Visit Date:</b> ${item.date}
+                <b>Visit:</b> ${item.date}
+                ${item.notes ? `<div class="note-preview"><b>Client Note:</b> ${item.notes}</div>` : ''}
             </div>
         `).join('') || "No pending requests.";
     }
@@ -293,7 +288,7 @@
     function sendChat() {
         const msg = document.getElementById('chat-in').value;
         if(msg) {
-            document.getElementById('chat-msgs').innerHTML += `<p style="text-align:right; color:var(--accent); font-weight:600;">${msg}</p>`;
+            document.getElementById('chat-msgs').innerHTML += `<p style="text-align:right; color:var(--accent); font-weight:600; font-size:14px; margin:5px 0;">${msg}</p>`;
             document.getElementById('chat-in').value = "";
         }
     }

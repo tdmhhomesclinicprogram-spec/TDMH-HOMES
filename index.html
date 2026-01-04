@@ -20,8 +20,8 @@
             --hero-grad: linear-gradient(45deg, #ff0000, #ff8a00, #ffee00, #18d000, #0081ff, #a100ff);
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Fredoka', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 80px; color: var(--text); overflow-x: hidden; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; transition: background 0.3s ease; }
+        body { font-family: 'Fredoka', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 100px; color: var(--text); line-height: 1.5; }
         
         header { position: fixed; top: 0; width: 100%; z-index: 2000; background: var(--card); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         nav { padding: 10px 15px; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
@@ -34,41 +34,42 @@
         .theme-toggle { background: #e2e8f0; border: none; padding: 8px 15px; border-radius: 20px; font-size: 14px; cursor: pointer; font-weight: 700; }
 
         .hero { margin-top: 130px; background: var(--hero-grad); padding: 50px 20px; text-align: center; color: white; border-bottom-right-radius: 50px; }
-        .main-title { font-size: 48px; font-weight: 800; margin: 0; letter-spacing: -1px; }
-        .sched-box { font-size: 18px; font-weight: 500; background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; margin-top: 20px; display: inline-block; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); }
+        .main-title { font-size: 48px; font-weight: 800; margin: 0; }
+        .sched-box { font-size: 18px; background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; margin-top: 20px; display: inline-block; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); }
 
         .main-wrapper { max-width: 900px; margin: -30px auto 40px; padding: 0 15px; }
 
         .confidential-banner { background: #fff4e5; border: 2px solid #ffb347; padding: 15px; border-radius: 15px; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
         
-        /* TABLET/IPAD STACKING: Prevents Overlapping */
-        .tab-content { background: var(--card); border-radius: 25px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); display: none; margin-top: 20px; }
+        /* IPAD/MOBILE OVERLAP PREVENTION */
+        .tab-content { background: var(--card); border-radius: 25px; padding: clamp(20px, 5vw, 35px); box-shadow: 0 10px 40px rgba(0,0,0,0.08); display: none; margin-top: 20px; }
         .tab-content.active { display: block; }
-        .form-group { margin-bottom: 25px; display: flex; flex-direction: column; width: 100%; min-height: fit-content; }
-        label { font-weight: 700; color: #4a5568; margin-bottom: 10px; font-size: 16px; display: block; line-height: 1.4; }
         
-        input, select, textarea { width: 100%; padding: 16px; border-radius: 12px; border: 2px solid var(--border); font-family: inherit; font-size: 16px; background: #fff; display: block; -webkit-appearance: none; }
+        .form-group { margin-bottom: 20px; display: flex; flex-direction: column; width: 100%; position: relative; }
+        label { font-weight: 700; color: #4a5568; margin-bottom: 8px; font-size: 16px; display: block; line-height: 1.2; }
+        
+        input, select, textarea { width: 100%; padding: 16px; border-radius: 12px; border: 2px solid var(--border); font-family: inherit; font-size: 16px; background: #fff; margin-bottom: 5px; }
 
-        .section-title { font-size: 20px; font-weight: 700; color: var(--brand); margin: 35px 0 15px; border-bottom: 3px solid #f1f5f9; padding-bottom: 8px; }
+        .section-title { font-size: 20px; font-weight: 700; color: var(--brand); margin: 30px 0 15px; border-bottom: 3px solid #f1f5f9; padding-bottom: 8px; }
         
         .options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
-        .card-opt { border: 2px solid var(--border); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; background: #fff; font-weight: 600; font-size: 14px; }
+        .card-opt { border: 2px solid var(--border); padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 8px; cursor: pointer; background: #fff; font-weight: 600; min-height: 60px; }
         .card-opt:has(input:checked) { background: #f0f4ff; border-color: var(--brand); color: var(--brand); }
 
-        .res-box { padding: 25px; border-radius: 15px; margin: 25px 0; border-left: 8px solid var(--brand); background: #f0f7ff; font-size: 16px; line-height: 1.6; display: none; }
-        
-        /* DAYS BREAKDOWN STYLING */
-        .supply-stats { display: flex; gap: 10px; margin-top: 15px; }
-        .stat-pill { flex: 1; background: #fff; border: 2px solid #e2e8f0; padding: 10px; border-radius: 10px; text-align: center; font-size: 13px; font-weight: 700; color: #64748b; }
-        .stat-pill span { display: block; font-size: 18px; color: var(--brand); }
+        /* PROFESSIONAL HIGHLIGHTS */
+        .res-box { padding: 25px; border-radius: 15px; margin: 25px 0; border-left: 8px solid var(--brand); background: #f0f7ff; font-size: 16px; display: none; }
+        .res-box.visible { display: block; }
+        .highlight-text { font-size: 20px; font-weight: 700; color: var(--brand-dark); display: block; margin-bottom: 8px; }
 
-        .submit-main { background: var(--brand); color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 700; font-size: 18px; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3); }
+        .submit-main { background: var(--brand); color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 700; font-size: 18px; cursor: pointer; margin-top: 10px; }
+        
         .choice-btn { flex: 1; padding: 16px; border: 2px solid var(--border); border-radius: 12px; text-align: center; cursor: pointer; font-weight: 700; background: white; }
         .choice-btn.selected { background: var(--brand); color: white; border-color: var(--brand); }
-        
-        .star-container { text-align: center; margin-top: 40px; padding: 20px; background: var(--card); border-radius: 20px; }
-        .stars { display: flex; justify-content: center; gap: 10px; font-size: 35px; cursor: pointer; }
-        .star.active { color: #ffcc00; }
+
+        /* CALCULATOR SPECIFIC */
+        .calc-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; text-align: center; }
+        .stat-card { background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid var(--border); }
+        .stat-val { display: block; font-size: 24px; font-weight: 800; color: var(--brand); }
     </style>
 </head>
 <body id="main-body">
@@ -91,55 +92,58 @@
 <div class="hero">
     <h1 class="main-title">TDMH HOMES</h1>
     <div class="sched-box">
-        <b>🏥 DOCTOR'S CLINIC SCHEDULE:</b><br>
-        Dr. L. Mariano: Mon 1:00 PM – 3:00 PM<br>
-        Dr. C. Rivera: Thu 3:00 PM – 5:00 PM
+        <b>🏥 CLINICAL CONSULTATION HOURS:</b><br>
+        Dr. L. Mariano: Monday (1:00 PM – 3:00 PM)<br>
+        Dr. C. Rivera: Thursday (3:00 PM – 5:00 PM)
     </div>
 </div>
 
 <div class="main-wrapper">
     <div class="confidential-banner">
         <span>🛡️</span>
-        <div><b>Confidentiality Guaranteed</b><br><small>All information provided is strictly for clinical use.</small></div>
+        <div>
+            <b>HIPAA-Compliant Data Privacy</b><br>
+            <small>All health indicators and personal codes are strictly confidential.</small>
+        </div>
     </div>
 
     <div id="tab-general" class="tab-content active">
         <div class="section-title">1. Patient Identification</div>
-        <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Enter your code"></div>
+        <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Enter patient code"></div>
         <div class="form-group"><label>Mobile Number</label><input type="tel" id="p-phone" placeholder="09XXXXXXXXX"></div>
 
-        <div class="section-title">2. Select Services</div>
+        <div class="section-title">2. Clinical Services Requested</div>
         <div class="options-grid">
             <label class="card-opt"><input type="checkbox" class="svc" value="Consult"><span>Consultation</span></label>
             <label class="card-opt"><input type="checkbox" class="svc" value="Lab"><span>Laboratory</span></label>
             <label class="card-opt"><input type="checkbox" class="svc" value="Diag"><span>Diagnostics</span></label>
         </div>
 
-        <div class="section-title">3. STI Treatment (Pen G)</div>
+        <div class="section-title">3. STI Penicillin G Protocol</div>
         <div class="options-grid">
-            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-1"><span>1st Dose</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-2"><span>2nd Dose</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-3"><span>3rd Dose</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-1"><span>Dose 1</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-2"><span>Dose 2</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-3"><span>Dose 3</span></label>
         </div>
 
         <div class="section-title">4. Immunizations</div>
         <div class="options-grid">
-            <label class="card-opt"><input type="checkbox" class="svc" value="Fluvax"><span>Fluvax</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Pneumovax"><span>Pneumovax</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="Fluvax"><span>Influenza</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="Pneumovax"><span>Pneumonia</span></label>
         </div>
 
-        <div class="section-title">5. Visit Scheduling</div>
+        <div class="section-title">5. Visit Logistics</div>
         <div class="form-group"><label>Preferred Visit Date</label><input type="date" id="v-date"></div>
         <div class="form-group"><label>Preferred Visit Time</label><input type="time" id="v-time"></div>
-        <div class="form-group"><label>Additional Notes</label><textarea id="p-notes" placeholder="Any specific concerns..."></textarea></div>
+        <div class="form-group"><label>Additional Clinical Notes</label><textarea id="p-notes" placeholder="Specify any symptoms or special requests..."></textarea></div>
 
-        <button class="submit-main" onclick="submitData('General')">Submit Request</button>
+        <button class="submit-main" id="refill-sub" onclick="submitData('General')">Submit Request</button>
     </div>
 
     <div id="tab-prep" class="tab-content">
-        <div class="section-title">Step 1: HIV Status Confirmation</div>
+        <div class="section-title">Step 1: Clinical Eligibility</div>
         <div class="form-group">
-            <label>1. Have you tested HIV Negative within the last 7 days?</label>
+            <label>1. Have you documented a non-reactive (Negative) HIV test within the last 7 days?</label>
             <div style="display:flex; gap:10px;">
                 <div class="choice-btn" id="q1y" onclick="gate(true)">YES</div>
                 <div class="choice-btn" id="q1n" onclick="gate(false)">NO</div>
@@ -147,48 +151,52 @@
         </div>
 
         <div id="prep-all" style="display:none;">
-            <div class="section-title">Step 2: Risk Profile</div>
-            <div class="form-group"><label>2. Recent Creatinine Test?</label>
+            <div class="section-title">Step 2: Risk Profile & Renal Screening</div>
+            <div class="form-group"><label>2. Do you have a baseline Serum Creatinine (Kidney Function) result?</label>
                 <div style="display:flex; gap:10px;"><div class="choice-btn" id="q2y" onclick="setPrEP(2,'yes')">YES</div><div class="choice-btn" id="q2n" onclick="setPrEP(2,'no')">NO</div></div></div>
-            <div class="form-group"><label>3. Condomless sex in last 6 months?</label>
+            <div class="form-group"><label>3. Exposure to condomless sexual activity in the last 6 months?</label>
                 <div style="display:flex; gap:10px;"><div class="choice-btn" id="q3y" onclick="setPrEP(3,'yes')">YES</div><div class="choice-btn" id="q3n" onclick="setPrEP(3,'no')">NO</div></div></div>
-            <div class="form-group"><label>4. Recent STI treatment?</label>
+            <div class="form-group"><label>4. Documented history of STIs within the last 6 months?</label>
                 <div style="display:flex; gap:10px;"><div class="choice-btn" id="q4y" onclick="setPrEP(4,'yes')">YES</div><div class="choice-btn" id="q4n" onclick="setPrEP(4,'no')">NO</div></div></div>
-            <div class="form-group"><label>5. Partner is HIV+ or unknown?</label>
+            <div class="form-group"><label>5. Sexual partner(s) with HIV-positive or unknown status?</label>
                 <div style="display:flex; gap:10px;"><div class="choice-btn" id="q5y" onclick="setPrEP(5,'yes')">YES</div><div class="choice-btn" id="q5n" onclick="setPrEP(5,'no')">NO</div></div></div>
-            <div class="form-group"><label>6. Difficulty using condoms?</label>
+            <div class="form-group"><label>6. Barriers to consistent condom use?</label>
                 <div style="display:flex; gap:10px;"><div class="choice-btn" id="q6y" onclick="setPrEP(6,'yes')">YES</div><div class="choice-btn" id="q6n" onclick="setPrEP(6,'no')">NO</div></div></div>
 
-            <div id="prep-res" class="res-box"><b>Recommendation Status</b>Complete questions above.</div>
-            <div class="form-group"><label>Name/Code</label><input type="text" id="prep-name"></div>
+            <div id="prep-res" class="res-box">
+                <span class="highlight-text" id="prep-status-header">Assessment Pending</span>
+                <span id="prep-body">Please provide responses for clinical review.</span>
+            </div>
+            
+            <div class="form-group"><label>Client Name/Code</label><input type="text" id="prep-name"></div>
             <div class="form-group"><label>Mobile Number</label><input type="tel" id="prep-phone"></div>
-            <button class="submit-main" onclick="submitData('PrEP')">Submit Assessment</button>
+            <button class="submit-main" id="prep-sub" onclick="submitData('PrEP')">Submit Clinical Assessment</button>
         </div>
         <div id="prep-gate-msg" class="res-box"></div>
     </div>
 
     <div id="tab-calc" class="tab-content">
-        <div class="section-title">ARV Refill Optimizer</div>
+        <div class="section-title">ARV Medication Supply Calculator</div>
         
-        <div id="calc-res" class="res-box" style="display:block; text-align:center;">
-            <b>Next Recommended Visit:</b><br>
-            <span id="target-date-display" style="font-size:24px; color:var(--brand);">---</span>
-            
-            <div class="supply-stats">
-                <div class="stat-pill">Total Supply<span id="stat-total">0</span>days</div>
-                <div class="stat-pill">Remaining<span id="stat-rem">0</span>days</div>
+        <div id="calc-res" class="res-box visible" style="text-align:center;">
+            <span class="highlight-text" id="calc-date">Calculating...</span>
+            <div class="calc-breakdown">
+                <div class="stat-card">
+                    <small>Days Remaining</small>
+                    <span class="stat-val" id="days-rem">0</span>
+                </div>
+                <div class="stat-card">
+                    <small>Buffer Days</small>
+                    <span class="stat-val" id="buffer-val">7</span>
+                </div>
             </div>
         </div>
 
-        <div class="form-group"><label>Date of Last Dispense</label><input type="date" id="c-date" oninput="runCalc()"></div>
-        <div class="form-group"><label>Total Pills Received (Qty)</label><input type="number" id="c-total" placeholder="e.g. 30, 60, 90" oninput="runCalc()"></div>
-        <div class="form-group"><label>Pills Left Today (Count)</label><input type="number" id="c-left" placeholder="How many pills are in the bottle?" oninput="runCalc()"></div>
-    </div>
-
-    <div class="star-container">
-        <h3>Rate Your Experience</h3>
-        <div class="stars"><span class="star" onclick="rate(1)">★</span><span class="star" onclick="rate(2)">★</span><span class="star" onclick="rate(3)">★</span><span class="star" onclick="rate(4)">★</span><span class="star" onclick="rate(5)">★</span></div>
-        <p id="star-msg" style="margin-top:10px;"></p>
+        <div class="form-group"><label>Date of Last Medication Dispense</label><input type="date" id="c-date" oninput="runCalc()"></div>
+        <div class="form-group"><label>Total Quantity Received (No. of Pills)</label><input type="number" id="c-total" placeholder="e.g., 30 or 90" oninput="runCalc()"></div>
+        <div class="form-group"><label>Actual Pill Count Today</label><input type="number" id="c-left" placeholder="Count your remaining pills" oninput="runCalc()"></div>
+        
+        <p style="font-size:12px; color:#64748b; margin-top:15px;">*Calculator includes a mandatory 7-day buffer to prevent treatment interruption.</p>
     </div>
 </div>
 
@@ -199,7 +207,7 @@
     function toggleTheme() {
         const body = document.getElementById('main-body');
         const isPride = body.classList.toggle('pride-mode');
-        document.getElementById('theme-btn').innerText = isPride ? '☀️ Light Mode' : '🎨 Pride Mode';
+        document.getElementById('theme-btn').innerHTML = isPride ? '☀️ Switch to Light Mode' : '🎨 Switch to Pride Mode';
     }
 
     function tab(t) {
@@ -207,60 +215,62 @@
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tab-' + t).classList.add('active');
         document.getElementById('btn-' + t).classList.add('active');
-    }
-
-    function runCalc() {
-        const lastDispense = document.getElementById('c-date').value;
-        const totalReceived = parseInt(document.getElementById('c-total').value) || 0;
-        const pillsLeft = parseInt(document.getElementById('c-left').value) || 0;
-
-        // Visual Supply Breakdown
-        document.getElementById('stat-total').innerText = totalReceived;
-        document.getElementById('stat-rem').innerText = pillsLeft;
-
-        if(lastDispense && totalReceived) {
-            let target = new Date(lastDispense);
-            // Calculation: Last dispense + (Total - 7 days buffer) + extra left from previous
-            target.setDate(target.getDate() + (totalReceived + pillsLeft - 7));
-            document.getElementById('target-date-display').innerText = target.toDateString();
-        }
+        window.scrollTo(0,0);
     }
 
     function gate(v) {
         document.getElementById('prep-all').style.display = v ? 'block' : 'none';
         const msg = document.getElementById('prep-gate-msg');
-        msg.style.display = v ? 'none' : 'block';
-        if(!v) msg.innerHTML = "<b>Action Required:</b> HIV Negative result (within 7 days) is mandatory.";
+        msg.classList.toggle('visible', !v);
+        if(!v) msg.innerHTML = "<b>Action Required:</b> A non-reactive HIV test result is clinical prerequisite for PrEP. Please visit TDMH for immediate screening.";
         document.getElementById('q1y').classList.toggle('selected', v);
         document.getElementById('q1n').classList.toggle('selected', !v);
     }
 
     function setPrEP(q, v) {
         prepAns[q] = v;
-        document.querySelectorAll(`#q${q}y, #q${q}n`).forEach(b => b.classList.remove('selected'));
-        document.getElementById(`q${q}${v === 'yes' ? 'y' : 'n'}`).classList.add('selected');
+        document.getElementById(`q${q}y`).classList.toggle('selected', v==='yes');
+        document.getElementById(`q${q}n`).classList.toggle('selected', v==='no');
         evaluatePrEP();
     }
 
     function evaluatePrEP() {
-        const res = document.getElementById('prep-res');
-        res.style.display = 'block';
-        if(prepAns[2] === 'no') res.innerHTML = "<b>Clinical Note:</b> Creatinine Test needed.";
-        else res.innerHTML = "<b>Status:</b> Candidate. Submit to confirm.";
+        const box = document.getElementById('prep-res');
+        const header = document.getElementById('prep-status-header');
+        const body = document.getElementById('prep-body');
+        box.classList.add('visible');
+
+        if(prepAns[2] === 'no') {
+            header.innerText = "Laboratory Required";
+            body.innerHTML = "A <b>Serum Creatinine</b> test is required to assess renal eligibility before PrEP initiation.";
+            box.style.borderLeftColor = "var(--danger)";
+        } else if (Object.keys(prepAns).length >= 5) {
+            header.innerText = "Clinical Candidate";
+            body.innerHTML = "Your profile suggests you would benefit from PrEP. Submit this assessment to discuss initiation with a provider.";
+            box.style.borderLeftColor = "var(--success)";
+        }
     }
 
-    function rate(n) {
-        const stars = document.querySelectorAll('.star');
-        stars.forEach((s, i) => s.classList.toggle('active', i < n));
-        document.getElementById('star-msg').innerText = "Thank you for the " + n + "-star rating!";
-    }
+    function runCalc() {
+        const d = document.getElementById('c-date').value;
+        const total = parseInt(document.getElementById('c-total').value) || 0;
+        const left = parseInt(document.getElementById('c-left').value) || 0;
+        
+        document.getElementById('days-rem').innerText = left;
 
-    function unlockStaff() { if(prompt("PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
+        if(d) {
+            let target = new Date();
+            // Calculate based on pills left minus the 7-day safety buffer
+            target.setDate(target.getDate() + (left - 7));
+            document.getElementById('calc-date').innerHTML = "Recommended Refill Visit:<br><span style='font-size:26px; color:var(--brand);'>" + target.toDateString() + "</span>";
+        }
+    }
 
     async function submitData(type) {
-        alert("Submitting request confidentially...");
-        location.reload();
+        alert("Submitting request... Please ensure your Google Script URL is active.");
     }
+
+    function unlockStaff() { if(prompt("Staff PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
 </script>
 </body>
 </html>

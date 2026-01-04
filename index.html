@@ -267,7 +267,7 @@
     function runCalc() {
         const dStr = document.getElementById('c-date').value;
         const total = parseInt(document.getElementById('c-total').value) || 0;
-        const actual = parseInt(document.getElementById('c-left').value) || 0;
+        const actual = parseInt(document.getElementById('c+left').value) || 0;
         const msg = document.getElementById('adherence-msg');
 
         if(dStr && total > 0) {
@@ -333,3 +333,4 @@
 </script>
 </body>
 </html>
+

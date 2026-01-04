@@ -21,78 +21,70 @@
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Fredoka', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 80px; color: var(--text); line-height: 1.4; }
+        body { font-family: 'Fredoka', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 80px; color: var(--text); line-height: 1.4; overflow-x: hidden; }
         
         header { position: fixed; top: 0; width: 100%; z-index: 2000; background: var(--card); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         nav { padding: 10px 15px; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
         .nav-top { display: flex; justify-content: space-between; align-items: center; }
         .nav-menu { display: flex; gap: 8px; overflow-x: auto; padding: 5px 0; width: 100%; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-        .nav-menu::-webkit-scrollbar { display: none; }
         
-        .nav-btn { flex: 0 0 auto; min-width: 130px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; color: #64748b; padding: 12px; border-radius: 10px; background: #f1f5f9; transition: 0.2s; }
+        .nav-btn { flex: 0 0 auto; min-width: 130px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; color: #64748b; padding: 12px; border-radius: 10px; background: #f1f5f9; }
         .nav-btn.active { color: white; background: var(--brand); }
 
-        .theme-toggle { background: #e2e8f0; border: none; padding: 8px 15px; border-radius: 20px; font-size: 14px; cursor: pointer; font-weight: 700; }
-
-        .hero { margin-top: 135px; background: var(--hero-grad); padding: 50px 20px; text-align: center; color: white; border-bottom-right-radius: 50px; }
-        .main-title { font-size: clamp(32px, 8vw, 48px); font-weight: 800; margin: 0; }
-        .sched-box { font-size: 16px; background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; margin-top: 20px; display: inline-block; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); width: 100%; max-width: 500px; }
+        .hero { margin-top: 130px; background: var(--hero-grad); padding: 40px 20px; text-align: center; color: white; border-bottom-right-radius: 50px; }
+        .main-title { font-size: clamp(28px, 7vw, 42px); font-weight: 800; margin: 0; }
+        .sched-box { font-size: 14px; background: rgba(255,255,255,0.2); padding: 15px; border-radius: 15px; margin-top: 15px; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); width: 100%; max-width: 500px; display: inline-block; }
 
         .main-wrapper { max-width: 900px; margin: -30px auto 40px; padding: 0 15px; position: relative; z-index: 10; }
 
-        .confidential-banner { background: #fff4e5; border: 2px solid #ffb347; padding: 15px; border-radius: 15px; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
-
-        .tab-content { background: var(--card); border-radius: 25px; padding: clamp(15px, 5vw, 35px); box-shadow: 0 10px 40px rgba(0,0,0,0.08); display: none; margin-bottom: 30px; }
+        .tab-content { background: var(--card); border-radius: 25px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); display: none; margin-bottom: 30px; }
         .tab-content.active { display: block; }
         
-        /* FIXED LABELS FOR MOBILE/IPAD */
-        .form-group { position: relative; margin-bottom: 25px; width: 100%; }
+        /* IPAD & MOBILE FIX: LABELS ALWAYS VISIBLE */
+        .form-group { margin-bottom: 25px; display: flex; flex-direction: column; width: 100%; }
         .form-group label { 
-            position: absolute; top: -12px; left: 12px; background: white; padding: 0 10px;
-            font-size: 13px; font-weight: 700; color: var(--brand); z-index: 2; border-radius: 4px;
+            font-size: 13px; font-weight: 700; color: var(--brand); 
+            margin-bottom: -10px; margin-left: 15px; z-index: 5;
+            background: #fff; padding: 0 8px; align-self: flex-start;
+            border-radius: 4px;
         }
-        
         input, select, textarea { 
             width: 100%; padding: 18px 15px; border-radius: 12px; border: 2px solid var(--border); 
-            font-family: inherit; font-size: 16px; background: #fff; position: relative; z-index: 1;
+            font-family: inherit; font-size: 16px; background: #fff; z-index: 1; outline: none;
         }
 
-        .section-title { font-size: 20px; font-weight: 700; color: var(--brand); margin: 35px 0 20px; border-bottom: 3px solid #f1f5f9; padding-bottom: 8px; }
+        .section-title { font-size: 18px; font-weight: 700; color: var(--brand); margin: 30px 0 15px; border-bottom: 3px solid #f1f5f9; padding-bottom: 5px; }
         
-        /* HIGHLIGHTS FOR GENERAL SERVICES */
-        .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 20px; }
+        /* SELECTION HIGHLIGHTS (TOUCH OPTIMIZED) */
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
         .card-opt { 
-            border: 2px solid var(--border); padding: 12px 15px; border-radius: 12px; 
-            display: flex; align-items: center; gap: 12px; cursor: pointer; background: #fff; 
-            font-weight: 600; min-height: 55px; font-size: 15px; transition: 0.2s; 
+            border: 2px solid var(--border); padding: 15px; border-radius: 12px; 
+            display: flex; align-items: center; gap: 10px; cursor: pointer; background: #fff; 
+            font-weight: 600; min-height: 55px; transition: all 0.2s ease;
         }
-        /* Highlight when checked */
-        .card-opt:has(input:checked) {
+        .card-opt.selected-opt {
             border-color: var(--brand);
             background-color: #f0f3ff;
+            color: var(--brand);
             box-shadow: 0 4px 12px rgba(67, 97, 238, 0.1);
         }
+        .card-opt input { width: 18px; height: 18px; pointer-events: none; }
 
-        .res-box { padding: 25px; border-radius: 15px; margin: 25px 0; border-left: 8px solid var(--brand); background: #f8faff; font-size: 16px; line-height: 1.6; display: none; border: 1px solid #e2e8f0; border-left: 8px solid var(--brand); }
-        .res-box b { font-size: 18px; display: block; margin-bottom: 8px; color: #1e293b; text-transform: uppercase; }
-        .highlight-text { color: var(--brand); font-weight: 700; font-size: 1.2em; display: block; margin: 10px 0; }
+        .res-box { padding: 20px; border-radius: 15px; margin: 20px 0; border-left: 8px solid var(--brand); background: #f8faff; border-top: 1px solid #ddd; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; display: none; }
+        .highlight-text { color: var(--brand); font-weight: 700; font-size: 1.1em; display: block; margin: 5px 0; }
 
-        .submit-main { background: var(--brand); color: white; width: 100%; padding: 22px; border: none; border-radius: 15px; font-weight: 700; font-size: 18px; cursor: pointer; margin-top: 15px; }
+        .submit-main { background: var(--brand); color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 700; font-size: 17px; cursor: pointer; margin-top: 10px; transition: opacity 0.2s; }
+        .submit-main:active { opacity: 0.8; }
 
-        /* PREP CHOICE BUTTONS */
-        .choice-container { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
-        .choice-label { font-weight: 700; font-size: 16px; color: #4a5568; }
-        .choice-row { display: flex; gap: 10px; width: 100%; }
-        .choice-btn { flex: 1; padding: 15px; border: 2px solid var(--border); border-radius: 12px; text-align: center; cursor: pointer; font-weight: 700; background: white; font-size: 14px; min-height: 60px; display: flex; align-items: center; justify-content: center; }
+        .choice-row { display: flex; gap: 10px; margin-top: 10px; }
+        .choice-btn { flex: 1; padding: 15px; border: 2px solid var(--border); border-radius: 12px; text-align: center; font-weight: 700; background: #fff; cursor: pointer; transition: 0.2s; }
         .choice-btn.selected { background: var(--brand); color: white; border-color: var(--brand); }
 
-        /* STAFF DASHBOARD STYLES */
-        .staff-card { background: #fff; border: 1px solid #e2e8f0; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 5px solid var(--brand); }
-        .staff-tag { font-size: 11px; padding: 3px 8px; border-radius: 5px; background: #f1f5f9; font-weight: 700; }
+        .staff-item { background: #f1f5f9; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 5px solid var(--brand); font-size: 14px; }
 
         @media (min-width: 768px) {
             .options-grid { grid-template-columns: repeat(3, 1fr); }
-            .choice-row { max-width: 500px; }
+            .tab-content { padding: 40px; }
         }
     </style>
 </head>
@@ -101,8 +93,8 @@
 <header>
     <nav>
         <div class="nav-top">
-            <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">🎨 Switch to Pride Mode</button>
-            <div onclick="unlockStaff()" style="cursor:pointer; padding:10px; opacity:0.3;">🔒</div>
+            <button onclick="toggleTheme()" id="theme-btn" style="padding:8px 15px; border-radius:20px; border:none; font-weight:700; background:#e2e8f0; cursor:pointer;">🎨 Theme</button>
+            <div onclick="unlockStaff()" style="cursor:pointer; opacity:0.3; padding:10px;">🔒</div>
         </div>
         <div class="nav-menu">
             <button id="btn-general" class="nav-btn active" onclick="tab('general')">General Services</button>
@@ -117,69 +109,75 @@
     <h1 class="main-title">TDMH HOMES</h1>
     <div class="sched-box">
         <b>🏥 CLINICAL DOCTOR'S SCHEDULE:</b><br>
-        Dr. L. Mariano: Mondays | 1:00 PM – 3:00 PM<br>
-        Dr. C. Rivera: Thursdays | 3:00 PM – 5:00 PM
+        Dr. Mariano: Mon 1-3PM | Dr. Rivera: Thu 3-5PM
     </div>
 </div>
 
 <div class="main-wrapper">
     <div id="tab-general" class="tab-content active">
         <div class="section-title">1. Patient Identification</div>
-        <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Unique code"></div>
-        <div class="form-group"><label>Mobile Number</label><input type="tel" id="p-phone" placeholder="09XXXXXXXXX"></div>
+        <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Code"></div>
+        <div class="form-group"><label>Mobile Number</label><input type="tel" id="p-phone" placeholder="09xxxxxxxxx"></div>
 
         <div class="section-title">2. General Services</div>
         <div class="options-grid">
-            <label class="card-opt"><input type="checkbox" class="svc" value="Consultation"><span>Consultation</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Laboratory"><span>Laboratory</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Diagnostics"><span>Diagnostics</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Consultation"><span>Consultation</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Laboratory"><span>Laboratory</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Diagnostics"><span>Diagnostics</span></label>
         </div>
 
-        <div class="section-title">3. STI Treatment (Pen G)</div>
+        <div class="section-title">3. STI Treatment</div>
         <div class="options-grid">
-            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-1st"><span>1st Dose</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-2nd"><span>2nd Dose</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="PenG-3rd"><span>3rd Dose</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-1"><span>1st Dose (PenG)</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-2"><span>2nd Dose (PenG)</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="PenG-3"><span>3rd Dose (PenG)</span></label>
         </div>
 
         <div class="section-title">4. Immunizations</div>
         <div class="options-grid">
-            <label class="card-opt"><input type="checkbox" class="svc" value="Fluvax"><span>Fluvax</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Pneumovax"><span>Pneumovax</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Fluvax"><span>Fluvax</span></label>
+            <label class="card-opt" onclick="toggleSelection(this)"><input type="checkbox" class="svc" value="Pneumovax"><span>Pneumovax</span></label>
         </div>
 
-        <div class="form-group"><label>Visit Date</label><input type="date" id="v-date"></div>
-        <div class="form-group"><label>Notes</label><textarea id="p-notes" rows="3"></textarea></div>
+        <div class="section-title">5. Visit Scheduling</div>
+        <div class="form-group"><label>Preferred Date</label><input type="date" id="v-date"></div>
+        <div class="form-group"><label>Notes</label><textarea id="p-notes" placeholder="Additional details..." rows="3"></textarea></div>
 
         <button class="submit-main" onclick="submitData('General')">Submit Request</button>
     </div>
 
     <div id="tab-prep" class="tab-content">
         <div class="section-title">Step 1: Clinical Eligibility</div>
-        <div class="choice-container">
-            <span class="choice-label">1. Have you confirmed an HIV Negative status within the last 7 days?</span>
-            <div class="choice-row">
-                <div class="choice-btn" id="q1y" onclick="gate(true)">Confirmed Negative</div>
-                <div class="choice-btn" id="q1n" onclick="gate(false)">Not Tested</div>
-            </div>
+        <p>1. Confirmed HIV Negative status within 7 days?</p>
+        <div class="choice-row">
+            <div class="choice-btn" id="q1y" onclick="gate(true)">Yes</div>
+            <div class="choice-btn" id="q1n" onclick="gate(false)">No</div>
         </div>
 
         <div id="prep-all" style="display:none;">
-            <div class="section-title">Step 2: Risk Profile</div>
-            <div class="choice-container"><span class="choice-label">2. Creatinine (Kidney Function) test recently?</span>
-                <div class="choice-row"><div class="choice-btn" id="q2y" onclick="setPrEP(2,'yes')">Yes</div><div class="choice-btn" id="q2n" onclick="setPrEP(2,'no')">No</div></div></div>
-            <div class="choice-container"><span class="choice-label">3. Condomless sexual activity in past 6 months?</span>
-                <div class="choice-row"><div class="choice-btn" id="q3y" onclick="setPrEP(3,'yes')">Yes</div><div class="choice-btn" id="q3n" onclick="setPrEP(3,'no')">No</div></div></div>
-            <div class="choice-container"><span class="choice-label">4. Treated for an STI in the last 6 months?</span>
-                <div class="choice-row"><div class="choice-btn" id="q4y" onclick="setPrEP(4,'yes')">Yes</div><div class="choice-btn" id="q4n" onclick="setPrEP(4,'no')">No</div></div></div>
-            <div class="choice-container"><span class="choice-label">5. Partner Status Positive or Unknown?</span>
-                <div class="choice-row"><div class="choice-btn" id="q5y" onclick="setPrEP(5,'yes')">Yes</div><div class="choice-btn" id="q5n" onclick="setPrEP(5,'no')">No</div></div></div>
-            <div class="choice-container"><span class="choice-label">6. Difficult to use condoms consistently?</span>
-                <div class="choice-row"><div class="choice-btn" id="q6y" onclick="setPrEP(6,'yes')">Yes</div><div class="choice-btn" id="q6n" onclick="setPrEP(6,'no')">No</div></div></div>
+            <div class="section-title">Step 2: Risk & Renal Health</div>
+            <p>2. Creatinine (Kidney) test done recently?</p>
+            <div class="choice-row"><div class="choice-btn" id="q2y" onclick="setPrEP(2,'yes')">Yes</div><div class="choice-btn" id="q2n" onclick="setPrEP(2,'no')">No</div></div>
+            
+            <p>3. Condomless sex in past 6 months?</p>
+            <div class="choice-row"><div class="choice-btn" id="q3y" onclick="setPrEP(3,'yes')">Yes</div><div class="choice-btn" id="q3n" onclick="setPrEP(3,'no')">No</div></div>
+            
+            <p>4. Treated for STI in last 6 months?</p>
+            <div class="choice-row"><div class="choice-btn" id="q4y" onclick="setPrEP(4,'yes')">Yes</div><div class="choice-btn" id="q4n" onclick="setPrEP(4,'no')">No</div></div>
+            
+            <p>5. Partner HIV+ or status unknown?</p>
+            <div class="choice-row"><div class="choice-btn" id="q5y" onclick="setPrEP(5,'yes')">Yes</div><div class="choice-btn" id="q5n" onclick="setPrEP(5,'no')">No</div></div>
+            
+            <p>6. Difficult to use condoms consistently?</p>
+            <div class="choice-row"><div class="choice-btn" id="q6y" onclick="setPrEP(6,'yes')">Yes</div><div class="choice-btn" id="q6n" onclick="setPrEP(6,'no')">No</div></div>
 
-            <div id="prep-res" class="res-box" style="display:block;"><b>Recommendation</b><span id="prep-status-text">Complete questions...</span></div>
-            <div class="form-group"><label>Patient Code</label><input type="text" id="prep-name"></div>
-            <button class="submit-main" onclick="submitData('PrEP')">Submit PrEP Assessment</button>
+            <div id="prep-res" class="res-box" style="display:block; margin-top:20px;">
+                <b>Clinical Recommendation</b>
+                <span id="prep-status-text">Complete questions for assessment.</span>
+            </div>
+            
+            <div class="form-group" style="margin-top:20px;"><label>Patient Code</label><input type="text" id="prep-name"></div>
+            <button class="submit-main" onclick="submitData('PrEP')">Submit Assessment</button>
         </div>
         <div id="prep-gate-msg" class="res-box"></div>
     </div>
@@ -189,7 +187,6 @@
         <div class="res-box" style="display:block; text-align:center;">
             <b>Next Recommended Visit</b>
             <div id="calc-output" class="highlight-text">Enter details below</div>
-            <div id="calc-breakdown" style="font-size:13px; color:#666; margin-top:10px;"></div>
         </div>
         <div class="form-group"><label>Date of Last Dispense</label><input type="date" id="c-date" oninput="runCalc()"></div>
         <div class="form-group"><label>Total Quantity (Pills)</label><input type="number" id="c-total" oninput="runCalc()"></div>
@@ -197,54 +194,58 @@
     </div>
 
     <div id="tab-staff" class="tab-content">
-        <div class="section-title">Patient Request Queue</div>
+        <div class="section-title">Patient Request Dashboard</div>
         <div id="staff-list">
-            <p style="text-align:center; color:#94a3b8;">No recent submissions found in this session.</p>
+            <p style="text-align:center; color:#666;">No recent submissions.</p>
         </div>
+        <button class="submit-main" style="background:#64748b; margin-top:20px;" onclick="clearLocal()">Clear Local List</button>
     </div>
 </div>
 
 <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz4oRkBdfBwITAHfmeNeb0VClOCh9y0FgeSHgTvdoZOydIvQtBdcjWuLuEjGC-aZqks/exec";
     let prepAns = {};
-    let localSubmissions = [];
+    let submissions = JSON.parse(localStorage.getItem('tdmh_subs') || '[]');
 
     function tab(t) {
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tab-' + t).classList.add('active');
         document.getElementById('btn-' + t).classList.add('active');
-        window.scrollTo(0, 0);
+        if(t === 'staff') renderDashboard();
+        window.scrollTo(0,0);
     }
 
-    function toggleTheme() {
-        const body = document.getElementById('main-body');
-        const isPride = body.classList.toggle('pride-mode');
-        document.getElementById('theme-btn').innerText = isPride ? '☀️ Light Mode' : '🎨 Pride Mode';
+    function toggleTheme() { document.body.classList.toggle('pride-mode'); }
+
+    // ROBUST HIGHLIGHT LOGIC FOR IPAD
+    function toggleSelection(el) {
+        const cb = el.querySelector('input');
+        cb.checked = !cb.checked;
+        el.classList.toggle('selected-opt', cb.checked);
     }
 
     function gate(v) {
         document.getElementById('prep-all').style.display = v ? 'block' : 'none';
         const msg = document.getElementById('prep-gate-msg');
         msg.style.display = v ? 'none' : 'block';
-        if(!v) msg.innerHTML = "<b>PrEP Requires Negative Result:</b> HIV Test required within 7 days.";
+        if(!v) msg.innerHTML = "<b>PrEP Ineligible:</b> You must have a confirmed HIV Negative test result within the last 7 days.";
         document.getElementById('q1y').classList.toggle('selected', v);
         document.getElementById('q1n').classList.toggle('selected', !v);
     }
 
+    // UPDATED PREP RECOMMENDATION LOGIC
     function setPrEP(q, v) {
         prepAns[q] = v;
-        document.getElementById(`q${q}y`).classList.toggle('selected', v==='yes');
-        document.getElementById(`q${q}n`).classList.toggle('selected', v==='no');
-        evaluatePrEP();
-    }
-
-    function evaluatePrEP() {
+        document.querySelectorAll(`[id^='q${q}']`).forEach(b => b.classList.remove('selected'));
+        document.getElementById(`q${q}${v === 'yes' ? 'y' : 'n'}`).classList.add('selected');
+        
         const resText = document.getElementById('prep-status-text');
-        if(prepAns[2] === 'no') {
-            resText.innerHTML = "⚠️ <span class='highlight-text'>Creatinine Needed:</span> Kidney test required for clearance.";
-        } else {
-            resText.innerHTML = "✅ <span class='highlight-text'>Candidate:</span> Risk profile suggests PrEP benefit.";
+        
+        if (prepAns[2] === 'no') {
+            resText.innerHTML = "✅ <span class='highlight-text'>Candidate for PrEP</span> <br>You are a candidate, but a <b>Creatinine (Kidney) Test</b> is required before medical clearance. Please schedule a lab test.";
+        } else if (Object.keys(prepAns).length >= 5) {
+            resText.innerHTML = "✅ <span class='highlight-text'>Ready for PrEP</span> <br>You are a strong candidate. Please submit to schedule your doctor's consultation.";
         }
     }
 
@@ -256,54 +257,44 @@
             let rd = new Date(d);
             rd.setDate(rd.getDate() + (t + l) - 7);
             document.getElementById('calc-output').innerText = rd.toDateString();
-            document.getElementById('calc-breakdown').innerText = `Buffer: 7 days included.`;
         }
     }
 
-    function unlockStaff() { if(prompt("Staff PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
+    function unlockStaff() { if(prompt("Enter Staff PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
 
     async function submitData(type) {
-        const data = {
-            type: type,
-            code: type === 'General' ? document.getElementById('p-code').value : document.getElementById('prep-name').value,
-            phone: type === 'General' ? document.getElementById('p-phone').value : 'N/A',
-            details: type === 'General' ? Array.from(document.querySelectorAll('.svc:checked')).map(x => x.value).join(', ') : JSON.stringify(prepAns),
-            timestamp: new Date().toLocaleString()
-        };
+        const code = type === 'General' ? document.getElementById('p-code').value : document.getElementById('prep-name').value;
+        if(!code) return alert("Missing Patient Code");
 
-        if(!data.code) return alert("Please enter Patient Code.");
+        const details = type === 'General' ? 
+            Array.from(document.querySelectorAll('.svc:checked')).map(c => c.value).join(', ') : 
+            Object.entries(prepAns).map(([k,v]) => `Q${k}:${v}`).join(' | ');
 
-        // Add to local Dashboard view
-        localSubmissions.unshift(data);
-        renderStaff();
+        const data = { type, code, details, time: new Date().toLocaleString() };
+        
+        submissions.unshift(data);
+        localStorage.setItem('tdmh_subs', JSON.stringify(submissions));
 
         try {
-            // Actual submission to Google Script
-            await fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            alert("Sent to TDMH HOMES Cloud Successfully.");
-        } catch(e) {
-            alert("Data saved locally. Connection error.");
-        }
+            await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
+            alert("Data Sent to TDMH HOMES Cloud.");
+            if(type === 'General') document.querySelectorAll('.svc').forEach(c => { c.checked = false; c.parentElement.classList.remove('selected-opt'); });
+        } catch(e) { alert("Stored locally. Connection error."); }
     }
 
-    function renderStaff() {
-        const container = document.getElementById('staff-list');
-        container.innerHTML = localSubmissions.map(s => `
-            <div class="staff-card">
-                <div style="display:flex; justify-content:space-between">
-                    <b>${s.code}</b>
-                    <span class="staff-tag">${s.type}</span>
-                </div>
-                <div style="font-size:13px; margin-top:5px;">${s.details}</div>
-                <div style="font-size:11px; color:#94a3b8; margin-top:5px;">${s.timestamp}</div>
+    function renderDashboard() {
+        const list = document.getElementById('staff-list');
+        if(submissions.length === 0) { list.innerHTML = "<p style='text-align:center;'>No requests.</p>"; return; }
+        list.innerHTML = submissions.map(s => `
+            <div class="staff-item">
+                <div style="display:flex; justify-content:space-between"><b>${s.code}</b> <span>${s.type}</span></div>
+                <div style="color:#4361ee; margin:5px 0;">${s.details}</div>
+                <small style="color:#94a3b8;">${s.time}</small>
             </div>
         `).join('');
     }
+
+    function clearLocal() { if(confirm("Clear local dashboard?")) { submissions = []; localStorage.removeItem('tdmh_subs'); renderDashboard(); } }
 </script>
 </body>
 </html>

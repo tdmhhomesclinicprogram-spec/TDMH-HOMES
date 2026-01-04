@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TDMH HOMES | Professional Health Portal</title>
+    <title>TDMH HOMES | IDS Specialist Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -48,32 +48,31 @@
         h2 { color: var(--brand); font-size: 26px; margin-top: 0; }
         .tag { font-size: 13px; background: #eef2ff; color: var(--brand); padding: 5px 12px; border-radius: 50px; font-weight: 700; margin-bottom: 15px; display: inline-block; }
         
-        label { display: block; font-weight: 600; margin-bottom: 10px; color: #4a4e69; font-size: 19px; line-height: 1.4; }
+        label { display: block; font-weight: 600; margin-bottom: 10px; color: #4a4e69; font-size: 19px; }
         input, select, textarea { 
             width: 100%; padding: 15px; border-radius: 15px; border: 2px solid #edf2f7; 
             font-family: inherit; font-size: 17px; margin-bottom: 20px; box-sizing: border-box;
         }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 25px; }
         .card-opt { 
-            border: 2px solid #edf2f7; padding: 15px; border-radius: 18px; 
+            border: 2px solid #edf2f7; padding: 15px; border-radius: 20px; 
             display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s;
         }
-        .card-opt:hover { border-color: var(--brand); background: #f8faff; }
+        .card-opt:hover { border-color: var(--brand); background: #f0f7ff; }
 
+        .schedule-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; border-radius: 15px; overflow: hidden; font-size: 16px; border: 1px solid #edf2f7; }
+        .schedule-table th { background: #f1f5f9; padding: 12px; text-align: left; color: var(--brand-dark); }
+        .schedule-table td { padding: 12px; border-bottom: 1px solid #f1f5f9; background: white; }
+
+        .pill-data-box { background: #f1f5f9; padding: 25px; border-radius: 25px; margin-bottom: 25px; border: 1px solid #e2e8f0; }
+        .hidden-date { display: none; margin-top: -15px; margin-bottom: 20px; border-left: 4px solid var(--brand); padding-left: 15px; }
         .screening-q { background: #f8fafc; padding: 20px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #e2e8f0; }
-        .gatekeeper-warning { background: #fff5f5; color: #c53030; padding: 25px; border-radius: 20px; border-left: 6px solid #fc8181; display: none; margin-bottom: 20px; font-weight: 500; }
-        .result-box { padding: 30px; border-radius: 25px; text-align: center; display: none; margin-top: 25px; border: 4px solid var(--brand); background: #fdfdfd; }
+        .gatekeeper-warning { background: #fff5f5; color: #c53030; padding: 25px; border-radius: 20px; border-left: 6px solid #fc8181; display: none; margin-bottom: 20px; }
+        .result-box { padding: 30px; border-radius: 25px; text-align: center; display: none; margin-top: 25px; border: 4px solid var(--brand); }
 
         .btn { width: 100%; padding: 20px; border-radius: 20px; font-weight: 700; font-size: 20px; cursor: pointer; border: none; transition: 0.3s; }
         .btn-main { background: var(--brand); color: white; box-shadow: 0 8px 15px rgba(67, 97, 238, 0.2); }
-
-        .schedule-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 16px; }
-        .schedule-table th { background: #f1f5f9; padding: 12px; text-align: left; }
-        .schedule-table td { padding: 12px; border-bottom: 1px solid #f1f5f9; }
-
-        .calc-display { background: #fff0f6; border: 3px dashed var(--accent); padding: 30px; border-radius: 30px; text-align: center; margin-bottom: 25px; }
-        #prep-alert { background: var(--danger); color: white; padding: 10px; border-radius: 12px; font-size: 14px; margin-top: 15px; display: none; }
     </style>
 </head>
 <body>
@@ -82,72 +81,98 @@
     <div class="logo">🏥 TDMH HOMES</div>
     <div class="nav-menu">
         <button id="btn-refill" class="nav-btn active" onclick="tab('refill')">Refill Portal</button>
-        <button id="btn-prep" class="nav-btn" onclick="tab('prep')">PrEP Screening</button>
+        <button id="btn-prep" class="nav-btn" onclick="tab('prep')">PrEP Assessment</button>
         <button id="btn-calc" class="nav-btn" onclick="tab('calc')">Pill Calc</button>
     </div>
 </nav>
 
 <div class="hero">
-    <h1 id="hero-txt">Health Services Portal</h1>
-    <p>Professional Patient Tools & Care Management</p>
+    <h1 id="hero-txt">Official Refill Portal</h1>
+    <p>Infectious Disease Specialist (IDS) Consultant Portal</p>
 </div>
 
 <div class="main-wrapper">
 
     <div id="tab-refill" class="tab-content active">
-        <span class="tag">CLINIC SCHEDULE</span>
-        <h2>Physician Availability</h2>
+        <span class="tag">IDS CONSULTANT SCHEDULE</span>
+        <h2>Specialist Availability</h2>
         <table class="schedule-table">
-            <thead><tr><th>Physician</th><th>Days</th><th>Time</th></tr></thead>
+            <thead><tr><th>IDS Specialist</th><th>Day</th><th>Time</th></tr></thead>
             <tbody>
-                <tr><td><b>Dr. Santos</b></td><td>Mon - Wed</td><td>9am - 3pm</td></tr>
-                <tr><td><b>Dr. Reyes</b></td><td>Thu - Fri</td><td>10am - 4pm</td></tr>
+                <tr><td><b>Dr. L. Mariano</b></td><td>Monday</td><td>1:00 PM - 3:00 PM</td></tr>
+                <tr><td><b>Dr. C.K.L. Rivera</b></td><td>Thursday</td><td>3:00 PM - 5:00 PM</td></tr>
             </tbody>
         </table>
-        <label>Date of Last ARV/PrEP Refill</label>
+
+        <label>Patient ID Code</label>
+        <input type="text" placeholder="TDMH-XXXX-XXXX">
+
+        <label>Preferred Visit Date</label>
         <input type="date">
-        <label>Number of Pills Remaining Today</label>
-        <input type="number" placeholder="Enter pill count">
-        <label>Select Required Services</label>
+
+        <label>Contact Mode</label>
         <div class="grid">
-            <label class="card-opt"><input type="checkbox"><span>👨‍⚕️ Consult</span></label>
+            <label class="card-opt"><input type="radio" name="comm" checked><span>📱 SMS</span></label>
+            <label class="card-opt"><input type="radio" name="comm"><span>📧 Email</span></label>
+        </div>
+        <input type="text" placeholder="Phone or Email">
+
+        <span class="tag">ARV TRACKING</span>
+        <div class="pill-data-box">
+            <label>Date of Last ARV Refill</label>
+            <input type="date">
+            <label>Number of Pills Remaining Today</label>
+            <input type="number" placeholder="Enter pill count">
+        </div>
+
+        <span class="tag">SERVICES & VACCINES</span>
+        <div class="grid">
+            <label class="card-opt"><input type="checkbox"><span>👨‍⚕️ Consultation</span></label>
             <label class="card-opt"><input type="checkbox"><span>💊 ARV Refill</span></label>
             <label class="card-opt"><input type="checkbox"><span>🧪 Laboratory</span></label>
-            <label class="card-opt"><input type="checkbox"><span>🩻 Diag</span></label>
+            <label class="card-opt"><input type="checkbox"><span>🩻 Diagnostics</span></label>
         </div>
-        <button class="btn btn-main" onclick="alert('Refill Request Sent!')">Submit Request 🚀</button>
+
+        <label>Individual Vaccinations</label>
+        <div class="grid">
+            <label class="card-opt"><input type="checkbox"><span>💉 Fluvax</span></label>
+            <label class="card-opt"><input type="checkbox"><span>🛡️ Pneumovax</span></label>
+        </div>
+
+        <label>Pen G Dosing History</label>
+        <label class="card-opt" style="margin-bottom:12px;"><input type="checkbox"><span>🔹 Dose 1</span></label>
+        <label class="card-opt" style="margin-bottom:12px;"><input type="checkbox" onchange="show(this, 'd2')"><span>🔹 Dose 2</span></label>
+        <div id="d2" class="hidden-date"><label style="font-size:16px;">Dose 1 Date:</label><input type="date"></div>
+        <label class="card-opt" style="margin-bottom:12px;"><input type="checkbox" onchange="show(this, 'd3')"><span>🔹 Dose 3</span></label>
+        <div id="d3" class="hidden-date"><label style="font-size:16px;">Dose 2 Date:</label><input type="date"></div>
+
+        <label>Endorsement Notes</label>
+        <textarea rows="3" placeholder="Viral load, CD4, or other requests..."></textarea>
+
+        <button class="btn btn-main" onclick="alert('Submission Sent!')">Submit Official Request 🚀</button>
     </div>
 
     <div id="tab-prep" class="tab-content">
-        <span class="tag">MANDATORY GATEKEEPER</span>
-        <h2>PrEP Candidate Assessment</h2>
-        
-        <div class="screening-q" style="border: 2.5px solid var(--brand);">
+        <span class="tag">MANDATORY SCREENING</span>
+        <h2>Candidate Assessment</h2>
+        <div class="screening-q" style="border: 2px solid var(--brand);">
             <label>1. Have you received a lab-confirmed HIV-negative result in the last 7 days?</label>
             <div class="grid">
-                <label class="card-opt"><input type="radio" name="q1" value="yes" onclick="gate(true)"><span>Yes</span></label>
-                <label class="card-opt"><input type="radio" name="q1" value="no" onclick="gate(false)"><span>No</span></label>
+                <label class="card-opt"><input type="radio" name="q1" onclick="gate(true)"><span>Yes</span></label>
+                <label class="card-opt"><input type="radio" name="q1" onclick="gate(false)"><span>No</span></label>
             </div>
         </div>
 
-        <div id="gate-msg" class="gatekeeper-warning">
-            ⚠️ <b>Stop:</b> You must have a confirmed negative HIV test before starting PrEP. Please visit a clinic for testing.
+        <div id="stop-msg" class="gatekeeper-warning">
+            ⚠️ <b>Stop:</b> You must have a confirmed negative HIV test before starting PrEP.
         </div>
 
         <div id="prep-all" style="display:none;">
-            <div class="screening-q">
-                <label>2. Is your kidney function (CrCl) confirmed above 60 mL/min?</label>
-                <div class="grid">
-                    <label class="card-opt"><input type="radio" name="q2" value="yes"><span>Yes</span></label>
-                    <label class="card-opt"><input type="radio" name="q2" value="no"><span>No</span></label>
-                </div>
+            <div class="screening-q"><label>2. Is your kidney function (CrCl) above 60 mL/min?</label>
+                <div class="grid"><label class="card-opt"><input type="radio" name="q2" value="yes"><span>Yes</span></label><label class="card-opt"><input type="radio" name="q2" value="no"><span>No</span></label></div>
             </div>
-            <div class="screening-q">
-                <label>3. In the last 6 months, have you had sex without a condom?</label>
-                <div class="grid">
-                    <label class="card-opt"><input type="radio" name="q3" value="yes"><span>Yes</span></label>
-                    <label class="card-opt"><input type="radio" name="q3" value="no"><span>No</span></label>
-                </div>
+            <div class="screening-q"><label>3. In the last 6 months, have you had sex without a condom?</label>
+                <div class="grid"><label class="card-opt"><input type="radio" name="q3" value="yes"><span>Yes</span></label><label class="card-opt"><input type="radio" name="q3" value="no"><span>No</span></label></div>
             </div>
             <div class="screening-q"><label>4. Treated for an STI recently?</label>
                 <div class="grid"><label class="card-opt"><input type="radio" name="q4" value="yes"><span>Yes</span></label><label class="card-opt"><input type="radio" name="q4" value="no"><span>No</span></label></div>
@@ -158,35 +183,25 @@
             <div class="screening-q"><label>6. Difficulty using condoms consistently?</label>
                 <div class="grid"><label class="card-opt"><input type="radio" name="q6" value="yes"><span>Yes</span></label><label class="card-opt"><input type="radio" name="q6" value="no"><span>No</span></label></div>
             </div>
-            <button class="btn btn-main" onclick="calcPrEP()">Calculate Candidate Result</button>
+            <button class="btn btn-main" onclick="processPrEP()">Evaluate Candidate</button>
         </div>
 
         <div id="prep-res" class="result-box">
-            <h3 id="res-st" style="font-size: 28px; margin-bottom: 10px;"></h3>
-            <p id="res-m" style="font-size: 19px; line-height: 1.5; color: #4a4e69;"></p>
+            <h3 id="res-st" style="font-size: 28px;"></h3>
+            <p id="res-m" style="font-size: 19px;"></p>
         </div>
     </div>
 
     <div id="tab-calc" class="tab-content">
         <span class="tag">PATIENT UTILITY</span>
-        <h2>Self-Check: Pill Predictor</h2>
-        <div class="calc-display">
-            <div id="target-date" style="font-size: 28px; font-weight: 800; color: var(--accent);">Waiting for data...</div>
-            <div id="prep-alert">⚠️ <b>ADHERENCE ALERT:</b> Please secure your PrEP refill immediately.</div>
+        <h2>Pill Predictor</h2>
+        <div style="background: #fff0f6; border: 3px dashed var(--accent); padding: 30px; border-radius: 30px; text-align: center; margin-bottom: 30px;">
+            <div id="target-date" style="font-size: 28px; font-weight: 800; color: var(--accent);">Waiting...</div>
         </div>
-        <label>Current Regimen Type</label>
-        <select id="reg-type" onchange="rc()">
-            <option value="ARV">General ARV</option>
-            <option value="PrEP">PrEP</option>
-        </select>
-        <label>Last Dispense Date</label>
-        <input type="date" id="ds" oninput="rc()">
-        <label>Total Pills Received</label>
-        <input type="number" id="dq" oninput="rc()">
-        <label>Pills Left Today</label>
-        <input type="number" id="dr" oninput="rc()">
+        <label>Last Dispense Date</label><input type="date" id="c-d" oninput="rc()">
+        <label>Qty Received</label><input type="number" id="c-q" oninput="rc()">
+        <label>Pills Remaining Today</label><input type="number" id="c-r" oninput="rc()">
     </div>
-
 </div>
 
 <script>
@@ -195,65 +210,46 @@
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tab-' + t).classList.add('active');
         document.getElementById('btn-' + t).classList.add('active');
-        const titles = {refill: 'Refill Portal', prep: 'PrEP Assessment', calc: 'Pill Predictor'};
+        const titles = {refill: 'Official Refill Portal', prep: 'PrEP Assessment', calc: 'Pill Predictor Tool'};
         document.getElementById('hero-txt').innerText = titles[t];
     }
 
+    function show(cb, id) { document.getElementById(id).style.display = cb.checked ? 'block' : 'none'; }
+
     function gate(p) {
-        document.getElementById('gate-msg').style.display = p ? 'none' : 'block';
+        document.getElementById('stop-msg').style.display = p ? 'none' : 'block';
         document.getElementById('prep-all').style.display = p ? 'block' : 'none';
         document.getElementById('prep-res').style.display = 'none';
     }
 
-    function calcPrEP() {
+    function processPrEP() {
         const q2 = document.querySelector('input[name="q2"]:checked')?.value;
         const q3 = document.querySelector('input[name="q3"]:checked')?.value;
-        const q4 = document.querySelector('input[name="q4"]:checked')?.value;
-        const q5 = document.querySelector('input[name="q5"]:checked')?.value;
-        const q6 = document.querySelector('input[name="q6"]:checked')?.value;
-
-        if(!q2 || !q3 || !q4 || !q5 || !q6) { alert("Please answer all questions."); return; }
-        
-        const res = document.getElementById('prep-res');
+        const box = document.getElementById('prep-res');
         const st = document.getElementById('res-st');
         const m = document.getElementById('res-m');
-        res.style.display = 'block';
+        box.style.display = 'block';
 
-        // LOGIC #2: Creatinine Check Required
         if(q2 === 'no') {
             st.innerText = "Review Necessary 🔍"; st.style.color = "var(--warning)";
-            m.innerText = "Patient may use PrEP but is required to check creatinine first. Please consult your provider to review your kidney health.";
-            return;
-        }
-
-        // LOGIC #3: Condomless sex makes them a Strong Candidate
-        if(q3 === 'yes') {
+            m.innerText = "Patient may use PrEP but is required to check creatinine first.";
+        } else if(q3 === 'yes') {
             st.innerText = "Strong Candidate 🌟"; st.style.color = "var(--success)";
-            m.innerText = "Highly Recommended. Your profile shows you would benefit significantly from PrEP. Please proceed with your prescription.";
-            return;
-        }
-
-        // Default logic for other yes answers
-        let score = (q4 === 'yes' ? 20 : 0) + (q5 === 'yes' ? 20 : 0) + (q6 === 'yes' ? 20 : 0);
-        if(score >= 40) {
-            st.innerText = "Likely Candidate ✅"; st.style.color = "var(--brand)";
-            m.innerText = "Recommended. You have several risk factors where PrEP is advised. Discuss your routine with your doctor.";
+            m.innerText = "Highly Recommended. Your profile shows you would benefit significantly from PrEP.";
         } else {
-            st.innerText = "Review Necessary 🔍"; st.style.color = "var(--warning)";
-            m.innerText = "Consult Provider. You may be at lower risk, but it's always best to discuss your options with a medical professional.";
+            st.innerText = "Likely Candidate ✅"; st.style.color = "var(--brand)";
+            m.innerText = "Recommended. You have several risk factors where PrEP is advised.";
         }
     }
 
     function rc() {
-        const d = document.getElementById('ds').value;
-        const q = parseInt(document.getElementById('dq').value) || 0;
-        const r = parseInt(document.getElementById('dr').value) || 0;
-        const reg = document.getElementById('reg-type').value;
+        const d = document.getElementById('c-d').value;
+        const q = parseInt(document.getElementById('c-q').value) || 0;
+        const r = parseInt(document.getElementById('c-r').value) || 0;
         if(d && q > 0) {
             let dt = new Date(d);
             dt.setDate(dt.getDate() + (q - r - 7));
             document.getElementById('target-date').innerText = "Target Refill: " + dt.toDateString();
-            document.getElementById('prep-alert').style.display = (reg === "PrEP" && r <= 7) ? 'block' : 'none';
         }
     }
 </script>

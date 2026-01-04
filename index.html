@@ -7,14 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Light Mode Colors */
             --brand: #4361ee; --brand-dark: #3f37c9;
             --bg: #f8f9fc; --card: #ffffff; --text: #2b2d42;
             --border: #cbd5e1; --success: #00d1b2; --danger: #ff4757;
             --hero-grad: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
         }
 
-        /* Pride Mode Colors */
         body.pride-mode {
             --brand: #ff006e; --brand-dark: #8338ec;
             --bg: #fff0f6; --text: #3a0ca3;
@@ -36,19 +34,16 @@
         .theme-toggle { background: #e2e8f0; border: none; padding: 8px 15px; border-radius: 20px; font-size: 14px; cursor: pointer; font-weight: 700; }
         .pride-mode .theme-toggle { background: #ffdeeb; color: #ff006e; }
 
-        /* HERO & HEADINGS */
         .hero { margin-top: 130px; background: var(--hero-grad); padding: 50px 20px; text-align: center; color: white; border-bottom-right-radius: 50px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .main-title { font-size: 48px; font-weight: 800; margin: 0; letter-spacing: -1px; }
         .sched-box { font-size: 18px; font-weight: 500; background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; margin-top: 20px; display: inline-block; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); }
 
         .main-wrapper { max-width: 900px; margin: -30px auto 40px; padding: 0 15px; }
 
-        /* CONFIDENTIALITY HIGHLIGHT */
         .confidential-banner { background: #fff4e5; border: 2px solid #ffb347; padding: 15px; border-radius: 15px; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
         .pride-mode .confidential-banner { background: #fff0f6; border-color: #ff006e; color: #ff006e; }
         .confidential-banner b { font-size: 16px; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* TABLET OVERLAP PROTECTION */
         .tab-content { background: var(--card); border-radius: 25px; padding: 35px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); display: none; margin-top: 20px; }
         .tab-content.active { display: block; }
         .form-group { margin-bottom: 25px; display: flex; flex-direction: column; width: 100%; }
@@ -59,16 +54,13 @@
 
         .section-title { font-size: 20px; font-weight: 700; color: var(--brand); margin: 35px 0 15px; border-bottom: 3px solid #f1f5f9; padding-bottom: 8px; }
         
-        /* GRID LOGIC */
         .options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .card-opt { border: 2px solid var(--border); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; background: #fff; font-weight: 600; }
         .card-opt:has(input:checked) { background: #f0f4ff; border-color: var(--brand); color: var(--brand); }
 
-        /* PREP HIGHLIGHTS */
         .res-box { padding: 25px; border-radius: 15px; margin: 25px 0; border-left: 8px solid var(--brand); background: #f0f7ff; font-size: 16px; line-height: 1.6; display: none; animation: slideIn 0.3s ease; }
         .res-box b { font-size: 20px; display: block; margin-bottom: 5px; color: var(--brand-dark); }
 
-        /* FEEDBACK STARS */
         .star-container { text-align: center; margin-top: 40px; padding: 20px; background: var(--card); border-radius: 20px; }
         .stars { display: flex; justify-content: center; gap: 10px; font-size: 35px; cursor: pointer; }
         .star { color: #cbd5e1; transition: 0.2s; }
@@ -184,8 +176,18 @@
     <div id="tab-calc" class="tab-content">
         <div class="section-title">ARV Refill Calculator</div>
         <div id="calc-res" class="res-box" style="text-align:center; display:block;">Enter details below to calculate next visit.</div>
-        <div class="form-group"><label>Date of Last Dispense</label><input type="date" id="c-date" oninput="runCalc()"></div>
-        <div class="form-group"><label>Pills Left Today</label><input type="number" id="c-left" oninput="runCalc()"></div>
+        <div class="form-group">
+            <label>Date of Last Dispense</label>
+            <input type="date" id="c-date" oninput="runCalc()">
+        </div>
+        <div class="form-group">
+            <label>Total Pills Received (No. of Meds)</label>
+            <input type="number" id="c-total" placeholder="e.g., 30 or 90" oninput="runCalc()">
+        </div>
+        <div class="form-group">
+            <label>Pills Left Today</label>
+            <input type="number" id="c-left" placeholder="e.g., 5" oninput="runCalc()">
+        </div>
     </div>
 
     <div id="tab-staff" class="tab-content">
@@ -281,10 +283,16 @@
 
     function runCalc() {
         const d = document.getElementById('c-date').value;
+        const t = parseInt(document.getElementById('c-total').value) || 0;
         const l = parseInt(document.getElementById('c-left').value) || 0;
-        if(d) {
-            let target = new Date(d); target.setDate(target.getDate() + l - 7);
-            document.getElementById('calc-res').innerHTML = "<b>Recommended Visit:</b><br><span style='font-size:24px; color:var(--brand);'>" + target.toDateString() + "</span>";
+        
+        if(d && t > 0) {
+            let target = new Date(d);
+            // Calculation: Last dispense date + (Total pills + Current pills left) - 7 day safety buffer
+            target.setDate(target.getDate() + (t + l - 7));
+            document.getElementById('calc-res').innerHTML = "<b>Recommended Next Visit:</b><br><span style='font-size:24px; color:var(--brand);'>" + target.toDateString() + "</span>";
+        } else {
+            document.getElementById('calc-res').innerHTML = "Please enter dispense date and total pills.";
         }
     }
 
@@ -301,7 +309,7 @@
             const res = await fetch(`${SCRIPT_URL}?action=getQueue&cb=${Date.now()}`);
             const data = await res.json();
             list.innerHTML = data.map(i => `
-                <div class="staff-card">
+                <div class="staff-card" style="border: 2px solid #eef2ff; border-left: 6px solid var(--brand); padding: 15px; border-radius: 15px; margin-bottom: 15px; background: white;">
                     <div style="font-weight:700; font-size:18px;">${i.name.toUpperCase()}</div>
                     <div style="color:var(--brand); font-weight:600;">${i.type}</div>
                     <div style="margin-top:10px; font-size:14px; background:#f1f5f9; padding:10px; border-radius:8px;">${i.services}</div>

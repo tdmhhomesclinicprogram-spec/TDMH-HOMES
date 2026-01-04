@@ -30,37 +30,38 @@
         .tab-content { background: var(--card); border-radius: 30px; padding: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
 
-        /* FIXED LABEL VISIBILITY */
+        /* INPUTS & LABELS FOR MOBILE/IPAD */
         .form-group { margin-bottom: 25px; display: flex; flex-direction: column; }
         label { font-weight: 700; color: #4a5568; display: block; margin-bottom: 12px; font-size: 14px; }
         
         input, select, textarea { 
             width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); 
-            font-family: inherit; font-size: 16px; background: #fff;
+            font-family: inherit; font-size: 16px; background: #fff; appearance: none;
         }
 
         .doc-box { background: #eff6ff; padding: 18px; border-radius: 20px; margin-bottom: 25px; border: 1px solid #bfdbfe; }
         .doc-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; color: #1e40af; }
 
-        /* HIGHLIGHT OPTIONS WHEN CLICKED */
+        /* HIGHLIGHT OPTIONS */
         .options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin: 10px 0 25px; }
         .card-opt { 
             border: 2px solid var(--border); padding: 14px; border-radius: 14px; 
             display: flex; align-items: center; gap: 10px; cursor: pointer; 
-            background: #fff; transition: 0.2s; position: relative;
+            background: #fff; transition: 0.2s;
         }
         .card-opt:has(input:checked) { 
             background: #eef2ff; border-color: var(--brand); box-shadow: 0 0 0 1px var(--brand);
         }
-        .card-opt input { width: 20px; height: 20px; flex-shrink: 0; }
-        .card-opt span { font-size: 13px; font-weight: 600; }
 
         .choice-btn { flex: 1; padding: 14px; border: 2px solid var(--border); border-radius: 12px; text-align: center; cursor: pointer; font-weight: 700; background: white; }
         .choice-btn.selected { background: var(--brand); color: white; border-color: var(--brand); }
 
+        /* STAFF DASHBOARD */
         .staff-card { background: white; border: 1px solid #ddd; border-left: 6px solid var(--brand); padding: 20px; border-radius: 18px; margin-bottom: 15px; position: relative; }
         .tag-container { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
         .tag { background: #eef2ff; color: var(--brand); padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+        .contact-link { color: var(--brand); font-weight: 700; text-decoration: none; border-bottom: 1px dashed var(--brand); }
+        .search-bar { width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--brand); margin-bottom: 15px; font-family: inherit; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -107,7 +108,7 @@
                 <div class="choice-btn" id="contact-sms" onclick="setContact('SMS')">📱 SMS</div>
                 <div class="choice-btn" id="contact-email" onclick="setContact('Email')">📧 Email</div>
             </div>
-            <input type="text" id="p-contact-val" placeholder="Phone number or email address">
+            <input type="text" id="p-contact-val" placeholder="Phone number or email">
         </div>
 
         <label>Clinic Services Needed</label>
@@ -123,15 +124,26 @@
 
         <label>ARV Medication Options</label>
         <div class="options-grid">
-            <label class="card-opt"><input type="checkbox" class="med" value="TLE"><span>TLE (Efavirenz)</span></label>
-            <label class="card-opt"><input type="checkbox" class="med" value="TLD"><span>TLD (Dolutegravir)</span></label>
-            <label class="card-opt"><input type="checkbox" class="med" value="Dolutegravir"><span>Dolutegravir Only</span></label>
+            <label class="card-opt"><input type="checkbox" class="med" value="TLE"><span>TLE</span></label>
+            <label class="card-opt"><input type="checkbox" class="med" value="TLD"><span>TLD</span></label>
+            <label class="card-opt"><input type="checkbox" class="med" value="Dolutegravir"><span>Dolutegravir</span></label>
             <label class="card-opt"><input type="checkbox" class="med" value="PrEP"><span>PrEP</span></label>
         </div>
 
         <div class="form-group">
             <label>Preferred Visit Date</label>
             <input type="date" id="p-date">
+        </div>
+
+        <div class="form-group">
+            <label>Preferred Time</label>
+            <select id="p-time">
+                <option value="">Choose Time Slot</option>
+                <option value="AM (8:00 - 12:00)">Morning (8:00 AM - 12:00 PM)</option>
+                <option value="PM (1:00 - 4:00)">Afternoon (1:00 PM - 4:00 PM)</option>
+                <option value="1:00 PM (IDS Consult)">1:00 PM (IDS Consult Mon/Thu)</option>
+                <option value="3:00 PM (IDS Consult)">3:00 PM (IDS Consult Thu Only)</option>
+            </select>
         </div>
 
         <div class="form-group">
@@ -151,40 +163,37 @@
         </div>
         <div id="prep-all" style="display:none;">
             <label>2. Kidney Function (CrCl) > 60?</label>
-            <div class="choice-row"><div class="choice-btn" id="q2-y" onclick="setChoice('q2','yes')">YES</div><div class="choice-btn" id="q2-n" onclick="setChoice('q2','no')">NO</div></div>
+            <div class="choice-row" style="margin-bottom:15px;"><div class="choice-btn" id="q2-y" onclick="setChoice('q2','yes')">YES</div><div class="choice-btn" id="q2-n" onclick="setChoice('q2','no')">NO</div></div>
             <label>3. Condomless sex in 6 months?</label>
-            <div class="choice-row"><div class="choice-btn" id="q3-y" onclick="setChoice('q3','yes')">YES</div><div class="choice-btn" id="q3-n" onclick="setChoice('q3','no')">NO</div></div>
+            <div class="choice-row" style="margin-bottom:15px;"><div class="choice-btn" id="q3-y" onclick="setChoice('q3','yes')">YES</div><div class="choice-btn" id="q3-n" onclick="setChoice('q3','no')">NO</div></div>
             <label>4. Recent STI treatment?</label>
-            <div class="choice-row"><div class="choice-btn" id="q4-y" onclick="setChoice('q4','yes')">YES</div><div class="choice-btn" id="q4-n" onclick="setChoice('q4','no')">NO</div></div>
+            <div class="choice-row" style="margin-bottom:15px;"><div class="choice-btn" id="q4-y" onclick="setChoice('q4','yes')">YES</div><div class="choice-btn" id="q4-n" onclick="setChoice('q4','no')">NO</div></div>
             <label>5. Partner is HIV+ or Unknown Status?</label>
-            <div class="choice-row"><div class="choice-btn" id="q5-y" onclick="setChoice('q5','yes')">YES</div><div class="choice-btn" id="q5-n" onclick="setChoice('q5','no')">NO</div></div>
+            <div class="choice-row" style="margin-bottom:15px;"><div class="choice-btn" id="q5-y" onclick="setChoice('q5','yes')">YES</div><div class="choice-btn" id="q5-n" onclick="setChoice('q5','no')">NO</div></div>
             <label>6. Difficulty using condoms consistently?</label>
-            <div class="choice-row"><div class="choice-btn" id="q6-y" onclick="setChoice('q6','yes')">YES</div><div class="choice-btn" id="q6-n" onclick="setChoice('q6','no')">NO</div></div>
+            <div class="choice-row" style="margin-bottom:15px;"><div class="choice-btn" id="q6-y" onclick="setChoice('q6','yes')">YES</div><div class="choice-btn" id="q6-n" onclick="setChoice('q6','no')">NO</div></div>
         </div>
         <div id="prep-res" style="display:none; padding:20px; border-radius:15px; margin-top:20px; border: 2px solid var(--brand); background: #f0f7ff;"></div>
     </div>
 
     <div id="tab-calc" class="tab-content">
         <h2 style="color: var(--brand); margin-top:0;">ARV Refill Calculator</h2>
-        <div style="text-align:center; padding:30px; background:#f0f3ff; border:2px dashed var(--brand); border-radius:25px; margin-bottom:25px;">
-            <div id="target-date" style="font-size: 22px; font-weight: 700; color: var(--brand);">Suggested refill date will appear here</div>
-        </div>
+        <div id="target-date" style="text-align:center; padding:30px; background:#f0f3ff; border:2px dashed var(--brand); border-radius:25px; margin-bottom:25px; font-weight:700; color:var(--brand);">Result will appear here</div>
         <div class="form-group"><label>Date of Last Dispense</label><input type="date" id="c-date" oninput="runCalc()"></div>
         <div class="form-group"><label>Pills Received (Total Quantity)</label><input type="number" id="c-total" oninput="runCalc()"></div>
         <div class="form-group"><label>Pills Currently Remaining</label><input type="number" id="c-left" oninput="runCalc()"></div>
     </div>
 
     <div id="tab-staff" class="tab-content">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h2 style="margin:0; color:var(--brand)">Queue Management</h2>
-            <button onclick="restoreDataFromSheet()" style="background:var(--brand); color:white; border:none; padding:8px 15px; border-radius:10px; cursor:pointer;">🔄 Refresh Cloud</button>
-        </div>
-        <div id="staff-list">Please refresh to view queue...</div>
+        <h2 style="margin:0; color:var(--brand)">Active Queue</h2>
+        <input type="text" id="staffSearch" class="search-bar" placeholder="🔍 Search patient name..." oninput="updateStaffView()">
+        <div id="staff-list">Please refresh cloud...</div>
+        <button onclick="restoreDataFromSheet()" style="width:100%; padding:15px; margin-top:10px; background:#ddd; border:none; border-radius:12px; font-weight:700;">🔄 Refresh Cloud</button>
     </div>
 </div>
 
 <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxkJur8ghFm13SdOo5sJRhx75qr6at5TykjRsdyvrogUsaVGn7CpBAgh1ruumDsDfJx4g/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1wG9EH4Fu_KXeDWNAexnPJGASLfzoHi1EYYjRuccSGYr34ZrC-0TEzZI7csp5kP2P6Q/exec";
     
     let db = [];
     let currentContact = "SMS";
@@ -218,6 +227,7 @@
             contactType: currentContact,
             contact: document.getElementById('p-contact-val').value,
             visitDate: document.getElementById('p-date').value,
+            visitTime: document.getElementById('p-time').value,
             services: svcs,
             meds: meds,
             notes: document.getElementById('p-notes').value
@@ -225,7 +235,7 @@
 
         try {
             await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
-            alert("Request sent successfully!");
+            alert("Sent successfully! We will contact you shortly.");
             location.reload();
         } catch (e) {
             alert("Connection error.");
@@ -235,29 +245,35 @@
 
     async function restoreDataFromSheet() {
         const list = document.getElementById('staff-list');
-        list.innerHTML = "Pulling from Google Sheets...";
+        list.innerHTML = "Syncing with Google Sheets...";
         try {
             const res = await fetch(SCRIPT_URL + "?action=getRequests");
             db = await res.json();
             updateStaffView();
-        } catch (e) { list.innerHTML = "Error loading queue."; }
+        } catch (e) { list.innerHTML = "Error loading queue. Check deployment settings."; }
     }
 
     function updateStaffView() {
+        const query = document.getElementById('staffSearch').value.toLowerCase();
         const list = document.getElementById('staff-list');
-        list.innerHTML = db.map((item, index) => `
+        const filtered = db.filter(item => item.name.toLowerCase().includes(query));
+
+        list.innerHTML = filtered.map((item, index) => {
+            const contactType = item.contactType === "Email" ? `mailto:${item.contact}` : `sms:${item.contact}`;
+            return `
             <div class="staff-card">
                 <div style="font-size:10px; color:gray;">${item.time}</div>
-                <div style="font-size:18px; font-weight:700; margin-bottom:5px;">${item.name.toUpperCase()}</div>
+                <div style="font-size:18px; font-weight:700;">${item.name.toUpperCase()}</div>
                 <div class="tag-container">
                     ${item.services.map(s => `<span class="tag">${s}</span>`).join('')}
                     ${item.meds.map(m => `<span class="tag" style="background:#fee2e2; color:#ef4444;">${m}</span>`).join('')}
                 </div>
-                <div style="font-size:13px; margin:10px 0;"><b>Visit:</b> ${item.visitDate || 'TBD'} | <b>Contact:</b> ${item.contact}</div>
-                <div style="font-size:12px; font-style:italic; background:#f8fafc; padding:8px; border-radius:8px;">Notes: ${item.notes}</div>
-                <button onclick="db.splice(${index},1); updateStaffView();" style="width:100%; margin-top:10px; background:var(--success); color:white; border:none; padding:12px; border-radius:10px; font-weight:700; cursor:pointer;">Mark as Served ✓</button>
+                <div style="font-size:13px; margin:5px 0;"><b>Visit:</b> ${item.visitDate} @ ${item.visitTime || 'TBD'}</div>
+                <div style="font-size:13px; margin-bottom:10px;"><b>Contact:</b> <a href="${contactType}" class="contact-link">${item.contact}</a></div>
+                <div style="font-size:12px; font-style:italic; padding:8px; background:#f8fafc; border-radius:8px; margin-bottom:10px;">Notes: ${item.notes}</div>
+                <button onclick="db.splice(${index},1); updateStaffView();" style="width:100%; background:var(--success); color:white; border:none; padding:12px; border-radius:10px; font-weight:700; cursor:pointer;">Mark as Served ✓</button>
             </div>
-        `).join('') || "Queue empty.";
+        `}).join('') || "Queue empty.";
     }
 
     function unlockStaff() {

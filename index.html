@@ -289,39 +289,29 @@
         // Optional: Trigger google sheet update here
     }
 
-    async function submitData(type) {
-        const code = type === 'General' ? document.getElementById('p-code').value : document.getElementById('prep-name').value;
-        const phone = type === 'General' ? document.getElementById('p-phone').value : document.getElementById('prep-phone').value;
-        if(!code || !phone) return alert("Required: Patient Code and Contact Number.");
+    async function updateStatus(index, newStatus) {
+    // Update local data
+    submissions[index].status = newStatus;
+    localStorage.setItem('tdmh_subs', JSON.stringify(submissions));
+    
+    // Re-render the UI
+    renderDashboard();
 
-        let details = "";
-        if(type === 'General') {
-            const svcs = Array.from(document.querySelectorAll('.svc:checked')).map(c => c.value).join(', ');
-            const lastDate = document.getElementById('last-refill-date').value;
-            const rem = document.getElementById('pills-rem').value;
-            details = `Svcs: ${svcs} | Last Refill: ${lastDate} | Rem: ${rem} | Notes: ${document.getElementById('p-notes').value}`;
-        } else {
-            details = `PrEP Recommendation: ${document.getElementById('prep-status-text').innerText}`;
-        }
-
-        const data = { 
-            type, 
-            code, 
-            phone, 
-            details, 
-            status: 'pending',
-            time: new Date().toLocaleString() 
-        };
-        
-        submissions.unshift(data);
-        localStorage.setItem('tdmh_subs', JSON.stringify(submissions));
-
-        try {
-            await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
-            alert("Health Request Logged Successfully.");
-            location.reload(); 
-        } catch(e) { alert("Saved to local dashboard. Sync failed."); }
-    }
+    // Send the updated status to Google Sheets
+    const data = submissions[index];
+    try {
+        await fetch(SCRIPT_URL, { 
+            method: 'POST', 
+            mode: 'no-cors', 
+            body: JSON.stringify({
+                ...data,
+                details: "STATUS UPDATE: " + data.details // Helps distinguish updates in the sheet
+            }) 
+        });
+    } catch(e) {
+        console.log("Sync error");
+    }
+}
 
     function renderDashboard() {
         const list = document.getElementById('staff-list');
@@ -353,3 +343,4 @@
 </script>
 </body>
 </html>
+

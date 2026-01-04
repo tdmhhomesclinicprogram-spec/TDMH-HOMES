@@ -7,79 +7,119 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* Light Mode Colors */
             --brand: #4361ee; --brand-dark: #3f37c9;
             --bg: #f8f9fc; --card: #ffffff; --text: #2b2d42;
-            --border: #cbd5e1; --success: #00d1b2;
-            --warning: #ff9f1c;
+            --border: #cbd5e1; --success: #00d1b2; --danger: #ff4757;
+            --hero-grad: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
         }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Fredoka', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 50px; }
+
+        /* Pride Mode Colors */
+        body.pride-mode {
+            --brand: #ff006e; --brand-dark: #8338ec;
+            --bg: #fff0f6; --text: #3a0ca3;
+            --border: #ffb7c5;
+            --hero-grad: linear-gradient(45deg, #ff0000, #ff8a00, #ffee00, #18d000, #0081ff, #a100ff);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; transition: all 0.3s ease; }
+        body { font-family: 'Fredoka', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 80px; color: var(--text); }
         
         header { position: fixed; top: 0; width: 100%; z-index: 2000; background: var(--card); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        nav { padding: 10px 15px; max-width: 1200px; margin: 0 auto; }
-        .nav-menu { display: flex; gap: 8px; overflow-x: auto; padding: 5px 0; }
-        .nav-btn { flex: 1; min-width: 110px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; color: #64748b; padding: 12px; border-radius: 10px; background: #f1f5f9; }
+        nav { padding: 10px 15px; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
+        .nav-top { display: flex; justify-content: space-between; align-items: center; }
+        .nav-menu { display: flex; gap: 8px; overflow-x: auto; padding: 5px 0; width: 100%; }
+        
+        .nav-btn { flex: 1; min-width: 120px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; color: #64748b; padding: 12px; border-radius: 10px; background: #f1f5f9; white-space: nowrap; }
         .nav-btn.active { color: white; background: var(--brand); }
 
-        .hero { margin-top: 110px; background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); padding: 30px 15px; text-align: center; color: white; border-bottom-right-radius: 40px; }
-        .sched-box { font-size: 12px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 12px; margin-top: 10px; display: inline-block; text-align: left; line-height: 1.5; }
+        .theme-toggle { background: #e2e8f0; border: none; padding: 8px 15px; border-radius: 20px; font-size: 14px; cursor: pointer; font-weight: 700; }
+        .pride-mode .theme-toggle { background: #ffdeeb; color: #ff006e; }
 
-        .main-wrapper { max-width: 800px; margin: -20px auto 40px; padding: 0 15px; }
-        .tab-content { background: var(--card); border-radius: 20px; padding: 25px; box-shadow: 0 5px 25px rgba(0,0,0,0.05); display: none; }
+        /* HERO & HEADINGS */
+        .hero { margin-top: 130px; background: var(--hero-grad); padding: 50px 20px; text-align: center; color: white; border-bottom-right-radius: 50px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .main-title { font-size: 48px; font-weight: 800; margin: 0; letter-spacing: -1px; }
+        .sched-box { font-size: 18px; font-weight: 500; background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; margin-top: 20px; display: inline-block; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); }
+
+        .main-wrapper { max-width: 900px; margin: -30px auto 40px; padding: 0 15px; }
+
+        /* CONFIDENTIALITY HIGHLIGHT */
+        .confidential-banner { background: #fff4e5; border: 2px solid #ffb347; padding: 15px; border-radius: 15px; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
+        .pride-mode .confidential-banner { background: #fff0f6; border-color: #ff006e; color: #ff006e; }
+        .confidential-banner b { font-size: 16px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* TABLET OVERLAP PROTECTION */
+        .tab-content { background: var(--card); border-radius: 25px; padding: 35px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); display: none; margin-top: 20px; }
         .tab-content.active { display: block; }
-
         .form-group { margin-bottom: 25px; display: flex; flex-direction: column; width: 100%; }
-        label { font-weight: 700; color: #4a5568; margin-bottom: 8px; font-size: 15px; }
-        input, select, textarea { width: 100%; padding: 16px; border-radius: 12px; border: 2px solid var(--border); font-family: inherit; font-size: 16px; background: #fff; }
-        textarea { resize: none; height: 100px; }
-
-        .section-title { font-size: 18px; font-weight: 700; color: var(--brand); margin: 30px 0 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 5px; }
+        label { font-weight: 700; color: #4a5568; margin-bottom: 12px; font-size: 16px; display: block; clear: both; }
         
-        .options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 15px; }
-        .card-opt { border: 2px solid var(--border); padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 8px; cursor: pointer; background: #fff; font-size: 14px; font-weight: 500; }
-        .card-opt:has(input:checked) { background: #eef2ff; border-color: var(--brand); }
+        input, select, textarea { width: 100%; padding: 18px; border-radius: 12px; border: 2px solid var(--border); font-family: inherit; font-size: 16px; background: #fff; display: block; }
+        textarea { min-height: 100px; resize: vertical; }
 
-        .choice-btn { flex: 1; padding: 15px; border: 2px solid var(--border); border-radius: 12px; text-align: center; cursor: pointer; font-weight: 700; background: white; transition: 0.2s; }
+        .section-title { font-size: 20px; font-weight: 700; color: var(--brand); margin: 35px 0 15px; border-bottom: 3px solid #f1f5f9; padding-bottom: 8px; }
+        
+        /* GRID LOGIC */
+        .options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .card-opt { border: 2px solid var(--border); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; background: #fff; font-weight: 600; }
+        .card-opt:has(input:checked) { background: #f0f4ff; border-color: var(--brand); color: var(--brand); }
+
+        /* PREP HIGHLIGHTS */
+        .res-box { padding: 25px; border-radius: 15px; margin: 25px 0; border-left: 8px solid var(--brand); background: #f0f7ff; font-size: 16px; line-height: 1.6; display: none; animation: slideIn 0.3s ease; }
+        .res-box b { font-size: 20px; display: block; margin-bottom: 5px; color: var(--brand-dark); }
+
+        /* FEEDBACK STARS */
+        .star-container { text-align: center; margin-top: 40px; padding: 20px; background: var(--card); border-radius: 20px; }
+        .stars { display: flex; justify-content: center; gap: 10px; font-size: 35px; cursor: pointer; }
+        .star { color: #cbd5e1; transition: 0.2s; }
+        .star.active { color: #ffcc00; }
+
+        .submit-main { background: var(--brand); color: white; width: 100%; padding: 22px; border: none; border-radius: 15px; font-weight: 700; font-size: 18px; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3); }
+        .choice-btn { flex: 1; padding: 18px; border: 2px solid var(--border); border-radius: 12px; text-align: center; cursor: pointer; font-weight: 700; background: white; font-size: 16px; }
         .choice-btn.selected { background: var(--brand); color: white; border-color: var(--brand); }
 
-        /* BIG PREP RECOMMENDATION HIGHLIGHT */
-        .res-box { padding: 25px; border-radius: 20px; margin: 20px 0; border: 2px solid var(--brand); background: #f0f7ff; color: #1e293b; font-size: 22px; line-height: 1.4; display: none; text-align: center; font-weight: 600; box-shadow: 0 10px 15px -3px rgba(67, 97, 238, 0.2); }
-        
-        .confidential-note { font-size: 11px; color: #94a3b8; text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #f1f5f9; }
-
-        .submit-main { background: var(--brand); color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 10px; }
-        .staff-card { border: 2px solid #eef2ff; border-left: 6px solid var(--brand); padding: 15px; border-radius: 15px; margin-bottom: 15px; background: white; }
+        @keyframes slideIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
     </style>
 </head>
-<body>
+<body id="main-body">
 
 <header>
     <nav>
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div class="nav-menu">
-                <button id="btn-refill" class="nav-btn active" onclick="tab('refill')">General Services</button>
-                <button id="btn-prep" class="nav-btn" onclick="tab('prep')">PrEP Assessment</button>
-                <button id="btn-calc" class="nav-btn" onclick="tab('calc')">ARV Calculator</button>
-                <button id="btn-staff" class="nav-btn" onclick="tab('staff')" style="display:none; background:#ff4757; color:white;">DASHBOARD</button>
-            </div>
+        <div class="nav-top">
+            <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">🎨 Switch to Pride Mode</button>
             <div onclick="unlockStaff()" style="cursor:pointer; padding:10px; opacity:0.3;">🔒</div>
+        </div>
+        <div class="nav-menu">
+            <button id="btn-general" class="nav-btn active" onclick="tab('general')">General Services</button>
+            <button id="btn-prep" class="nav-btn" onclick="tab('prep')">PrEP Assessment</button>
+            <button id="btn-calc" class="nav-btn" onclick="tab('calc')">ARV Calculator</button>
+            <button id="btn-staff" class="nav-btn" style="display:none; background:var(--danger); color:white;" onclick="tab('staff')">DASHBOARD</button>
         </div>
     </nav>
 </header>
 
 <div class="hero">
-    <h2 style="margin:0;">TDMH HOMES</h2>
+    <h1 class="main-title">TDMH HOMES</h1>
     <div class="sched-box">
-        • Dr. L. Mariano: Mon 1pm-3pm | Dr. C. Rivera: Thu 3pm-5pm
+        <b>🏥 DOCTOR'S CLINIC SCHEDULE:</b><br>
+        Dr. L. Mariano: Mon 1:00 PM – 3:00 PM<br>
+        Dr. C. Rivera: Thu 3:00 PM – 5:00 PM
     </div>
 </div>
 
 <div class="main-wrapper">
+    <div class="confidential-banner">
+        <span>🛡️</span>
+        <div>
+            <b>Confidentiality Guaranteed</b><br>
+            <small>All information provided is strictly for clinical use and is protected by medical privacy protocols.</small>
+        </div>
+    </div>
 
-    <div id="tab-refill" class="tab-content active">
-        <div class="section-title">1. Patient Contact</div>
-        <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Enter code"></div>
-        <div class="form-group"><label>Mobile Number</label><input type="tel" id="p-phone" placeholder="09123456789"></div>
+    <div id="tab-general" class="tab-content active">
+        <div class="section-title">1. Patient Identification</div>
+        <div class="form-group"><label>HOMES Patient Code</label><input type="text" id="p-code" placeholder="Enter your unique code"></div>
+        <div class="form-group"><label>Mobile Number</label><input type="tel" id="p-phone" placeholder="09XXXXXXXXX"></div>
 
         <div class="section-title">2. General Services</div>
         <div class="options-grid">
@@ -88,7 +128,7 @@
             <label class="card-opt"><input type="checkbox" class="svc" value="Diag"><span>Diagnostics</span></label>
         </div>
 
-        <div class="section-title">3. STI Pen G Dose</div>
+        <div class="section-title">3. STI Treatment (Pen G)</div>
         <div class="options-grid">
             <label class="card-opt"><input type="checkbox" class="svc" value="PenG-1"><span>1st Dose</span></label>
             <label class="card-opt"><input type="checkbox" class="svc" value="PenG-2"><span>2nd Dose</span></label>
@@ -101,23 +141,16 @@
             <label class="card-opt"><input type="checkbox" class="svc" value="Pneumovax"><span>Pneumovax</span></label>
         </div>
 
-        <div class="section-title">5. ARV Status & Visit</div>
-        <div class="form-group"><label>Last Dispense Date</label><input type="date" id="p-last-date"></div>
-        <div class="form-group"><label>Remaining Pills Today</label><input type="number" id="p-rem" placeholder="0"></div>
+        <div class="section-title">5. Visit Scheduling</div>
         <div class="form-group"><label>Preferred Visit Date</label><input type="date" id="v-date"></div>
         <div class="form-group"><label>Preferred Visit Time</label><input type="time" id="v-time"></div>
+        <div class="form-group"><label>Additional Notes from Client</label><textarea id="p-notes" placeholder="Write any specific concerns or requests here..."></textarea></div>
 
-        <div class="form-group">
-            <label>Additional Notes (Clients Only)</label>
-            <textarea id="p-notes" placeholder="Tell us more about your request..."></textarea>
-        </div>
-
-        <button class="submit-main" id="refill-sub" onclick="submitData('Refill')">Submit Request</button>
-        <div class="confidential-note">🔒 Confidentiality: Your health data is protected and only accessible by authorized TDMH medical staff.</div>
+        <button class="submit-main" id="refill-sub" onclick="submitData('General')">Submit Request</button>
     </div>
 
     <div id="tab-prep" class="tab-content">
-        <div class="section-title">Step 1: HIV Status Check</div>
+        <div class="section-title">Step 1: HIV Status Confirmation</div>
         <div class="form-group">
             <label>1. Have you tested HIV Negative within the last 7 days?</label>
             <div style="display:flex; gap:10px;">
@@ -127,56 +160,50 @@
         </div>
 
         <div id="prep-all" style="display:none;">
-            <div id="prep-res" class="res-box">Please complete the 6 clinical questions below.</div>
+            <div class="section-title">Step 2: Risk & Health Profile</div>
+            <div class="form-group"><label>2. Have you had a Kidney Function Test (Creatinine) recently?</label>
+                <div style="display:flex; gap:10px;"><div class="choice-btn" id="q2y" onclick="setPrEP(2,'yes')">YES</div><div class="choice-btn" id="q2n" onclick="setPrEP(2,'no')">NO</div></div></div>
+            <div class="form-group"><label>3. Condomless sexual activity in the last 6 months?</label>
+                <div style="display:flex; gap:10px;"><div class="choice-btn" id="q3y" onclick="setPrEP(3,'yes')">YES</div><div class="choice-btn" id="q3n" onclick="setPrEP(3,'no')">NO</div></div></div>
+            <div class="form-group"><label>4. Recent history of STI treatment?</label>
+                <div style="display:flex; gap:10px;"><div class="choice-btn" id="q4y" onclick="setPrEP(4,'yes')">YES</div><div class="choice-btn" id="q4n" onclick="setPrEP(4,'no')">NO</div></div></div>
+            <div class="form-group"><label>5. Partner status is HIV+ or unknown?</label>
+                <div style="display:flex; gap:10px;"><div class="choice-btn" id="q5y" onclick="setPrEP(5,'yes')">YES</div><div class="choice-btn" id="q5n" onclick="setPrEP(5,'no')">NO</div></div></div>
+            <div class="form-group"><label>6. Difficulty using condoms consistently?</label>
+                <div style="display:flex; gap:10px;"><div class="choice-btn" id="q6y" onclick="setPrEP(6,'yes')">YES</div><div class="choice-btn" id="q6n" onclick="setPrEP(6,'no')">NO</div></div></div>
 
-            <div class="section-title">Step 2: Risk & Kidney Evaluation</div>
-            <div class="form-group">
-                <label>2. Have you had a Kidney Function Test (Creatinine) recently?</label>
-                <div style="display:flex; gap:10px;"><div class="choice-btn" id="q2y" onclick="setPrEP(2,'yes')">YES</div><div class="choice-btn" id="q2n" onclick="setPrEP(2,'no')">NO</div></div>
-            </div>
-            <div class="form-group">
-                <label>3. Condomless sexual activity in the last 6 months?</label>
-                <div style="display:flex; gap:10px;"><div class="choice-btn" id="q3y" onclick="setPrEP(3,'yes')">YES</div><div class="choice-btn" id="q3n" onclick="setPrEP(3,'no')">NO</div></div>
-            </div>
-            <div class="form-group">
-                <label>4. Recent history of STI treatment?</label>
-                <div style="display:flex; gap:10px;"><div class="choice-btn" id="q4y" onclick="setPrEP(4,'yes')">YES</div><div class="choice-btn" id="q4n" onclick="setPrEP(4,'no')">NO</div></div>
-            </div>
-            <div class="form-group">
-                <label>5. Partner status is HIV+ or unknown?</label>
-                <div style="display:flex; gap:10px;"><div class="choice-btn" id="q5y" onclick="setPrEP(5,'yes')">YES</div><div class="choice-btn" id="q5n" onclick="setPrEP(5,'no')">NO</div></div>
-            </div>
-            <div class="form-group">
-                <label>6. Difficulty using condoms consistently?</label>
-                <div style="display:flex; gap:10px;"><div class="choice-btn" id="q6y" onclick="setPrEP(6,'yes')">YES</div><div class="choice-btn" id="q6n" onclick="setPrEP(6,'no')">NO</div></div>
-            </div>
-
-            <div class="section-title">Step 3: Patient Information</div>
-            <div class="form-group"><label>Patient Name / Code</label><input type="text" id="prep-name" placeholder="Name or Code"></div>
-            <div class="form-group"><label>Mobile Number</label><input type="tel" id="prep-phone" placeholder="09XXXXXXXXX"></div>
-            <div class="form-group">
-                <label>Additional Notes (Clients Only)</label>
-                <textarea id="prep-notes" placeholder="Any specific concerns?"></textarea>
-            </div>
+            <div id="prep-res" class="res-box" style="display:block; border-left-color: var(--success);"><b>Recommendation Status</b>Complete the questions above to see your clinical recommendation.</div>
             
-            <button class="submit-main" id="prep-sub" onclick="submitData('PrEP')">Submit PrEP Request</button>
-            <div class="confidential-note">🔒 All responses are strictly confidential under clinical privacy protocols.</div>
+            <div class="form-group"><label>Patient Name/Code</label><input type="text" id="prep-name"></div>
+            <div class="form-group"><label>Mobile Number</label><input type="tel" id="prep-phone"></div>
+            <button class="submit-main" id="prep-sub" onclick="submitData('PrEP')">Submit Assessment</button>
         </div>
         <div id="prep-gate-msg" class="res-box"></div>
     </div>
 
     <div id="tab-calc" class="tab-content">
         <div class="section-title">ARV Refill Calculator</div>
-        <div id="calc-res" class="res-box" style="display:block; font-size:18px;">Enter data to calculate visit date</div>
+        <div id="calc-res" class="res-box" style="text-align:center; display:block;">Enter details below to calculate next visit.</div>
         <div class="form-group"><label>Date of Last Dispense</label><input type="date" id="c-date" oninput="runCalc()"></div>
-        <div class="form-group"><label>Total Meds Received</label><input type="number" id="c-total" placeholder="30" oninput="runCalc()"></div>
-        <div class="form-group"><label>Pills Left Today</label><input type="number" id="c-left" placeholder="5" oninput="runCalc()"></div>
+        <div class="form-group"><label>Pills Left Today</label><input type="number" id="c-left" oninput="runCalc()"></div>
     </div>
 
     <div id="tab-staff" class="tab-content">
-        <div class="section-title">Active Patient Queue</div>
-        <div id="staff-list"><p style="text-align:center; color:gray;">Please enter Master PIN to sync.</p></div>
-        <button onclick="syncQueue()" class="submit-main" style="background:#6c757d;">🔄 Refresh Records</button>
+        <div class="section-title">Confidential Patient Queue</div>
+        <div id="staff-list"><p style="text-align:center;">Syncing data...</p></div>
+        <button onclick="syncQueue()" class="submit-main" style="background:#6c757d;">🔄 Refresh Queue</button>
+    </div>
+
+    <div class="star-container">
+        <h3>Rate Your Experience</h3>
+        <div class="stars" id="star-rating">
+            <span class="star" onclick="rate(1)">★</span>
+            <span class="star" onclick="rate(2)">★</span>
+            <span class="star" onclick="rate(3)">★</span>
+            <span class="star" onclick="rate(4)">★</span>
+            <span class="star" onclick="rate(5)">★</span>
+        </div>
+        <p id="star-msg" style="margin-top:10px; font-weight:600;"></p>
     </div>
 </div>
 
@@ -184,44 +211,53 @@
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz4oRkBdfBwITAHfmeNeb0VClOCh9y0FgeSHgTvdoZOydIvQtBdcjWuLuEjGC-aZqks/exec";
     let prepAns = {};
 
+    function toggleTheme() {
+        const body = document.getElementById('main-body');
+        const btn = document.getElementById('theme-btn');
+        const isPride = body.classList.toggle('pride-mode');
+        btn.innerHTML = isPride ? '☀️ Switch to Light Mode' : '🎨 Switch to Pride Mode';
+        localStorage.setItem('theme', isPride ? 'pride' : 'light');
+    }
+
+    window.onload = () => {
+        if(localStorage.getItem('theme') === 'pride') toggleTheme();
+    };
+
     function tab(t) {
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tab-' + t).classList.add('active');
         document.getElementById('btn-' + t).classList.add('active');
+        window.scrollTo(0, 0);
     }
 
     async function submitData(type) {
-        const btn = type === 'Refill' ? document.getElementById('refill-sub') : document.getElementById('prep-sub');
-        const name = type === 'Refill' ? document.getElementById('p-code').value : document.getElementById('prep-name').value;
-        const phone = type === 'Refill' ? document.getElementById('p-phone').value : document.getElementById('prep-phone').value;
-        const notes = type === 'Refill' ? document.getElementById('p-notes').value : document.getElementById('prep-notes').value;
+        const btn = type === 'General' ? document.getElementById('refill-sub') : document.getElementById('prep-sub');
+        const name = type === 'General' ? document.getElementById('p-code').value : document.getElementById('prep-name').value;
+        const phone = type === 'General' ? document.getElementById('p-phone').value : document.getElementById('prep-phone').value;
 
-        if(!name || !phone) return alert("Required: Name/Code and Mobile Number.");
-        btn.disabled = true; btn.innerText = "Processing...";
+        if(!name || !phone) return alert("Required: Name/Code and Mobile Number");
+        btn.disabled = true; btn.innerText = "Encrypting & Sending...";
 
         let svcs = []; document.querySelectorAll('.svc:checked').forEach(c => svcs.push(c.value));
         const payload = {
             time: new Date().toLocaleString(), type: type, name: name, contact: phone, services: svcs,
-            lastRefill: document.getElementById('p-last-date')?.value || "",
-            pillsLeft: document.getElementById('p-rem')?.value || "0",
             visitDate: document.getElementById('v-date')?.value || "",
-            visitTime: document.getElementById('v-time')?.value || "",
-            clientNotes: notes
+            notes: document.getElementById('p-notes')?.value || ""
         };
 
         try {
             await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
-            alert("Submission Successful! Staff will contact you shortly.");
+            alert("Success! Your confidential request has been submitted.");
             location.reload();
-        } catch (e) { alert("Error connecting to server."); btn.disabled = false; }
+        } catch (e) { alert("Network Error."); btn.disabled = false; }
     }
 
     function gate(v) {
         document.getElementById('prep-all').style.display = v ? 'block' : 'none';
         const msg = document.getElementById('prep-gate-msg');
         msg.style.display = v ? 'none' : 'block';
-        if(!v) msg.innerHTML = "<b>Clinical Note:</b> An HIV Negative result (within 7 days) is mandatory. Visit TDMH for testing.";
+        if(!v) msg.innerHTML = "<b>Action Required:</b> A recent HIV Negative result is mandatory to proceed with PrEP. Please visit the clinic for testing.";
         document.getElementById('q1y').classList.toggle('selected', v);
         document.getElementById('q1n').classList.toggle('selected', !v);
     }
@@ -237,58 +273,48 @@
         const res = document.getElementById('prep-res');
         res.style.display = 'block';
         if(prepAns[2] === 'no') {
-            res.innerHTML = "⚠️ RECOMMENDATION:<br>Please get a <b>Creatinine Blood Test</b>. Kidney health must be verified before starting PrEP.";
-        } else if (prepAns[3]==='no' && prepAns[4]==='no' && prepAns[5]==='no' && prepAns[6]==='no') {
-            res.innerHTML = "ℹ️ PROFILE:<br><b>Low Clinical Risk</b> detected. However, PrEP is still available for anyone seeking extra protection.";
+            res.innerHTML = "<b>Medical Recommendation:</b> A <b>Creatinine Blood Test</b> is required for your safety before starting PrEP.";
         } else if (Object.keys(prepAns).length >= 5) {
-            res.innerHTML = "✅ ELIGIBLE:<br>Patient meets the criteria for <b>PrEP Initiation</b>. Proceed with scheduling.";
+            res.innerHTML = "<b>Eligibility Result:</b> High Benefit candidate. Please submit your details to schedule your initiation.";
         }
-    }
-
-    async function syncQueue() {
-        const list = document.getElementById('staff-list');
-        list.innerHTML = "Fetching Records...";
-        try {
-            const res = await fetch(`${SCRIPT_URL}?action=getQueue&cb=${Date.now()}`);
-            const data = await res.json();
-            if(data.length === 0) { list.innerHTML = "Queue is empty."; return; }
-            list.innerHTML = data.map(i => `
-                <div class="staff-card">
-                    <div style="font-weight:700;">${i.name.toUpperCase()} (${i.type})</div>
-                    <div style="font-size:12px; margin-bottom:10px;">Visit: ${i.visitDate} @ ${i.visitTime}</div>
-                    <div style="background:#f8f9fc; padding:10px; border-radius:8px; margin-bottom:12px; font-size:13px;">
-                        <b>Client Note:</b> ${i.clientNotes || 'None'}
-                    </div>
-                    <div style="display:flex; gap:10px;">
-                        <a href="tel:${i.phone}" style="flex:1; background:var(--brand); color:white; text-align:center; padding:12px; border-radius:10px; text-decoration:none; font-weight:700;">📞 Call</a>
-                        <a href="sms:${i.phone}" style="flex:1; background:var(--success); color:white; text-align:center; padding:12px; border-radius:10px; text-decoration:none; font-weight:700;">💬 SMS</a>
-                    </div>
-                    <button onclick="servePatient(${i.rowId})" style="width:100%; margin-top:10px; background:white; border:1px solid #ccc; padding:8px; border-radius:10px; font-size:12px;">✅ Mark Served</button>
-                </div>
-            `).join('');
-        } catch (e) { list.innerHTML = "Sync error."; }
-    }
-
-    async function servePatient(id) {
-        if(!confirm("Clear this patient?")) return;
-        try {
-            await fetch(`${SCRIPT_URL}?action=deleteRow&id=${id}`);
-            syncQueue();
-        } catch(e) { alert("Error."); }
     }
 
     function runCalc() {
         const d = document.getElementById('c-date').value;
-        const t = parseInt(document.getElementById('c-total').value) || 0;
         const l = parseInt(document.getElementById('c-left').value) || 0;
-        if(d && t) {
-            let target = new Date(d);
-            target.setDate(target.getDate() + (t + l - 7));
-            document.getElementById('calc-res').innerHTML = "<b>Refill Visit:</b><br>" + target.toDateString();
+        if(d) {
+            let target = new Date(d); target.setDate(target.getDate() + l - 7);
+            document.getElementById('calc-res').innerHTML = "<b>Recommended Visit:</b><br><span style='font-size:24px; color:var(--brand);'>" + target.toDateString() + "</span>";
         }
     }
 
-    function unlockStaff() { if(prompt("Staff PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
+    function rate(n) {
+        const stars = document.querySelectorAll('.star');
+        stars.forEach((s, i) => s.classList.toggle('active', i < n));
+        document.getElementById('star-msg').innerText = "Thank you for the " + n + "-star feedback!";
+    }
+
+    async function syncQueue() {
+        const list = document.getElementById('staff-list');
+        list.innerHTML = "Fetching secure data...";
+        try {
+            const res = await fetch(`${SCRIPT_URL}?action=getQueue&cb=${Date.now()}`);
+            const data = await res.json();
+            list.innerHTML = data.map(i => `
+                <div class="staff-card">
+                    <div style="font-weight:700; font-size:18px;">${i.name.toUpperCase()}</div>
+                    <div style="color:var(--brand); font-weight:600;">${i.type}</div>
+                    <div style="margin-top:10px; font-size:14px; background:#f1f5f9; padding:10px; border-radius:8px;">${i.services}</div>
+                    <div style="display:flex; gap:10px; margin-top:15px;">
+                        <a href="tel:${i.phone}" style="flex:1; background:var(--brand); color:white; text-align:center; padding:12px; border-radius:10px; text-decoration:none; font-weight:700;">📞 Call</a>
+                        <button onclick="servePatient(${i.rowId})" style="flex:1; background:var(--success); color:white; border:none; border-radius:10px; font-weight:700;">✅ Done</button>
+                    </div>
+                </div>
+            `).join('');
+        } catch (e) { list.innerHTML = "Sync Offline."; }
+    }
+
+    function unlockStaff() { if(prompt("Staff Master PIN:") === "1234") { document.getElementById('btn-staff').style.display='block'; tab('staff'); } }
 </script>
 </body>
 </html>

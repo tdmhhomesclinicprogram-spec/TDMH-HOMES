@@ -8,196 +8,204 @@
     <style>
         :root {
             --brand: #4361ee; --brand-dark: #3f37c9; --accent: #f72585;
-            --bg: #f0f2f5; --card: #ffffff; --text: #2b2d42;
-            --success: #00d1b2; --warning: #ffb703; --danger: #ef4444; --border: #e2e8f0;
+            --bg: #f8f9fc; --card: #ffffff; --text: #2b2d42;
+            --success: #00d1b2; --warning: #ffb703; --border: #e2e8f0;
         }
 
-        /* Essential Reset for Mobile/iPad */
+        /* Essential Mobile & iPad Fixes */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Fredoka', sans-serif; background-color: var(--bg); margin: 0; padding-top: 140px; color: var(--text); overflow-x: hidden; }
+        body { font-family: 'Fredoka', sans-serif; background-color: var(--bg); margin: 0; color: var(--text); padding-bottom: 80px; overflow-x: hidden; }
 
-        /* Fixed Top Section */
+        /* Fixed Header Setup */
         header { 
-            position: fixed; top: 0; left: 0; right: 0; 
-            background: var(--card); z-index: 2000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 2000;
+            background: var(--card); box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
-        .nav-top { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 15px 20px; border-bottom: 1px solid var(--border);
-        }
-        .logo { font-size: 22px; font-weight: 700; color: var(--brand); }
-        
-        .nav-tabs { display: flex; padding: 10px; gap: 8px; overflow-x: auto; }
-        .nav-btn { 
-            flex: 1; min-width: 100px; padding: 12px 5px; border-radius: 12px; border: none;
-            background: #f1f5f9; color: #64748b; font-weight: 600; font-size: 14px; cursor: pointer;
-        }
-        .nav-btn.active { background: var(--brand); color: white; }
+        nav { padding: 15px 5%; display: flex; flex-direction: column; gap: 12px; }
+        .nav-top { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 20px; font-weight: 700; color: var(--brand); letter-spacing: -0.5px; }
+        .nav-menu { display: flex; gap: 6px; width: 100%; }
+        .nav-btn { flex: 1; background: #f1f5f9; border: none; font-size: 13px; font-weight: 600; cursor: pointer; color: #64748b; padding: 12px 5px; border-radius: 12px; transition: 0.3s; }
+        .nav-btn.active { color: white; background: var(--brand); box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3); }
 
-        /* Main Content Wrapper */
-        .main-wrapper { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .tab-content { display: none; background: var(--card); padding: 25px; border-radius: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        /* Content Spacing for Fixed Header */
+        .hero { margin-top: 110px; background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); padding: 40px 20px 60px; text-align: center; color: white; border-bottom-right-radius: 60px; }
+        .main-wrapper { max-width: 800px; margin: -40px auto 40px; padding: 0 15px; position: relative; z-index: 10; }
 
-        /* Form Styling */
-        .section-tag { font-size: 12px; background: #eef2ff; color: var(--brand); padding: 5px 12px; border-radius: 50px; font-weight: 700; display: inline-block; margin-bottom: 15px; text-transform: uppercase; }
-        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 16px; color: #475569; }
-        input, select, textarea { 
-            width: 100%; padding: 14px; border-radius: 12px; border: 2px solid var(--border); 
-            font-size: 16px; margin-bottom: 18px; font-family: inherit;
-        }
-
-        /* Grids & Cards */
-        .grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .card-opt { 
-            border: 2px solid var(--border); padding: 12px; border-radius: 12px; 
-            display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px;
-        }
-        
-        /* Schedule Box */
-        .sched-box { background: #f8fafc; border: 1px solid var(--border); border-radius: 15px; padding: 15px; margin-bottom: 20px; font-size: 14px; }
-        .sched-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #edf2f7; }
-
-        /* Result Area */
-        .result-box { padding: 20px; border-radius: 15px; border: 2px solid var(--brand); text-align: center; margin-top: 20px; display: none; }
-        .calc-display { background: #fff0f6; border: 2px dashed var(--accent); padding: 25px; border-radius: 20px; text-align: center; margin-bottom: 20px; }
-
-        /* Chat */
-        #chat-trigger { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; box-shadow: 0 5px 15px rgba(247, 37, 133, 0.3); z-index: 3000; }
-        #chat-box { position: fixed; bottom: 90px; right: 20px; width: 300px; height: 400px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: none; flex-direction: column; z-index: 3000; overflow: hidden; }
-        .chat-h { background: var(--accent); color: white; padding: 15px; font-weight: 700; }
-        .chat-b { flex: 1; padding: 15px; background: #f8f9fa; overflow-y: auto; font-size: 14px; }
-
-        .btn-main { width: 100%; padding: 18px; border-radius: 15px; border: none; background: var(--brand); color: white; font-size: 18px; font-weight: 700; cursor: pointer; }
-        
+        /* Tabs & Cards */
+        .tab-content { background: var(--card); border-radius: 30px; padding: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 480px) { .grid-options { grid-template-columns: 1fr; } }
+
+        .tag { font-size: 11px; background: #eef2ff; color: var(--brand); padding: 5px 12px; border-radius: 50px; font-weight: 700; margin-bottom: 10px; display: inline-block; text-transform: uppercase; }
+        h2 { font-size: 22px; margin: 0 0 15px; color: var(--brand); }
+        
+        /* Form Styling for Touch */
+        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 16px; color: #4a5568; }
+        input, select, textarea { width: 100%; padding: 14px; border-radius: 14px; border: 2px solid var(--border); font-family: inherit; font-size: 16px; margin-bottom: 20px; background: #fdfdfd; -webkit-appearance: none; }
+        
+        /* Service & Radio Grids - FIXED FOR MOBILE */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+        .card-opt { border: 2px solid var(--border); padding: 12px; border-radius: 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; background: #fff; min-height: 55px; }
+        .card-opt span { font-size: 14px; font-weight: 500; }
+        .card-opt input { width: 18px; height: 18px; margin: 0; flex-shrink: 0; }
+
+        /* Consultant Box */
+        .consultant-box { background: #f8fafc; border: 1px solid var(--border); border-radius: 20px; padding: 15px; margin-bottom: 20px; }
+        .c-row { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #edf2f7; }
+        .c-row:last-child { border: none; }
+
+        /* Result Boxes */
+        .calc-display { background: #fff0f6; border: 2px dashed var(--accent); padding: 25px; border-radius: 25px; text-align: center; margin-bottom: 20px; }
+        .result-box { padding: 20px; border-radius: 20px; margin-top: 20px; text-align: center; display: none; border: 2px solid var(--brand); }
+
+        /* Chat System */
+        #chat-trigger { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; box-shadow: 0 8px 20px rgba(247, 37, 133, 0.3); z-index: 3000; cursor: pointer; }
+        #chat-window { position: fixed; bottom: 90px; right: 20px; width: 300px; height: 400px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; flex-direction: column; z-index: 3000; overflow: hidden; border: 1px solid #eee; }
+        .chat-header { background: var(--accent); color: white; padding: 15px; font-weight: 700; display: flex; justify-content: space-between; }
+        .chat-body { flex: 1; padding: 15px; overflow-y: auto; background: #f9fafb; font-size: 14px; }
+
+        /* Staff Portal Styling */
+        .staff-card { background: white; border-left: 5px solid var(--brand); padding: 15px; border-radius: 15px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+
+        /* Tablet/Desktop Tweaks */
+        @media (min-width: 768px) {
+            .grid { grid-template-columns: repeat(3, 1fr); }
+            nav { flex-direction: row; justify-content: space-between; }
+            .nav-menu { width: auto; }
+            .nav-btn { padding: 12px 20px; }
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="nav-top">
-        <div class="logo">🏥 TDMH HOMES</div>
-        <div style="display: flex; gap: 15px; align-items: center;">
-            <span style="font-size: 12px; color: #64748b;">📞 09209662447</span>
-            <span onclick="unlockStaff()" style="cursor:pointer; font-size: 20px;">🔒</span>
+    <nav>
+        <div class="nav-top">
+            <div class="logo">🏥 TDMH HOMES</div>
+            <div onclick="unlockStaff()" style="cursor:pointer; font-size: 20px; opacity: 0.3;">🔒</div>
         </div>
-    </div>
-    <div class="nav-tabs">
-        <button id="btn-refill" class="nav-btn active" onclick="tab('refill')">Refill</button>
-        <button id="btn-prep" class="nav-btn" onclick="tab('prep')">PrEP Assessment</button>
-        <button id="btn-calc" class="nav-btn" onclick="tab('calc')">Pill Calc</button>
-        <button id="btn-staff" class="nav-btn" style="display:none; color: var(--accent);" onclick="tab('staff')">Dashboard</button>
-    </div>
+        <div class="nav-menu">
+            <button id="btn-refill" class="nav-btn active" onclick="tab('refill')">Refill</button>
+            <button id="btn-prep" class="nav-btn" onclick="tab('prep')">PrEP</button>
+            <button id="btn-calc" class="nav-btn" onclick="tab('calc')">Predictor</button>
+            <button id="btn-staff" class="nav-btn" onclick="tab('staff')" style="display:none; color: var(--accent);">Staff</button>
+        </div>
+    </nav>
 </header>
 
-<div id="chat-trigger" onclick="toggleChat()">💬</div>
-<div id="chat-box">
-    <div class="chat-h">Support Chat</div>
-    <div class="chat-b" id="chat-msgs">Hello! How can we help you today?</div>
-    <div style="padding:10px; border-top:1px solid #eee; display:flex;">
-        <input type="text" id="chat-in" style="margin:0; padding:8px; border-radius:8px;">
-        <button onclick="sendMsg()" style="background:var(--accent); color:white; border:none; padding:8px; border-radius:8px; margin-left:5px;">Send</button>
-    </div>
+<div class="hero">
+    <h1 id="hero-txt">Health Services Portal</h1>
+    <p style="margin: 5px 0 0; opacity: 0.9; font-size: 14px;">HOMES CLINIC: 09209662447</p>
 </div>
 
 <div class="main-wrapper">
 
     <div id="tab-refill" class="tab-content active">
-        <span class="section-tag">Consultant Schedule</span>
-        <div class="sched-box">
-            <div class="sched-row"><b>Dr. L. Mariano</b> <span>Mon (1pm - 3pm)</span></div>
-            <div class="sched-row"><b>Dr. C.K.L. Rivera</b> <span>Thu (3pm - 5pm)</span></div>
+        <span class="tag">IDS Consultants</span>
+        <div class="consultant-box">
+            <div class="c-row"><b>Dr. L. Mariano</b> <span>Mon: 1pm - 3pm</span></div>
+            <div class="c-row"><b>Dr. C.K.L. Rivera</b> <span>Thu: 3pm - 5pm</span></div>
         </div>
 
-        <label>Patient ID / Code</label>
-        <input type="text" id="p-id" placeholder="Enter ID">
-        
-        <label>Last Refill Date</label>
-        <input type="date" id="p-last-refill">
+        <div class="form-group">
+            <label>Patient Full Name / ID</label>
+            <input type="text" id="p-id" placeholder="Enter ID">
+        </div>
 
-        <label>Medical Services Required</label>
-        <div class="grid-options">
+        <label>Select Required Services</label>
+        <div class="grid">
             <label class="card-opt"><input type="checkbox" class="svc" value="Consult"><span>👨‍⚕️ Consult</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="ARV"><span>💊 ARV Refill</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Lab"><span>🧪 Laboratory</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Diag"><span>🩻 Diagnostics</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="ARV"><span>💊 ARV</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="Lab"><span>🧪 Lab</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="Diag"><span>🩻 Diag</span></label>
         </div>
 
-        <span class="section-tag">STI Pen G Doses</span>
-        <div class="grid-options">
+        <label>STI Pen G Doses</label>
+        <div class="grid">
             <label class="card-opt"><input type="checkbox" class="svc" value="PenG-1"><span>1st Dose</span></label>
             <label class="card-opt"><input type="checkbox" class="svc" value="PenG-2"><span>2nd Dose</span></label>
             <label class="card-opt"><input type="checkbox" class="svc" value="PenG-3"><span>3rd Dose</span></label>
         </div>
 
-        <span class="section-tag">Immunization</span>
-        <div class="grid-options">
+        <label>Immunization</label>
+        <div class="grid">
             <label class="card-opt"><input type="checkbox" class="svc" value="Fluvax"><span>💉 Fluvax</span></label>
-            <label class="card-opt"><input type="checkbox" class="svc" value="Pneumovax"><span>🛡️ Pneumovax</span></label>
+            <label class="card-opt"><input type="checkbox" class="svc" value="Pneumovax"><span>🛡️ Pneumo</span></label>
         </div>
 
-        <button class="btn-main" onclick="submitRefill()">Submit Official Request 🚀</button>
+        <label>Preferred Visit Date</label>
+        <input type="date" id="p-date">
+
+        <button class="nav-btn active" style="width:100%; padding:20px; font-size:18px;" onclick="submitRefill()">Submit Official Request 🚀</button>
     </div>
 
     <div id="tab-prep" class="tab-content">
-        <span class="section-tag">Clinical Screening</span>
-        <label>1. Lab-confirmed HIV-negative (Last 7 days)?</label>
-        <div class="grid-options">
-            <label class="card-opt"><input type="radio" name="q1" onclick="gate(true)"><span>Yes</span></label>
-            <label class="card-opt"><input type="radio" name="q1" onclick="gate(false)"><span>No</span></label>
+        <span class="tag">Gatekeeper Check</span>
+        <h2>Eligibility Assessment</h2>
+        
+        <div class="consultant-box" style="border-left: 5px solid var(--brand);">
+            <label>1. HIV-negative result in the last 7 days?</label>
+            <div class="grid">
+                <label class="card-opt"><input type="radio" name="q1" value="yes" onclick="gate(true)"><span>Yes</span></label>
+                <label class="card-opt"><input type="radio" name="q1" value="no" onclick="gate(false)"><span>No</span></label>
+            </div>
         </div>
 
-        <div id="prep-full" style="display:none;">
-            <label>2. Kidney function (CrCl) > 60 mL/min?</label>
-            <select id="q2"><option value="yes">Yes</option><option value="no">No</option></select>
-            
-            <label>3. Condomless sex in last 6 months?</label>
-            <select id="q3"><option value="yes">Yes</option><option value="no">No</option></select>
-
-            <label>4. Treated for an STI recently?</label>
-            <select id="q4"><option value="yes">Yes</option><option value="no">No</option></select>
-
-            <label>5. Partner is HIV+ or unknown status?</label>
-            <select id="q5"><option value="yes">Yes</option><option value="no">No</option></select>
-
-            <label>6. Difficulty using condoms consistently?</label>
-            <select id="q6"><option value="yes">Yes</option><option value="no">No</option></select>
-
-            <button class="btn-main" onclick="evalPrEP()">Analyze Eligibility</button>
+        <div id="prep-all" style="display:none;">
+            <div class="consultant-box"><label>2. Kidney Function (CrCl) > 60?</label>
+                <div class="grid"><label class="card-opt"><input type="radio" name="q2" value="yes"><span>Yes</span></label><label class="card-opt"><input type="radio" name="q2" value="no"><span>No</span></label></div>
+            </div>
+            <div class="consultant-box"><label>3. Condomless sex in last 6 months?</label>
+                <div class="grid"><label class="card-opt"><input type="radio" name="q3" value="yes"><span>Yes</span></label><label class="card-opt"><input type="radio" name="q3" value="no"><span>No</span></label></div>
+            </div>
+            <div class="consultant-box"><label>4. Treated for STI recently?</label>
+                <div class="grid"><label class="card-opt"><input type="radio" name="q4" value="yes"><span>Yes</span></label><label class="card-opt"><input type="radio" name="q4" value="no"><span>No</span></label></div>
+            </div>
+            <div class="consultant-box"><label>5. Partner HIV-positive/unknown?</label>
+                <div class="grid"><label class="card-opt"><input type="radio" name="q5" value="yes"><span>Yes</span></label><label class="card-opt"><input type="radio" name="q5" value="no"><span>No</span></label></div>
+            </div>
+            <div class="consultant-box"><label>6. Difficulty using condoms?</label>
+                <div class="grid"><label class="card-opt"><input type="radio" name="q6" value="yes"><span>Yes</span></label><label class="card-opt"><input type="radio" name="q6" value="no"><span>No</span></label></div>
+            </div>
+            <button class="nav-btn active" style="width:100%; padding:18px;" onclick="runPrEP()">Check My Results</button>
         </div>
         
-        <div id="gate-msg" style="display:none; color:var(--danger); padding:20px; text-align:center;">
-            ⚠️ You must have a confirmed HIV-negative result within 7 days to start PrEP.
-        </div>
-
         <div id="prep-res" class="result-box"></div>
     </div>
 
     <div id="tab-calc" class="tab-content">
-        <span class="section-tag">Pill Predictor</span>
+        <span class="tag">Formula: Last Date + Received - Left - 7 Buffer</span>
         <div class="calc-display">
-            <div id="target-date" style="font-size: 24px; font-weight: 800; color: var(--brand);">Ready for Calculation</div>
-            <div style="font-size:12px; margin-top:10px; color:#64748b;">(Includes 7-day safety buffer)</div>
+            <div id="target-date" style="font-size: 26px; font-weight: 700; color: var(--brand);">Awaiting Data...</div>
         </div>
 
         <label>Last Dispense Date</label>
         <input type="date" id="c-date" oninput="runCalc()">
-        
-        <label>Total Pills Received</label>
+        <label>Total Pills Received Previously</label>
         <input type="number" id="c-total" placeholder="e.g. 30" oninput="runCalc()">
-
-        <label>Pills Left Today</label>
-        <input type="number" id="c-rem" placeholder="e.g. 5" oninput="runCalc()">
+        <label>Pills Remaining Today</label>
+        <input type="number" id="c-left" placeholder="e.g. 5" oninput="runCalc()">
     </div>
 
     <div id="tab-staff" class="tab-content">
-        <span class="section-tag">Patient Queue</span>
-        <div id="staff-list" style="font-size: 14px;">No pending requests.</div>
+        <span class="tag">Admin Only</span>
+        <h2>Pending Requests</h2>
+        <div id="staff-list"></div>
     </div>
 
+</div>
+
+<div id="chat-trigger" onclick="toggleChat()">💬</div>
+<div id="chat-window">
+    <div class="chat-header"><span>HOMES Support</span><span onclick="toggleChat()">×</span></div>
+    <div class="chat-body" id="chat-msgs">
+        <p style="background:#fff; padding:10px; border-radius:10px; margin:0;">Hello! How can we help you today?</p>
+    </div>
+    <div style="padding:10px; border-top:1px solid #eee; display:flex; gap:5px;">
+        <input type="text" id="chat-in" placeholder="Type..." style="margin:0; padding:10px;">
+        <button onclick="sendChat()" style="background:var(--accent); color:white; border:none; padding:10px; border-radius:10px;">Send</button>
+    </div>
 </div>
 
 <script>
@@ -208,88 +216,85 @@
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tab-' + t).classList.add('active');
         document.getElementById('btn-' + t).classList.add('active');
+        document.getElementById('hero-txt').innerText = t === 'calc' ? 'Pill Predictor' : (t === 'prep' ? 'PrEP Assessment' : 'Refill Portal');
     }
 
     function unlockStaff() {
-        if(prompt("Enter Staff PIN:") === "1234") {
+        if(prompt("Staff Password:") === "1234") {
             document.getElementById('btn-staff').style.display = 'block';
             tab('staff');
         }
     }
 
     function gate(val) {
-        document.getElementById('prep-full').style.display = val ? 'block' : 'none';
-        document.getElementById('gate-msg').style.display = val ? 'none' : 'block';
-        document.getElementById('prep-res').style.display = 'none';
+        document.getElementById('prep-all').style.display = val ? 'block' : 'none';
+        if(!val) alert("MANDATORY: HIV Negative result required to proceed.");
     }
 
-    function evalPrEP() {
-        const q2 = document.getElementById('q2').value;
-        const q3 = document.getElementById('q3').value;
-        const box = document.getElementById('prep-res');
-        box.style.display = 'block';
-
+    function runPrEP() {
+        const q2 = document.querySelector('input[name="q2"]:checked')?.value;
+        const q3 = document.querySelector('input[name="q3"]:checked')?.value;
+        const res = document.getElementById('prep-res');
+        res.style.display = 'block';
+        
         if(q2 === 'no') {
-            box.innerHTML = `<h3 style="color:var(--warning)">Review Required</h3><p>Patient may use PrEP but must check kidney health (Creatinine) first.</p>`;
+            res.innerHTML = "<b>Review Necessary</b><br>You may use PrEP, but kidney function (Creatinine) must be reviewed first.";
+            res.style.borderColor = "var(--warning)";
         } else if(q3 === 'yes') {
-            box.innerHTML = `<h3 style="color:var(--success)">Strong Candidate</h3><p>Highly Recommended based on risk profile.</p>`;
+            res.innerHTML = "<b>Strong Candidate 🌟</b><br>PrEP is highly recommended based on your recent activity.";
+            res.style.borderColor = "var(--success)";
         } else {
-            box.innerHTML = `<h3 style="color:var(--brand)">Standard Candidate</h3><p>Eligible for PrEP. Proceed with medical consult.</p>`;
+            res.innerHTML = "<b>Consult Provider</b><br>Discuss clinical options with our IDS specialists.";
+            res.style.borderColor = "var(--brand)";
         }
     }
 
-    // FORMULA: Last Dispense Date + (Total - Left Today) - 7 Buffer
+    // PILL PREDICTOR FORMULA
     function runCalc() {
-        const dStr = document.getElementById('c-date').value;
-        const total = parseInt(document.getElementById('c-total').value);
-        const rem = parseInt(document.getElementById('c-rem').value);
+        const lastDate = document.getElementById('c-date').value;
+        const total = parseInt(document.getElementById('c-total').value) || 0;
+        const left = parseInt(document.getElementById('c-left').value) || 0;
 
-        if(dStr && total > 0) {
-            let d = new Date(dStr);
-            // Calculate days used
-            let daysPassed = total - rem;
-            // Target is Last Date + (Total received) - 7 safety buffer
-            d.setDate(d.getDate() + (total - 7));
+        if(lastDate && total > 0) {
+            let date = new Date(lastDate);
+            // Formula: Dispense Date + (Total Pills - Left Today - 7 Buffer)
+            let daysToAdd = (total - left) - 7;
+            date.setDate(date.getDate() + daysToAdd);
             
-            document.getElementById('target-date').innerText = d.toDateString();
+            document.getElementById('target-date').innerText = "Refill Date: " + date.toDateString();
         }
     }
 
     function submitRefill() {
-        const id = document.getElementById('p-id').value;
-        if(!id) return alert("Please enter Patient ID");
+        const name = document.getElementById('p-id').value;
+        const date = document.getElementById('p-date').value;
+        if(!name || !date) return alert("Please fill in Name and Date");
         
-        db.push({id: id, date: new Date().toLocaleTimeString(), uid: Date.now()});
+        db.push({ name, date, id: Date.now() });
         updateStaff();
-        alert("Request Sent to HOMES CLINIC Database");
-        tab('refill');
+        alert("Request Sent to HOMES Staff!");
     }
 
     function updateStaff() {
         const list = document.getElementById('staff-list');
-        list.innerHTML = db.map(i => `
-            <div style="border-bottom:1px solid #eee; padding:10px 0; display:flex; justify-content:space-between;">
-                <span><b>${i.id}</b><br><small>${i.date}</small></span>
-                <button onclick="clearPatient(${i.uid})" style="color:red; border:none; background:none;">Clear</button>
+        list.innerHTML = db.map(item => `
+            <div class="staff-card">
+                <b>Patient:</b> ${item.name}<br>
+                <b>Visit Date:</b> ${item.date}
             </div>
         `).join('') || "No pending requests.";
     }
 
-    function clearPatient(uid) {
-        db = db.filter(i => i.uid !== uid);
-        updateStaff();
-    }
-
     function toggleChat() {
-        const c = document.getElementById('chat-box');
-        c.style.display = c.style.display === 'flex' ? 'none' : 'flex';
+        const win = document.getElementById('chat-window');
+        win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
     }
 
-    function sendMsg() {
-        const i = document.getElementById('chat-in');
-        if(i.value) {
-            document.getElementById('chat-msgs').innerHTML += `<p style="text-align:right"><b>You:</b> ${i.value}</p>`;
-            i.value = "";
+    function sendChat() {
+        const msg = document.getElementById('chat-in').value;
+        if(msg) {
+            document.getElementById('chat-msgs').innerHTML += `<p style="text-align:right; color:var(--accent); font-weight:600;">${msg}</p>`;
+            document.getElementById('chat-in').value = "";
         }
     }
 </script>

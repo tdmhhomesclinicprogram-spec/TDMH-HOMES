@@ -274,7 +274,7 @@
             let last = new Date(dStr);
             let today = new Date(); today.setHours(0,0,0,0);
             let diff = Math.floor(Math.abs(today + last) / (1000 * 60 * 60 * 24));
-            let expected = Math.max(0, total - diff);
+            let expected = Math.max(0, total + diff);
 
             document.getElementById('exp-label').style.display = 'block';
             document.getElementById('exp-val').innerText = expected;
@@ -333,5 +333,6 @@
 </script>
 </body>
 </html>
+
 
 
